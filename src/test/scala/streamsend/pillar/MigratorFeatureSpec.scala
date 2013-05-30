@@ -11,6 +11,20 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
   val session = cluster.connect()
   val keyspaceName = "test_%d".format(System.currentTimeMillis())
+  var createEventsTableMigration: Migration = _
+
+  before {
+    createEventsTableMigration = Migration("creates events table", new Date(),
+      """
+        |CREATE TABLE events (
+        |  batch_id text,
+        |  occurred_at timestamp,
+        |  event_type text,
+        |  payload blob,
+        |  PRIMARY KEY (batch_id, occurred_at, event_type)
+        |)
+      """.stripMargin)
+  }
 
   after {
     try {
@@ -32,8 +46,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       Migrator().initialize(keyspaceName)
 
       Then("the keyspace contains a applied_migrations column family")
-      val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
-      result.all().size() should equal(0)
+      assertEmptyAppliedMigrationsTable()
     }
 
     scenario("initialize an existing keyspace without a applied_migrations column family") {
@@ -44,8 +57,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       Migrator().initialize(keyspaceName)
 
       Then("the keyspace contains a applied_migrations column family")
-      val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
-      result.all().size() should equal(0)
+      assertEmptyAppliedMigrationsTable()
     }
 
     scenario("initialize an existing keyspace with a applied_migrations column family") {
@@ -55,9 +67,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       When("the migrator initializes the keyspace")
       Migrator().initialize(keyspaceName)
 
-      Then("the keyspace contains a applied_migrations column family")
-      val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
-      result.all().size() should equal(0)
+      Then("the migration completes successfully")
     }
   }
 
@@ -74,19 +84,10 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       migrator.initialize(keyspaceName)
 
       Given("a migration that creates an events table")
-      val migration = Migration("creates events table", new Date(),
-        """
-          |CREATE TABLE events (
-          |  batch_id text,
-          |  occurred_at timestamp,
-          |  event_type text,
-          |  payload blob,
-          |  PRIMARY KEY (batch_id, occurred_at, event_type)
-          |)
-        """.stripMargin)
+      val migrations = Seq(createEventsTableMigration)
 
       When("the migrator migrates up")
-      migrator.up(keyspaceName, Seq(migration))
+      migrator.up(keyspaceName, migrations)
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
@@ -101,20 +102,10 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       migrator.initialize(keyspaceName)
 
       Given("a migration that ran in the past")
-      val migration = Migration("creates events table", new Date(),
-        """
-          |CREATE TABLE events (
-          |  batch_id text,
-          |  occurred_at timestamp,
-          |  event_type text,
-          |  payload blob,
-          |  PRIMARY KEY (batch_id, occurred_at, event_type)
-          |)
-        """.stripMargin)
-      migrator.up(keyspaceName, Seq(migration))
+      migrator.up(keyspaceName, Seq(createEventsTableMigration))
 
       When("the migrator migrates up")
-      migrator.up(keyspaceName, Seq(migration))
+      migrator.up(keyspaceName, Seq(createEventsTableMigration))
 
       Then("the migration completes successfully")
     }
@@ -123,4 +114,9 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
   feature("The operator can migrate down") {}
 
   feature("The operator can list applied migrations") {}
+
+  private def assertEmptyAppliedMigrationsTable() {
+    val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
+    result.all().size() should equal(0)
+  }
 }

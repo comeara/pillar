@@ -21,35 +21,23 @@ class Migrator(seedAddress: String) {
       (memo, migration) => memo + ((migration.authoredAt, migration.description) -> migration)
     }
     val results = session.execute(QueryBuilder.select("authored_at", "description").from("applied_migrations"))
-    val appliedMigrations = JavaConversions.asScalaIterator(results.iterator()).foldLeft(Map.empty[(Date, String), Migration]) {
-      (memo, row) =>
-        val key = (row.getDate("authored_at"), row.getString("description"))
-        memo + (key -> allMigrations(key))
+    val appliedMigrations = JavaConversions.asScalaBuffer(results.all()).map {
+      row => (row.getDate("authored_at"), row.getString("description"))
     }
-    val toReverse = asOf match {
-      case cutOff: Some[Date] =>
-        appliedMigrations.foldLeft(List.empty[Migration]) {
-          (memo, entry) =>
-            val ((authoredAt, _), migration) = entry
-            if (authoredAt.after(cutOff.get)) {
-              migration :: memo
-            } else {
-              memo
-            }
-        }
+    val toReverse: Seq[Migration] = asOf match {
       case None => List.empty[Migration]
+      case Some(cutOff) =>
+        appliedMigrations.filter { case (authoredAt, _) => authoredAt.after(cutOff) }.map { case (authoredAt, description) => allMigrations(authoredAt, description) }
     }
 
-    toReverse.foreach {
+    toReverse.sortBy(_.authoredAt).reverseIterator.foreach {
+      case reversible: ReversibleMigrationWithNoopDown =>
+        deleteFromAppliedMigrations(session, reversible)
       case reversible: ReversibleMigration =>
         session.execute(reversible.down)
-        session.execute(QueryBuilder.
-          delete().
-          from("applied_migrations").
-          where(QueryBuilder.eq("authored_at", reversible.authoredAt)).
-          and(QueryBuilder.eq("description", reversible.description))
-        )
+        deleteFromAppliedMigrations(session, reversible)
     }
+
     migrations.foreach {
       migration =>
         if (!appliedMigrations.contains(migration.authoredAt, migration.description)) {
@@ -63,6 +51,7 @@ class Migrator(seedAddress: String) {
         }
     }
   }
+
 
   def initialize(keyspaceName: String, replicationOptions: Map[String, Any] = ReplicationOptions.default) {
     val session = cluster.connect()
@@ -79,6 +68,23 @@ class Migrator(seedAddress: String) {
     )
   }
 
+  private def deleteFromAppliedMigrations(session: Session, migration: Migration) {
+    session.execute(QueryBuilder.
+      delete().
+      from("applied_migrations").
+      where(QueryBuilder.eq("authored_at", migration.authoredAt)).
+      and(QueryBuilder.eq("description", migration.description))
+    )
+  }
+
+  private def executeIdempotentCommand(session: Session, statement: String) {
+    try {
+      session.execute(statement)
+    } catch {
+      case _: AlreadyExistsException =>
+    }
+  }
+
   private def serializeOptionMap(options: Map[String, Any]): String = {
     "{" + options.map {
       case (key, value) =>
@@ -89,11 +95,4 @@ class Migrator(seedAddress: String) {
     }.mkString(",") + "}"
   }
 
-  private def executeIdempotentCommand(session: Session, statement: String) {
-    try {
-      session.execute(statement)
-    } catch {
-      case _: AlreadyExistsException =>
-    }
-  }
 }

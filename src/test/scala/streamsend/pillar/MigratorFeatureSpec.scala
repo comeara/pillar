@@ -22,19 +22,30 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
         |  PRIMARY KEY (batch_id, occurred_at, event_type)
         |)
       """.stripMargin),
-    Migration("creates views table", new Date(),
+    Migration("creates views table", new Date(System.currentTimeMillis() - 3000),
       """
         |CREATE TABLE views (
         |  id uuid PRIMARY KEY,
         |  url text,
         |  person_id int,
-        |  user_agent text,
         |  viewed_at timestamp
         |)
       """.stripMargin,
-      """
+      Some("""
         |DROP TABLE views
-      """.stripMargin)
+      """.stripMargin)),
+    Migration("adds user_agent to views table", new Date(System.currentTimeMillis() - 1000),
+      """
+        |ALTER TABLE views
+        |ADD user_agent text
+      """.stripMargin, None), // Dropping a column is coming in Cassandra 2.0
+    Migration("adds index on views.user_agent", new Date(),
+      """
+        |CREATE INDEX views_user_agent ON views(user_agent)
+      """.stripMargin,
+      Some("""
+        |DROP INDEX views_user_agent
+      """.stripMargin))
   )
 
   after {
@@ -107,7 +118,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       session.execute(QueryBuilder.select().from(keyspaceName, "views")).all().size() should equal(0)
 
       And("the applied_migrations table records the migrations")
-      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(2)
+      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(4)
     }
 
     scenario("skip previously applied migration") {
@@ -155,6 +166,10 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
         where(QueryBuilder.eq("authored_at", reversedMigration.authoredAt)).
         and(QueryBuilder.eq("description", reversedMigration.description))
       session.execute(query).all().size() should equal(0)
+    }
+
+    scenario("reverse multiple migrations in order") {
+
     }
   }
 

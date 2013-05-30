@@ -38,7 +38,13 @@ class Migrator(seedAddress: String) {
         deleteFromAppliedMigrations(session, reversible)
     }
 
-    migrations.foreach {
+    val toApply: Seq[Migration] = asOf match {
+      case None => migrations
+      case Some(cutOff) =>
+        migrations.filter { migration => migration.authoredAt.compareTo(cutOff) <= 0 }
+    }
+
+    toApply.foreach {
       migration =>
         if (!appliedMigrations.contains(migration.authoredAt, migration.description)) {
           session.execute(migration.up)

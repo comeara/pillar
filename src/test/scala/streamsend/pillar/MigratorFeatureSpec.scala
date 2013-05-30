@@ -102,7 +102,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("all migrations") {
       val migrator = Migrator()
-      Given("an initialized keyspace")
+      Given("an initialized, empty, keyspace")
       migrator.initialize(keyspaceName)
 
       Given("a migration that creates an events table")
@@ -119,6 +119,24 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
       And("the applied_migrations table records the migrations")
       session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(4)
+    }
+
+    scenario("some migrations") {
+      val migrator = Migrator()
+      Given("an initialized, empty, keyspace")
+      migrator.initialize(keyspaceName)
+
+      Given("a migration that creates an events table")
+      Given("a migration that creates a views table")
+
+      When("the migrator applies migrations with a cut off date")
+      migrator.apply(keyspaceName, migrations, Some(migrations(0).authoredAt))
+
+      Then("the keyspace contains the events table")
+      session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
+
+      And("the applied_migrations table records the migration")
+      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(1)
     }
 
     scenario("skip previously applied migration") {

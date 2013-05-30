@@ -27,6 +27,10 @@ abstract class Migration {
 
   def key: MigrationKey = MigrationKey(authoredAt, description)
 
+  def authoredAfter(date: Date): Boolean = {
+    authoredAt.after(date)
+  }
+
   def authoredBefore(date: Date): Boolean = {
     authoredAt.compareTo(date) <= 0
   }

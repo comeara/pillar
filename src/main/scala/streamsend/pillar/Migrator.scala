@@ -6,31 +6,24 @@ import java.util.Date
 import com.datastax.driver.core.exceptions.AlreadyExistsException
 
 object Migrator {
-  def apply(seedAddress: String = "127.0.0.1"): Migrator = {
-    new Migrator(seedAddress)
+  def apply(keyspaceName: String, registry: MigrationRegistry, seedAddress: String = "127.0.0.1"): Migrator = {
+    new Migrator(keyspaceName, registry, seedAddress)
   }
 }
 
-class Migrator(seedAddress: String) {
+class Migrator(keyspaceName: String, registry: MigrationRegistry, seedAddress: String) {
   private val cluster = Cluster.builder().addContactPoint(seedAddress).build()
 
-  def migrate(keyspaceName: String, migrations: Seq[Migration], dateRestriction: Option[Date] = None) {
+  def migrate(dateRestriction: Option[Date] = None) {
     val session = cluster.connect(keyspaceName)
-    val allMigrations = migrations.foldLeft(Map.empty[(Date, String), Migration]) {
-      (memo, migration) => memo + ((migration.authoredAt, migration.description) -> migration)
-    }
-    val appliedMigrations = AppliedMigrations(session)
-    val toReverse: Seq[Migration] = dateRestriction match {
-      case None => List.empty[Migration]
-      case Some(cutOff) =>
-        appliedMigrations.filter {
-          key => key.authoredAt.after(cutOff)
-        }.map {
-          key => allMigrations(key.authoredAt, key.description)
-        }
-    }
+    val appliedMigrations = AppliedMigrations(session, registry)
 
-    toReverse.sortBy(_.authoredAt).reverseIterator.foreach {
+    val toReverse: Seq[Migration] = (dateRestriction match {
+      case None => List.empty[Migration]
+      case Some(cutOff) => appliedMigrations.authoredAfter(cutOff)
+    }).sortBy(_.authoredAt).reverse
+
+    toReverse.foreach {
       case reversible: ReversibleMigrationWithNoopDown =>
         deleteFromAppliedMigrations(session, reversible)
       case reversible: ReversibleMigration =>
@@ -39,10 +32,9 @@ class Migrator(seedAddress: String) {
     }
 
     val toApply: Seq[Migration] = (dateRestriction match {
-      case None => migrations
-      case Some(cutOff) =>
-        migrations.filter(migration => migration.authoredBefore(cutOff))
-    }).filter(migration => !appliedMigrations.contains(migration.key))
+      case None => registry.all
+      case Some(cutOff) => registry.authoredBefore(cutOff)
+    }).filter(migration => !appliedMigrations.contains(migration))
 
     toApply.foreach {
       migration =>
@@ -55,7 +47,6 @@ class Migrator(seedAddress: String) {
         )
     }
   }
-
 
   def initialize(keyspaceName: String, replicationOptions: Map[String, Any] = ReplicationOptions.default) {
     val session = cluster.connect()

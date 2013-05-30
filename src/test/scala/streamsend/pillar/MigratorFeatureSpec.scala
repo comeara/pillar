@@ -11,10 +11,8 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
   val session = cluster.connect()
   val keyspaceName = "test_%d".format(System.currentTimeMillis())
-  var createEventsTableMigration: Migration = _
-
-  before {
-    createEventsTableMigration = Migration("creates events table", new Date(),
+  val migrations = Seq(
+    Migration("creates events table", new Date(System.currentTimeMillis() - 5000),
       """
         |CREATE TABLE events (
         |  batch_id text,
@@ -23,8 +21,21 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
         |  payload blob,
         |  PRIMARY KEY (batch_id, occurred_at, event_type)
         |)
+      """.stripMargin),
+    Migration("creates views table", new Date(),
+      """
+        |CREATE TABLE views (
+        |  id uuid PRIMARY KEY,
+        |  url text,
+        |  person_id int,
+        |  user_agent text,
+        |  viewed_at timestamp
+        |)
+      """.stripMargin,
+      """
+        |DROP TABLE views
       """.stripMargin)
-  }
+  )
 
   after {
     try {
@@ -73,50 +84,83 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
   feature("The operator can generate an empty migration") {}
 
-  feature("The operator can migrate up") {
+  feature("The operator can apply migrations") {
     info("As an application operator")
     info("I want to migrate a Cassandra keyspace from an older version of the schema to a newer version")
     info("So that I can run an application using the schema")
 
-    scenario("apply one migration") {
+    scenario("all migrations") {
       val migrator = Migrator()
       Given("an initialized keyspace")
       migrator.initialize(keyspaceName)
 
       Given("a migration that creates an events table")
-      val migrations = Seq(createEventsTableMigration)
+      Given("a migration that creates a views table")
 
-      When("the migrator migrates up")
-      migrator.up(keyspaceName, migrations)
+      When("the migrator applies migrations")
+      migrator.apply(keyspaceName, migrations)
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
 
-      And("the applied_migrations table records the migration")
-      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(1)
+      And("the keyspace contains the views table")
+      session.execute(QueryBuilder.select().from(keyspaceName, "views")).all().size() should equal(0)
+
+      And("the applied_migrations table records the migrations")
+      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(2)
     }
 
-    scenario("skip previously applied migrations") {
+    scenario("skip previously applied migration") {
       val migrator = Migrator()
       Given("an initialized keyspace")
       migrator.initialize(keyspaceName)
 
-      Given("a migration that ran in the past")
-      migrator.up(keyspaceName, Seq(createEventsTableMigration))
+      Given("a migration applied in the past")
+      migrator.apply(keyspaceName, migrations)
 
-      When("the migrator migrates up")
-      migrator.up(keyspaceName, Seq(createEventsTableMigration))
+      When("the migrator applies migrations")
+      migrator.apply(keyspaceName, migrations)
 
       Then("the migration completes successfully")
     }
   }
 
-  feature("The operator can migrate down") {}
+  feature("The operator can reverse migrations") {
+    info("As an application operator")
+    info("I want to migrate a Cassandra keyspace from a newer version of the schema to an older version")
+    info("So that I can run an application using the schema")
+
+    scenario("reverse previously applied migration") {
+      val migrator = Migrator()
+      Given("an initialized keyspace")
+      migrator.initialize(keyspaceName)
+
+      Given("two migrations applied in the past")
+      migrator.apply(keyspaceName, migrations)
+
+      When("the migrator applies a set of migrations that does not include a previously applied migration")
+      migrator.apply(keyspaceName, migrations, Some(migrations(0).authoredAt))
+
+      Then("the migrator reverses the missing migration")
+      val thrown = intercept[InvalidQueryException] {
+        session.execute(QueryBuilder.select().from(keyspaceName, "views")).all()
+      }
+      thrown.getMessage should equal("unconfigured columnfamily views")
+
+      And("the migrator removes the reversed migration from the applied migrations table")
+      val reversedMigration = migrations(1)
+      val query = QueryBuilder.
+        select().
+        from(keyspaceName, "applied_migrations").
+        where(QueryBuilder.eq("authored_at", reversedMigration.authoredAt)).
+        and(QueryBuilder.eq("description", reversedMigration.description))
+      session.execute(query).all().size() should equal(0)
+    }
+  }
 
   feature("The operator can list applied migrations") {}
 
   private def assertEmptyAppliedMigrationsTable() {
-    val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
-    result.all().size() should equal(0)
+    session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(0)
   }
 }

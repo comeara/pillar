@@ -1,10 +1,10 @@
 package streamsend.pillar
 
 import com.datastax.driver.core.{Session, Cluster}
-import com.datastax.driver.core.exceptions.AlreadyExistsException
 import com.datastax.driver.core.querybuilder.QueryBuilder
 import scala.collection.JavaConversions
 import java.util.Date
+import com.datastax.driver.core.exceptions.AlreadyExistsException
 
 object Migrator {
   def apply(seedAddress: String = "127.0.0.1"): Migrator = {
@@ -15,11 +15,40 @@ object Migrator {
 class Migrator(seedAddress: String) {
   private val cluster = Cluster.builder().addContactPoint(seedAddress).build()
 
-  def up(keyspaceName: String, migrations: Seq[Migration]) {
+  def apply(keyspaceName: String, migrations: Seq[Migration], asOf: Option[Date] = None) {
     val session = cluster.connect(keyspaceName)
+    val allMigrations = migrations.foldLeft(Map.empty[(Date, String), Migration]) {
+      (memo, migration) => memo + ((migration.authoredAt, migration.description) -> migration)
+    }
     val results = session.execute(QueryBuilder.select("authored_at", "description").from("applied_migrations"))
-    val appliedMigrations = JavaConversions.asScalaIterator(results.iterator()).foldLeft(Map.empty[(Date, String), Null]) {
-      (memo, row) => memo + ((row.getDate("authored_at"), row.getString("description")) -> null)
+    val appliedMigrations = JavaConversions.asScalaIterator(results.iterator()).foldLeft(Map.empty[(Date, String), Migration]) {
+      (memo, row) =>
+        val key = (row.getDate("authored_at"), row.getString("description"))
+        memo + (key -> allMigrations(key))
+    }
+    val toReverse = asOf match {
+      case cutOff: Some[Date] =>
+        appliedMigrations.foldLeft(List.empty[Migration]) {
+          (memo, entry) =>
+            val ((authoredAt, _), migration) = entry
+            if (authoredAt.after(cutOff.get)) {
+              migration :: memo
+            } else {
+              memo
+            }
+        }
+      case None => List.empty[Migration]
+    }
+
+    toReverse.foreach {
+      case reversible: ReversibleMigration =>
+        session.execute(reversible.down)
+        session.execute(QueryBuilder.
+          delete().
+          from("applied_migrations").
+          where(QueryBuilder.eq("authored_at", reversible.authoredAt)).
+          and(QueryBuilder.eq("description", reversible.description))
+        )
     }
     migrations.foreach {
       migration =>
@@ -64,7 +93,7 @@ class Migrator(seedAddress: String) {
     try {
       session.execute(statement)
     } catch {
-      case ok: AlreadyExistsException =>
+      case _: AlreadyExistsException =>
     }
   }
 }

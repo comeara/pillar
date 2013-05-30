@@ -2,7 +2,6 @@ package streamsend.pillar
 
 import com.datastax.driver.core.{Session, Cluster}
 import com.datastax.driver.core.querybuilder.QueryBuilder
-import scala.collection.JavaConversions
 import java.util.Date
 import com.datastax.driver.core.exceptions.AlreadyExistsException
 
@@ -15,19 +14,20 @@ object Migrator {
 class Migrator(seedAddress: String) {
   private val cluster = Cluster.builder().addContactPoint(seedAddress).build()
 
-  def apply(keyspaceName: String, migrations: Seq[Migration], asOf: Option[Date] = None) {
+  def migrate(keyspaceName: String, migrations: Seq[Migration], dateRestriction: Option[Date] = None) {
     val session = cluster.connect(keyspaceName)
     val allMigrations = migrations.foldLeft(Map.empty[(Date, String), Migration]) {
       (memo, migration) => memo + ((migration.authoredAt, migration.description) -> migration)
     }
-    val results = session.execute(QueryBuilder.select("authored_at", "description").from("applied_migrations"))
-    val appliedMigrations = JavaConversions.asScalaBuffer(results.all()).map {
-      row => (row.getDate("authored_at"), row.getString("description"))
-    }
-    val toReverse: Seq[Migration] = asOf match {
+    val appliedMigrations = AppliedMigrations(session)
+    val toReverse: Seq[Migration] = dateRestriction match {
       case None => List.empty[Migration]
       case Some(cutOff) =>
-        appliedMigrations.filter { case (authoredAt, _) => authoredAt.after(cutOff) }.map { case (authoredAt, description) => allMigrations(authoredAt, description) }
+        appliedMigrations.filter {
+          key => key.authoredAt.after(cutOff)
+        }.map {
+          key => allMigrations(key.authoredAt, key.description)
+        }
     }
 
     toReverse.sortBy(_.authoredAt).reverseIterator.foreach {
@@ -38,23 +38,21 @@ class Migrator(seedAddress: String) {
         deleteFromAppliedMigrations(session, reversible)
     }
 
-    val toApply: Seq[Migration] = asOf match {
+    val toApply: Seq[Migration] = (dateRestriction match {
       case None => migrations
       case Some(cutOff) =>
-        migrations.filter { migration => migration.authoredAt.compareTo(cutOff) <= 0 }
-    }
+        migrations.filter(migration => migration.authoredBefore(cutOff))
+    }).filter(migration => !appliedMigrations.contains(migration.key))
 
     toApply.foreach {
       migration =>
-        if (!appliedMigrations.contains(migration.authoredAt, migration.description)) {
-          session.execute(migration.up)
-          session.execute(QueryBuilder.
-            insertInto("applied_migrations").
-            value("authored_at", migration.authoredAt).
-            value("description", migration.description).
-            value("applied_at", System.currentTimeMillis())
-          )
-        }
+        session.execute(migration.up)
+        session.execute(QueryBuilder.
+          insertInto("applied_migrations").
+          value("authored_at", migration.authoredAt).
+          value("description", migration.description).
+          value("applied_at", System.currentTimeMillis())
+        )
     }
   }
 
@@ -100,5 +98,4 @@ class Migrator(seedAddress: String) {
         }
     }.mkString(",") + "}"
   }
-
 }

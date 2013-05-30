@@ -108,8 +108,8 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
 
-      When("the migrator applies migrations")
-      migrator.apply(keyspaceName, migrations)
+      When("the migrator migrates the schema")
+      migrator.migrate(keyspaceName, migrations)
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
@@ -129,8 +129,8 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
 
-      When("the migrator applies migrations with a cut off date")
-      migrator.apply(keyspaceName, migrations, Some(migrations(0).authoredAt))
+      When("the migrator migrates with a cut off date")
+      migrator.migrate(keyspaceName, migrations, Some(migrations(0).authoredAt))
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
@@ -144,11 +144,11 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       Given("an initialized keyspace")
       migrator.initialize(keyspaceName)
 
-      Given("a migration applied in the past")
-      migrator.apply(keyspaceName, migrations)
+      Given("a set of migrations applied in the past")
+      migrator.migrate(keyspaceName, migrations)
 
       When("the migrator applies migrations")
-      migrator.apply(keyspaceName, migrations)
+      migrator.migrate(keyspaceName, migrations)
 
       Then("the migration completes successfully")
     }
@@ -164,11 +164,11 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       Given("an initialized keyspace")
       migrator.initialize(keyspaceName)
 
-      Given("two migrations applied in the past")
-      migrator.apply(keyspaceName, migrations)
+      Given("a set of migrations applied in the past")
+      migrator.migrate(keyspaceName, migrations)
 
-      When("the migrator applies a set of migrations that does not include a previously applied migration")
-      migrator.apply(keyspaceName, migrations, Some(migrations(0).authoredAt))
+      When("the migrator migrates with a cut off date")
+      migrator.migrate(keyspaceName, migrations, Some(migrations(0).authoredAt))
 
       Then("the migrator reverses the missing migration")
       val thrown = intercept[InvalidQueryException] {
@@ -184,10 +184,6 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
         where(QueryBuilder.eq("authored_at", reversedMigration.authoredAt)).
         and(QueryBuilder.eq("description", reversedMigration.description))
       session.execute(query).all().size() should equal(0)
-    }
-
-    scenario("reverse multiple migrations in order") {
-
     }
   }
 

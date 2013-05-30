@@ -24,6 +24,12 @@ abstract class Migration {
   def authoredAt: Date
 
   def up: String
+
+  def key: MigrationKey = MigrationKey(authoredAt, description)
+
+  def authoredBefore(date: Date): Boolean = {
+    authoredAt.compareTo(date) <= 0
+  }
 }
 
 case class IrreversibleMigration(description: String, authoredAt: Date, up: String) extends Migration

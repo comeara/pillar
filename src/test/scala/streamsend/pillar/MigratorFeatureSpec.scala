@@ -5,6 +5,7 @@ import org.scalatest.matchers.ShouldMatchers
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.datastax.driver.core.exceptions.InvalidQueryException
+import java.util.Date
 
 class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers {
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
@@ -73,7 +74,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       migrator.initialize(keyspaceName)
 
       Given("a migration that creates an events table")
-      val migration = Migration("creates events table", System.currentTimeMillis(),
+      val migration = Migration("creates events table", new Date(),
         """
           |CREATE TABLE events (
           |  batch_id text,
@@ -92,6 +93,30 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
       And("the applied_migrations table records the migration")
       session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(1)
+    }
+
+    scenario("skip previously applied migrations") {
+      val migrator = Migrator()
+      Given("an initialized keyspace")
+      migrator.initialize(keyspaceName)
+
+      Given("a migration that ran in the past")
+      val migration = Migration("creates events table", new Date(),
+        """
+          |CREATE TABLE events (
+          |  batch_id text,
+          |  occurred_at timestamp,
+          |  event_type text,
+          |  payload blob,
+          |  PRIMARY KEY (batch_id, occurred_at, event_type)
+          |)
+        """.stripMargin)
+      migrator.up(keyspaceName, Seq(migration))
+
+      When("the migrator migrates up")
+      migrator.up(keyspaceName, Seq(migration))
+
+      Then("the migration completes successfully")
     }
   }
 

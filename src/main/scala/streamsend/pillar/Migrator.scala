@@ -3,6 +3,8 @@ package streamsend.pillar
 import com.datastax.driver.core.{Session, Cluster}
 import com.datastax.driver.core.exceptions.AlreadyExistsException
 import com.datastax.driver.core.querybuilder.QueryBuilder
+import scala.collection.JavaConversions
+import java.util.Date
 
 object Migrator {
   def apply(seedAddress: String = "127.0.0.1"): Migrator = {
@@ -15,15 +17,21 @@ class Migrator(seedAddress: String) {
 
   def up(keyspaceName: String, migrations: Seq[Migration]) {
     val session = cluster.connect(keyspaceName)
+    val results = session.execute(QueryBuilder.select("authored_at", "description").from("applied_migrations"))
+    val appliedMigrations = JavaConversions.asScalaIterator(results.iterator()).foldLeft(Map.empty[(Date, String), Null]) {
+      (memo, row) => memo + ((row.getDate("authored_at"), row.getString("description")) -> null)
+    }
     migrations.foreach {
       migration =>
-        session.execute(migration.up)
-        session.execute(QueryBuilder.
-          insertInto("applied_migrations").
-          value("authored_at", migration.authoredAt).
-          value("description", migration.description).
-          value("applied_at", System.currentTimeMillis())
-        )
+        if (!appliedMigrations.contains(migration.authoredAt, migration.description)) {
+          session.execute(migration.up)
+          session.execute(QueryBuilder.
+            insertInto("applied_migrations").
+            value("authored_at", migration.authoredAt).
+            value("description", migration.description).
+            value("applied_at", System.currentTimeMillis())
+          )
+        }
     }
   }
 

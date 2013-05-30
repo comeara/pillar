@@ -25,37 +25,37 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
     info("So that I can manage the keyspace schema")
 
     scenario("initialize a non-existent keyspace") {
-      given("a non-existent keyspace")
+      Given("a non-existent keyspace")
 
-      when("the migrator initializes the keyspace")
+      When("the migrator initializes the keyspace")
       Migrator().initialize(keyspaceName)
 
-      then("the keyspace contains a applied_migrations column family")
+      Then("the keyspace contains a applied_migrations column family")
       val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
       result.all().size() should equal(0)
     }
 
     scenario("initialize an existing keyspace without a applied_migrations column family") {
-      given("an existing keyspace")
+      Given("an existing keyspace")
       session.execute("CREATE KEYSPACE %s WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}".format(keyspaceName))
 
-      when("the migrator initializes the keyspace")
+      When("the migrator initializes the keyspace")
       Migrator().initialize(keyspaceName)
 
-      then("the keyspace contains a applied_migrations column family")
+      Then("the keyspace contains a applied_migrations column family")
       val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
       result.all().size() should equal(0)
     }
 
     scenario("initialize an existing keyspace with a applied_migrations column family") {
-      given("an existing keyspace")
+      Given("an existing keyspace")
       session.execute("CREATE KEYSPACE %s WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}".format(keyspaceName))
       session.execute("CREATE TABLE %s.applied_migrations (id TEXT PRIMARY KEY, applied_at TIMESTAMP)".format(keyspaceName))
 
-      when("the migrator initializes the keyspace")
+      When("the migrator initializes the keyspace")
       Migrator().initialize(keyspaceName)
 
-      then("the keyspace contains a applied_migrations column family")
+      Then("the keyspace contains a applied_migrations column family")
       val result = session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations"))
       result.all().size() should equal(0)
     }
@@ -70,10 +70,10 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("apply one migration") {
       val migrator = Migrator()
-      given("an initialized keyspace")
+      Given("an initialized keyspace")
       migrator.initialize(keyspaceName)
 
-      given("a migration that creates an events table")
+      Given("a migration that creates an events table")
       val migration = Migration("%d_create_events_table".format(System.currentTimeMillis()),
         """
           |CREATE TABLE events (
@@ -85,13 +85,13 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
           |)
         """.stripMargin)
 
-      when("the migrator migrates up")
+      When("the migrator migrates up")
       migrator.up(keyspaceName, Seq(migration))
 
-      then("the keyspace contains the events table")
+      Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
 
-      and("the applied_migrations table records the migration")
+      And("the applied_migrations table records the migration")
       session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(1)
     }
   }

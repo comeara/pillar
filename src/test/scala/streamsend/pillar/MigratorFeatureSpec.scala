@@ -49,8 +49,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("initialize an existing keyspace with a applied_migrations column family") {
       Given("an existing keyspace")
-      session.execute("CREATE KEYSPACE %s WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}".format(keyspaceName))
-      session.execute("CREATE TABLE %s.applied_migrations (id TEXT PRIMARY KEY, applied_at TIMESTAMP)".format(keyspaceName))
+      Migrator().initialize(keyspaceName)
 
       When("the migrator initializes the keyspace")
       Migrator().initialize(keyspaceName)
@@ -74,7 +73,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       migrator.initialize(keyspaceName)
 
       Given("a migration that creates an events table")
-      val migration = Migration("%d_create_events_table".format(System.currentTimeMillis()),
+      val migration = Migration("creates events table", System.currentTimeMillis(),
         """
           |CREATE TABLE events (
           |  batch_id text,

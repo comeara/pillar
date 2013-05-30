@@ -18,14 +18,28 @@ class Migrator(seedAddress: String) {
     migrations.foreach {
       migration =>
         migration.up(session)
-        session.execute(QueryBuilder.insertInto("applied_migrations").value("id", migration.id).value("applied_at", System.currentTimeMillis()))
+        session.execute(QueryBuilder.
+          insertInto("applied_migrations").
+          value("authored_at", migration.authoredAt).
+          value("description", migration.description).
+          value("applied_at", System.currentTimeMillis())
+        )
     }
   }
 
   def initialize(keyspaceName: String, replicationOptions: Map[String, Any] = ReplicationOptions.default) {
     val session = cluster.connect()
     executeIdempotentCommand(session, "CREATE KEYSPACE %s WITH replication = %s".format(keyspaceName, serializeOptionMap(replicationOptions)))
-    executeIdempotentCommand(session, "CREATE TABLE %s.applied_migrations (id text PRIMARY KEY, applied_at timestamp)".format(keyspaceName))
+    executeIdempotentCommand(session,
+      """
+        | CREATE TABLE %s.applied_migrations (
+        |   authored_at timestamp,
+        |   description text,
+        |   applied_at timestamp,
+        |   PRIMARY KEY (authored_at, description)
+        |  )
+      """.stripMargin.format(keyspaceName)
+    )
   }
 
   private def serializeOptionMap(options: Map[String, Any]): String = {

@@ -3,16 +3,16 @@ package streamsend.pillar
 import com.datastax.driver.core.Session
 
 object Migration {
-  def apply(id: String, up: String): Migration = {
-    new Migration(id, up, None)
+  def apply(description: String, authoredAt: Long, up: String): Migration = {
+    new Migration(description, authoredAt, up, None)
   }
 
-  def apply(id: String, up: String, down: String): Migration = {
-    new Migration(id, up, Some(down))
+  def apply(description: String, authoredAt: Long, up: String, down: String): Migration = {
+    new Migration(description,  authoredAt, up, Some(down))
   }
 }
 
-class Migration(val id: String, upStatement: String, downStatement: Option[String]) {
+class Migration(val description: String, val authoredAt: Long, upStatement: String, downStatement: Option[String]) {
   def up(session: Session) {
     session.execute(upStatement)
   }

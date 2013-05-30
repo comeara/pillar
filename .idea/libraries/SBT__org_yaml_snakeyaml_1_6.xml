@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: org.yaml:snakeyaml:1.6">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.yaml/snakeyaml/jars/snakeyaml-1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.yaml/snakeyaml/docs/snakeyaml-1.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.yaml/snakeyaml/srcs/snakeyaml-1.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

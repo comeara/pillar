@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: org.mindrot:jbcrypt:0.3m">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.mindrot/jbcrypt/jars/jbcrypt-0.3m.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.mindrot/jbcrypt/docs/jbcrypt-0.3m-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.mindrot/jbcrypt/srcs/jbcrypt-0.3m-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

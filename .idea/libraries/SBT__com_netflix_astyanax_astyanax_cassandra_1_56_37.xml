@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.netflix.astyanax:astyanax-cassandra:1.56.37">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.netflix.astyanax/astyanax-cassandra/jars/astyanax-cassandra-1.56.37.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.netflix.astyanax/astyanax-cassandra/docs/astyanax-cassandra-1.56.37-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.netflix.astyanax/astyanax-cassandra/srcs/astyanax-cassandra-1.56.37-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

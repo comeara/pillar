@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.cassandra:cassandra-all:1.2.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.cassandra/cassandra-all/jars/cassandra-all-1.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.cassandra/cassandra-all/docs/cassandra-all-1.2.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.cassandra/cassandra-all/srcs/cassandra-all-1.2.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: edu.stanford.ppl:snaptree:0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/edu.stanford.ppl/snaptree/jars/snaptree-0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/edu.stanford.ppl/snaptree/docs/snaptree-0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/edu.stanford.ppl/snaptree/srcs/snaptree-0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

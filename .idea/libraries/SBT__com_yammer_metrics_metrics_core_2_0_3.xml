@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.yammer.metrics:metrics-core:2.0.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.yammer.metrics/metrics-core/jars/metrics-core-2.0.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.yammer.metrics/metrics-core/docs/metrics-core-2.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.yammer.metrics/metrics-core/srcs/metrics-core-2.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

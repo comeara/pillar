@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.github.stephenc:jamm:0.2.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.github.stephenc/jamm/jars/jamm-0.2.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.github.stephenc/jamm/docs/jamm-0.2.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.github.stephenc/jamm/srcs/jamm-0.2.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

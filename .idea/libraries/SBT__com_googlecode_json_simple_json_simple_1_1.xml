@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: com.googlecode.json-simple:json-simple:1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.googlecode.json-simple/json-simple/jars/json-simple-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.googlecode.json-simple/json-simple/srcs/json-simple-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

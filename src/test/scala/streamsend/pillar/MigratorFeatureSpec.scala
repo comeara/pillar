@@ -28,7 +28,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       given("a non-existent keyspace")
 
       when("the migrator initializes the keyspace")
-      Migrator.initialize(keyspaceName)
+      Migrator().initialize(keyspaceName)
 
       then("the keyspace contains a schema_versions column family")
       val result = session.execute(QueryBuilder.select().from(keyspaceName, "schema_versions"))
@@ -40,7 +40,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       session.execute("CREATE KEYSPACE %s WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}".format(keyspaceName))
 
       when("the migrator initializes the keyspace")
-      Migrator.initialize(keyspaceName)
+      Migrator().initialize(keyspaceName)
 
       then("the keyspace contains a schema_versions column family")
       val result = session.execute(QueryBuilder.select().from(keyspaceName, "schema_versions"))
@@ -53,7 +53,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       session.execute("CREATE TABLE %s.schema_versions (id TEXT PRIMARY KEY, applied_at TIMESTAMP)".format(keyspaceName))
 
       when("the migrator initializes the keyspace")
-      Migrator.initialize(keyspaceName)
+      Migrator().initialize(keyspaceName)
 
       then("the keyspace contains a schema_versions column family")
       val result = session.execute(QueryBuilder.select().from(keyspaceName, "schema_versions"))

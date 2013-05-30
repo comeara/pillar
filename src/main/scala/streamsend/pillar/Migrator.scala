@@ -17,7 +17,7 @@ class Migrator(seedAddress: String) {
     val session = cluster.connect(keyspaceName)
     migrations.foreach {
       migration =>
-        migration.up(session)
+        session.execute(migration.up)
         session.execute(QueryBuilder.
           insertInto("applied_migrations").
           value("authored_at", migration.authoredAt).

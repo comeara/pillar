@@ -1,19 +1,25 @@
 package streamsend.pillar
 
-import com.datastax.driver.core.Session
 
 object Migration {
   def apply(description: String, authoredAt: Long, up: String): Migration = {
-    new Migration(description, authoredAt, up, None)
+    new IrreversibleMigration(description, authoredAt, up)
   }
 
   def apply(description: String, authoredAt: Long, up: String, down: String): Migration = {
-    new Migration(description,  authoredAt, up, Some(down))
+    new ReversibleMigration(description, authoredAt, up, down)
   }
 }
 
-class Migration(val description: String, val authoredAt: Long, upStatement: String, downStatement: Option[String]) {
-  def up(session: Session) {
-    session.execute(upStatement)
-  }
+abstract class Migration {
+  def description: String
+
+  def authoredAt: Long
+
+  def up: String
 }
+
+case class IrreversibleMigration(description: String, authoredAt: Long, up: String) extends Migration
+
+case class ReversibleMigration(description: String, authoredAt: Long, up: String, down: String) extends Migration
+

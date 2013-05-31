@@ -20,7 +20,7 @@ object Migration {
   }
 }
 
-abstract class Migration(val description: String, val authoredAt: Date, protected val up: String) {
+abstract class Migration(val description: String, val authoredAt: Date, val up: String) {
   def key: MigrationKey = MigrationKey(authoredAt, description)
 
   def authoredAfter(date: Date): Boolean = {
@@ -69,7 +69,7 @@ class ReversibleMigrationWithNoOpDown(description: String, authoredAt: Date, up:
   }
 }
 
-class ReversibleMigration(description: String, authoredAt: Date, up: String, down: String) extends Migration(description, authoredAt, up) {
+class ReversibleMigration(description: String, authoredAt: Date, up: String, val down: String) extends Migration(description, authoredAt, up) {
   def executeDownStatement(session: Session) {
     session.execute(down)
     deleteFromAppliedMigrations(session)

@@ -4,6 +4,10 @@
     <list default="true" id="579d777d-a239-4503-8aee-47c9209351b6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/ReplicationOptions.scala" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/ReplicationOptions.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/comeara.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/comeara.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pillar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -11,12 +15,17 @@
     <file path="/MigratorSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369858598032" ignored="false" />
     <file path="$PROJECT_DIR$/../streamsend-root/streamsend-analytics/src/test/scala/streamsend/analytics/infrastructure/persistence/FiveMinuteHashKeyFunctionSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369858862853" ignored="false" />
     <file path="/FiveMinuteHashKeyFunctionSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369858092118" ignored="false" />
-    <file path="/Migrator.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369892971307" ignored="false" />
-    <file path="/MigratorFeatureSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369892206171" ignored="false" />
-    <file path="/a.dummy" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369892265788" ignored="false" />
+    <file path="/Migrator.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370012958524" ignored="false" />
+    <file path="/MigratorFeatureSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370010931220" ignored="false" />
+    <file path="/a.dummy" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370011501357" ignored="false" />
     <file path="/Dummy.txt" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369886761925" ignored="false" />
-    <file path="/Migration.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369893765341" ignored="false" />
+    <file path="/Migration.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370013211850" ignored="false" />
     <file path="/MigrationBuilder.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369887974445" ignored="false" />
+    <file path="/AppliedMigrations.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369950920931" ignored="false" />
+    <file path="/AppliedMigrationsSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369948080267" ignored="false" />
+    <file path="/fragment.java" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1369948094404" ignored="false" />
+    <file path="/IrreversibleMigrationException.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370010628888" ignored="false" />
+    <file path="/ReplicationOptions.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370012861159" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,30 +86,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PillarBuild.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/project/PillarBuild.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="453" selection-end="453" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MigratorFeatureSpec.scala" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="0" selection-start="2087" selection-end="2087" vertical-scroll-proportion="0.9537167">
-              <folding>
-                <element signature="e#27#92#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Migrator.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="887" selection-end="887" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#27#77#0" expanded="true" />
               </folding>
@@ -108,19 +97,59 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReplicationOptions.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/ReplicationOptions.scala">
+      <file leaf-file-name="AppliedMigrations.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/AppliedMigrations.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="7" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0">
+            <state line="16" column="6" selection-start="600" selection-end="600" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#27#66#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IrreversibleMigrationException.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/IrreversibleMigrationException.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="38" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Migration.scala" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ReplicationOptions.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/ReplicationOptions.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="0" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Migration.scala" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="13" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
+            <state line="22" column="0" selection-start="642" selection-end="642" vertical-scroll-proportion="-0.73913044">
+              <folding>
+                <element signature="e#27#48#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MigrationKey.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationKey.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="62" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MigrationRegistry.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="7" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -146,9 +175,14 @@
       <list>
         <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorSpec.scala" />
         <option value="$PROJECT_DIR$/project/PillarBuild.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/ReplicationOptions.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationBuilder.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/AppliedMigrationsSpec.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationKey.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/AppliedMigrations.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/IrreversibleMigrationException.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/ReplicationOptions.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala" />
       </list>
@@ -159,6 +193,25 @@
     <option name="y" value="22" />
     <option name="width" value="1440" />
     <option name="height" value="874" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Annotator</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -255,6 +308,126 @@
               <option name="myItemId" value="pillar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ReplicationOptions.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MigrationRegistry.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Migration.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AppliedMigrations.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -288,8 +461,8 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
   </component>
-  <component name="RunManager" selected="ScalaTest.MigratorFeatureSpec.The operator can migrate up Scenario: apply one migration">
-    <configuration default="false" name="MigratorFeatureSpec.The operator can migrate up Scenario: migrate up with zero migrations" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+  <component name="RunManager" selected="ScalaTest.MigratorFeatureSpec.The operator can reverse migrations Scenario: irreversible previously applied migration">
+    <configuration default="false" name="MigratorFeatureSpec.The operator can reverse migrations Scenario: reverse previously applied migration" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <module name="pillar" />
       <setting name="path" value="streamsend.pillar.MigratorFeatureSpec" />
       <setting name="package" value="" />
@@ -297,22 +470,7 @@
       <setting name="params" value="" />
       <setting name="workingDirectory" value="$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="The operator can migrate up Scenario: migrate up with zero migrations" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="MigratorFeatureSpec.The operator can initialize a keyspace Scenario: initialize an uninitialized keyspace" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <module name="pillar" />
-      <setting name="path" value="streamsend.pillar.MigratorFeatureSpec" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="The operator can initialize a keyspace Scenario: initialize an uninitialized keyspace" />
+      <setting name="testName" value="The operator can reverse migrations Scenario: reverse previously applied migration" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <RunnerSettings RunnerId="Debug">
@@ -325,7 +483,7 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="MigratorFeatureSpec.The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="MigratorFeatureSpec.The operator can apply migrations Scenario: some migrations" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <module name="pillar" />
       <setting name="path" value="streamsend.pillar.MigratorFeatureSpec" />
       <setting name="package" value="" />
@@ -333,7 +491,43 @@
       <setting name="params" value="" />
       <setting name="workingDirectory" value="$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" />
+      <setting name="testName" value="The operator can apply migrations Scenario: some migrations" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="AppliedMigrationsSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <module name="pillar" />
+      <setting name="path" value="streamsend.pillar.AppliedMigrationsSpec" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="MigratorFeatureSpec.The operator can apply migrations Scenario: skip previously applied migration" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <module name="pillar" />
+      <setting name="path" value="streamsend.pillar.MigratorFeatureSpec" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="The operator can apply migrations Scenario: skip previously applied migration" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <RunnerSettings RunnerId="Debug">
@@ -346,7 +540,7 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="MigratorFeatureSpec.The operator can migrate up Scenario: apply one migration" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="MigratorFeatureSpec.The operator can reverse migrations Scenario: irreversible previously applied migration" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <module name="pillar" />
       <setting name="path" value="streamsend.pillar.MigratorFeatureSpec" />
       <setting name="package" value="" />
@@ -354,7 +548,7 @@
       <setting name="params" value="" />
       <setting name="workingDirectory" value="$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="The operator can migrate up Scenario: apply one migration" />
+      <setting name="testName" value="The operator can reverse migrations Scenario: irreversible previously applied migration" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <RunnerSettings RunnerId="Run" />
@@ -429,18 +623,20 @@
       <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can migrate up Scenario: migrate up with zero migrations" />
-      <item index="1" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can initialize a keyspace Scenario: initialize an uninitialized keyspace" />
-      <item index="2" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can migrate up Scenario: apply one migration" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can reverse migrations Scenario: reverse previously applied migration" />
+      <item index="1" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can apply migrations Scenario: some migrations" />
+      <item index="2" class="java.lang.String" itemvalue="ScalaTest.AppliedMigrationsSpec" />
+      <item index="3" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can apply migrations Scenario: skip previously applied migration" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can reverse migrations Scenario: irreversible previously applied migration" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can migrate up Scenario: apply one migration" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can initialize a keyspace Scenario: initialize an uninitialized keyspace" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can migrate up Scenario: migrate up with zero migrations" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can reverse migrations Scenario: irreversible previously applied migration" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can apply migrations Scenario: skip previously applied migration" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.AppliedMigrationsSpec" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can apply migrations Scenario: some migrations" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.MigratorFeatureSpec.The operator can reverse migrations Scenario: reverse previously applied migration" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
@@ -482,16 +678,16 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2877984" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28748068" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843894" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23314203" sideWeight="0.6710875" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23314203" sideWeight="0.7002652" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29973474" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -563,70 +759,6 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="22" selection-start="214" selection-end="214" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#27#92#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="24" selection-start="69" selection-end="69" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#27#77#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="33" selection-end="33" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/PillarBuild.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="27" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="60" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#27#92#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="34" selection-start="79" selection-end="79" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#27#77#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="33" selection-end="33" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/PillarBuild.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="0" selection-start="101" selection-end="101" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#27#92#0" expanded="true" />
@@ -648,6 +780,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.datastax.cassandra/cassandra-driver-core/srcs/cassandra-driver-core-1.0.0-sources.jar!/com/datastax/driver/core/querybuilder/Clause.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="22" selection-start="717" selection-end="717" vertical-scroll-proportion="0.15831663">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.datastax.cassandra/cassandra-driver-core/srcs/cassandra-driver-core-1.0.0-sources.jar!/com/datastax/driver/core/querybuilder/Select.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="28" selection-start="5213" selection-end="5213" vertical-scroll-proportion="0.45679012">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar!/java/util/Date.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="150" column="15" selection-start="3629" selection-end="3629" vertical-scroll-proportion="0.33295324">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.datastax.cassandra/cassandra-driver-core/srcs/cassandra-driver-core-1.0.0-sources.jar!/com/datastax/driver/core/querybuilder/QueryBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="25" selection-start="2745" selection-end="2745" vertical-scroll-proportion="0.33295324">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/project/PillarBuild.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="0" selection-start="453" selection-end="453" vertical-scroll-proportion="0.0">
@@ -655,34 +815,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="200" column="0" selection-start="7356" selection-end="7356" vertical-scroll-proportion="0.76811594">
+          <folding>
+            <element signature="e#27#92#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/ReplicationOptions.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="7" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0">
+        <state line="3" column="0" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="887" selection-end="887" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#27#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/AppliedMigrations.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="0" selection-start="2087" selection-end="2087" vertical-scroll-proportion="0.9537167">
+        <state line="16" column="6" selection-start="600" selection-end="600" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#27#92#0" expanded="true" />
+            <element signature="e#27#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/IrreversibleMigrationException.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="38" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationKey.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="62" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="7" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migration.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="642" selection-end="642" vertical-scroll-proportion="-0.73913044">
+          <folding>
+            <element signature="e#27#48#0" expanded="true" />
           </folding>
         </state>
       </provider>

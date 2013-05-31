@@ -1,7 +1,6 @@
 package streamsend.pillar
 
 import com.datastax.driver.core.{Session, Cluster}
-import com.datastax.driver.core.querybuilder.QueryBuilder
 import java.util.Date
 import com.datastax.driver.core.exceptions.AlreadyExistsException
 
@@ -18,41 +17,13 @@ class Migrator(keyspaceName: String, registry: MigrationRegistry, seedAddress: S
     val session = cluster.connect(keyspaceName)
     val appliedMigrations = AppliedMigrations(session, registry)
 
-    val toReverse: Seq[Migration] = (dateRestriction match {
-      case None => List.empty[Migration]
-      case Some(cutOff) => appliedMigrations.authoredAfter(cutOff)
-    }).sortBy(_.authoredAt).reverse
-
-    toReverse.foreach {
-      case reversible: ReversibleMigrationWithNoopDown =>
-        deleteFromAppliedMigrations(session, reversible)
-      case reversible: ReversibleMigration =>
-        session.execute(reversible.down)
-        deleteFromAppliedMigrations(session, reversible)
-      case irreversible: IrreversibleMigration =>
-        throw new IrreversibleMigrationException(irreversible)
-    }
-
-    val toApply: Seq[Migration] = (dateRestriction match {
-      case None => registry.all
-      case Some(cutOff) => registry.authoredBefore(cutOff)
-    }).filter(migration => !appliedMigrations.contains(migration))
-
-    toApply.foreach {
-      migration =>
-        session.execute(migration.up)
-        session.execute(QueryBuilder.
-          insertInto("applied_migrations").
-          value("authored_at", migration.authoredAt).
-          value("description", migration.description).
-          value("applied_at", System.currentTimeMillis())
-        )
-    }
+    selectMigrationsToReverse(dateRestriction, appliedMigrations).foreach(_.executeDownStatement(session))
+    selectMigrationsToApply(dateRestriction, appliedMigrations).foreach(_.executeUpStatement(session))
   }
 
-  def initialize(keyspaceName: String, replicationOptions: Map[String, Any] = ReplicationOptions.default) {
+  def initialize(keyspaceName: String, replicationOptions: ReplicationOptions = ReplicationOptions.default) {
     val session = cluster.connect()
-    executeIdempotentCommand(session, "CREATE KEYSPACE %s WITH replication = %s".format(keyspaceName, serializeOptionMap(replicationOptions)))
+    executeIdempotentCommand(session, "CREATE KEYSPACE %s WITH replication = %s".format(keyspaceName, replicationOptions.toString()))
     executeIdempotentCommand(session,
       """
         | CREATE TABLE %s.applied_migrations (
@@ -65,15 +36,6 @@ class Migrator(keyspaceName: String, registry: MigrationRegistry, seedAddress: S
     )
   }
 
-  private def deleteFromAppliedMigrations(session: Session, migration: Migration) {
-    session.execute(QueryBuilder.
-      delete().
-      from("applied_migrations").
-      where(QueryBuilder.eq("authored_at", migration.authoredAt)).
-      and(QueryBuilder.eq("description", migration.description))
-    )
-  }
-
   private def executeIdempotentCommand(session: Session, statement: String) {
     try {
       session.execute(statement)
@@ -82,13 +44,17 @@ class Migrator(keyspaceName: String, registry: MigrationRegistry, seedAddress: S
     }
   }
 
-  private def serializeOptionMap(options: Map[String, Any]): String = {
-    "{" + options.map {
-      case (key, value) =>
-        value match {
-          case number: Int => "'%s':%d".format(key, number)
-          case string: String => "'%s':'%s'".format(key, string)
-        }
-    }.mkString(",") + "}"
+  private def selectMigrationsToApply(dateRestriction: Option[Date], appliedMigrations: AppliedMigrations): Seq[Migration] = {
+    (dateRestriction match {
+      case None => registry.all
+      case Some(cutOff) => registry.authoredBefore(cutOff)
+    }).filter(migration => !appliedMigrations.contains(migration))
+  }
+
+  private def selectMigrationsToReverse(dateRestriction: Option[Date], appliedMigrations: AppliedMigrations): Seq[Migration] = {
+    (dateRestriction match {
+      case None => List.empty[Migration]
+      case Some(cutOff) => appliedMigrations.authoredAfter(cutOff)
+    }).sortBy(_.authoredAt).reverse
   }
 }

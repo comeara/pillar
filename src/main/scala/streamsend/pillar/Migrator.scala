@@ -29,6 +29,8 @@ class Migrator(keyspaceName: String, registry: MigrationRegistry, seedAddress: S
       case reversible: ReversibleMigration =>
         session.execute(reversible.down)
         deleteFromAppliedMigrations(session, reversible)
+      case irreversible: IrreversibleMigration =>
+        throw new IrreversibleMigrationException(irreversible)
     }
 
     val toApply: Seq[Migration] = (dateRestriction match {

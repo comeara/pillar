@@ -16,7 +16,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       """
         |CREATE TABLE events (
         |  batch_id text,
-        |  occurred_at timestamp,
+        |  occurred_at uuid,
         |  event_type text,
         |  payload blob,
         |  PRIMARY KEY (batch_id, occurred_at, event_type)
@@ -158,7 +158,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
     info("I want to migrate a Cassandra keyspace from a newer version of the schema to an older version")
     info("So that I can run an application using the schema")
 
-    scenario("reverse previously applied migration") {
+    scenario("reversible previously applied migration") {
       Given("an initialized keyspace")
       migrator.initialize(keyspaceName)
 
@@ -168,7 +168,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       When("the migrator migrates with a cut off date")
       migrator.migrate(Some(migrations(0).authoredAt))
 
-      Then("the migrator reverses the missing migration")
+      Then("the migrator reverses the reversible migration")
       val thrown = intercept[InvalidQueryException] {
         session.execute(QueryBuilder.select().from(keyspaceName, "views")).all()
       }
@@ -182,6 +182,22 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
         where(QueryBuilder.eq("authored_at", reversedMigration.authoredAt)).
         and(QueryBuilder.eq("description", reversedMigration.description))
       session.execute(query).all().size() should equal(0)
+    }
+
+    scenario("irreversible previously applied migration") {
+      Given("an initialized keyspace")
+      migrator.initialize(keyspaceName)
+
+      Given("a set of migrations applied in the past")
+      migrator.migrate()
+
+      When("the migrator migrates with a cut off date")
+      val thrown = intercept[IrreversibleMigrationException] {
+        migrator.migrate(Some(new Date(0)))
+      }
+
+      Then("the migrator throws an IrreversibleMigrationException")
+      thrown should not be (null)
     }
   }
 

@@ -11,10 +11,30 @@ object MigrationParser {
 }
 
 class PartialMigration {
-  var description: String = _
-  var authoredAt: Date = _
+  var description: String = ""
+  var authoredAt: String = ""
   var up = new mutable.MutableList[String]()
   var down: Option[mutable.MutableList[String]] = None
+
+  def validate: Option[Map[String, String]] = {
+    val errors = mutable.Map[String, String]()
+
+    if (description.isEmpty) errors("description") = "must be present"
+    if (authoredAt.isEmpty) errors("authoredAt") = "must be present"
+    if (!authoredAt.isEmpty && authoredAtAsLong < 1) errors("authoredAt") = "must be a number greater than zero"
+    if (up.isEmpty) errors("up") = "must be present"
+
+    if (!errors.isEmpty) Some(errors.toMap) else None
+  }
+
+  def authoredAtAsLong: Long = {
+    try {
+      authoredAt.toLong
+    } catch {
+      case _:NumberFormatException => -1
+    }
+  }
+
 }
 
 class MigrationParser {
@@ -36,7 +56,7 @@ class MigrationParser {
       line =>
         line match {
           case MatchAttribute("authoredAt", authoredAt) =>
-            inProgress.authoredAt = new Date(authoredAt.trim.toInt)
+            inProgress.authoredAt = authoredAt.trim
           case MatchAttribute("description", description) =>
             inProgress.description = description.trim
           case MatchAttribute("up", _) =>
@@ -54,14 +74,18 @@ class MigrationParser {
             }
         }
     }
-    inProgress.down match {
-      case Some(downLines) =>
-        if (downLines.isEmpty) {
-          Migration(inProgress.description, inProgress.authoredAt, inProgress.up.mkString("\n"), None)
-        } else {
-          Migration(inProgress.description, inProgress.authoredAt, inProgress.up.mkString("\n"), Some(downLines.mkString("\n")))
+    inProgress.validate match {
+      case Some(errors) => throw new InvalidMigrationException(errors)
+      case None =>
+        inProgress.down match {
+          case Some(downLines) =>
+            if (downLines.isEmpty) {
+              Migration(inProgress.description, new Date(inProgress.authoredAtAsLong), inProgress.up.mkString("\n"), None)
+            } else {
+              Migration(inProgress.description, new Date(inProgress.authoredAtAsLong), inProgress.up.mkString("\n"), Some(downLines.mkString("\n")))
+            }
+          case None => Migration(inProgress.description, new Date(inProgress.authoredAtAsLong), inProgress.up.mkString("\n"))
         }
-      case None => Migration(inProgress.description, inProgress.authoredAt, inProgress.up.mkString("\n"))
     }
   }
 }

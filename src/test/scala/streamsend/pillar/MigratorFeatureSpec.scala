@@ -196,7 +196,10 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
         migrator.migrate(Some(new Date(0)))
       }
 
-      Then("the migrator throws an IrreversibleMigrationException")
+      Then("the migrator reverses the reversible migrations")
+      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(1)
+
+      And("the migrator throws an IrreversibleMigrationException")
       thrown should not be (null)
     }
   }

@@ -14,7 +14,7 @@ object AppliedMigrations {
   }
 }
 
-class AppliedMigrations(applied: Seq[Migration]) extends Seq[Migration] {
+class AppliedMigrations(applied: Seq[Migration]) {
   def length: Int = applied.length
 
   def apply(index: Int): Migration = applied.apply(index)
@@ -22,4 +22,6 @@ class AppliedMigrations(applied: Seq[Migration]) extends Seq[Migration] {
   def iterator: Iterator[Migration] = applied.iterator
 
   def authoredAfter(date: Date): Seq[Migration] = applied.filter(migration => migration.authoredAfter(date))
+
+  def contains(other: Migration): Boolean = applied.contains(other)
 }

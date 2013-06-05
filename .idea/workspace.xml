@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="579d777d-a239-4503-8aee-47c9209351b6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/CommandLineConfiguration.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/CommandLineConfigurationSpec.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/ConfigurationException.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/ConsoleApp.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/ConsoleAppSpec.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/DataStore.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/MigratorAction.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommandExecutor.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandExecutorSpec.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigrationRegistrySpec.scala" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigrationRegistrySpec.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/PillarBuild.scala" afterPath="$PROJECT_DIR$/project/PillarBuild.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/pillar.iml" afterPath="$PROJECT_DIR$/.idea_modules/pillar.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala" afterPath="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala" afterPath="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.conf" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pillar.iws" />
@@ -49,7 +37,7 @@
     <file path="/MigrationRegistrySpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370391067974" ignored="false" />
     <file path="/MigrationRegistry.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370391045750" ignored="false" />
     <file path="/ConsoleApp.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370407684869" ignored="false" />
-    <file path="/application.conf" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370354397426" ignored="false" />
+    <file path="/application.conf" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370443975500" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/scala/streamsend/pillar/PillarExecution.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370361182532" ignored="false" />
     <file path="/PillarExecution.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370400461798" ignored="false" />
     <file path="/ConsoleAppSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370407603937" ignored="false" />
@@ -61,7 +49,9 @@
     <file path="/PillarConfigurationSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370403778098" ignored="false" />
     <file path="/DataStore.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370390267420" ignored="false" />
     <file path="/PillarCommandExecutor.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370407697943" ignored="false" />
-    <file path="/PillarCommand.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370403696874" ignored="false" />
+    <file path="/PillarCommand.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370447122191" ignored="false" />
+    <file path="/PillarCommandLineAcceptanceSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370445407968" ignored="false" />
+    <file path="/PillarCommandSpec.scala" changelist="579d777d-a239-4503-8aee-47c9209351b6" time="1370447052125" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,21 +113,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConsoleAppSpec.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/ConsoleAppSpec.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="13" selection-start="1269" selection-end="1269" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#31#77#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConsoleApp.scala" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ConsoleApp.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/ConsoleApp.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="9" selection-start="580" selection-end="580" vertical-scroll-proportion="0.29288703">
+            <state line="31" column="6" selection-start="1003" selection-end="1003" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#31#81#0" expanded="true" />
               </folding>
@@ -145,13 +124,91 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PillarCommandExecutor.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommandExecutor.scala">
+      <file leaf-file-name="Migrator.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="19" selection-start="170" selection-end="170" vertical-scroll-proportion="0.0">
+            <state line="20" column="0" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MigrationRegistry.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="0" selection-start="459" selection-end="459" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommandLineConfiguration.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/CommandLineConfiguration.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="7" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="e#31#52#0" expanded="true" />
+                <element signature="e#31#67#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PillarLibraryAcceptanceSpec.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="123" column="0" selection-start="3391" selection-end="4438" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PillarCommandLineAcceptanceSpec.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="60" column="113" selection-start="2496" selection-end="2496" vertical-scroll-proportion="0.81238276">
+              <folding>
+                <element signature="e#27#91#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataStore.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/DataStore.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="0" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PillarCommand.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#31#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PillarCommandSpec.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="4" selection-start="525" selection-end="525" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#31#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.conf" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="245" selection-end="245" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -174,15 +231,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarConfiguration.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarExecution.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarExecutionSpec.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/MigratorCommand.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/MigratorAction.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarConfigurationSpec.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandExecutorSpec.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/DataStore.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/ConfigurationException.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala" />
@@ -190,14 +242,18 @@
         <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/ConsoleAppSpec.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/ConsoleApp.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommandExecutor.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.conf" />
+        <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1440" />
-    <option name="height" value="874" />
+    <option name="width" value="2560" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -251,12 +307,6 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="pillar">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
@@ -265,77 +315,11 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="pillar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="pillar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main/scala">
+            <PATH_ELEMENT USER_OBJECT="src/test/scala">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="streamsend/pillar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="pillar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="pillar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main/scala">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="streamsend/pillar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="cli">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="pillar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="pillar">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -580,6 +564,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="MigrationRegistry.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="DataStore.scala" />
               <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
             </PATH_ELEMENT>
@@ -631,6 +645,112 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cli" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PillarCommand.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cli" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConsoleApp.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cli" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CommandLineConfiguration.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pillar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -648,7 +768,7 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="FullScreen" value="false" />
+    <property name="FullScreen" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -667,7 +787,7 @@
       <recent name="streamsend.pillar.cli" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ConsoleApp">
+  <component name="RunManager" selected="ScalaTest.PillarCommandLineAcceptanceSpec.The operator can apply migrations Scenario: all migrations">
     <configuration default="false" name="ConsoleApp" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="streamsend.pillar.cli.ConsoleApp" />
       <option name="VM_PARAMETERS" value="" />
@@ -699,45 +819,39 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="PillarExecutionSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="PillarCommandLineAcceptanceSpec.The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <module name="pillar" />
-      <setting name="path" value="streamsend.pillar.cli.PillarExecutionSpec" />
+      <setting name="path" value="streamsend.pillar.PillarCommandLineAcceptanceSpec" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
+      <setting name="testName" value="The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" />
+      <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="PillarConfigurationSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="PillarCommandLineAcceptanceSpec.The operator can apply migrations Scenario: all migrations" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <module name="pillar" />
-      <setting name="path" value="streamsend.pillar.cli.PillarConfigurationSpec" />
+      <setting name="path" value="streamsend.pillar.PillarCommandLineAcceptanceSpec" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
+      <setting name="testName" value="The operator can apply migrations Scenario: all migrations" />
+      <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="PillarCommandExecutorSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="PillarCommandSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <module name="pillar" />
-      <setting name="path" value="streamsend.pillar.cli.PillarCommandExecutorSpec" />
+      <setting name="path" value="streamsend.pillar.cli.PillarCommandSpec" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
@@ -828,17 +942,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.ConsoleApp" />
       <item index="1" class="java.lang.String" itemvalue="ScalaTest.ConsoleAppSpec" />
-      <item index="2" class="java.lang.String" itemvalue="ScalaTest.PillarExecutionSpec" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.PillarConfigurationSpec" />
-      <item index="4" class="java.lang.String" itemvalue="ScalaTest.PillarCommandExecutorSpec" />
+      <item index="2" class="java.lang.String" itemvalue="ScalaTest.PillarCommandLineAcceptanceSpec.The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" />
+      <item index="3" class="java.lang.String" itemvalue="ScalaTest.PillarCommandLineAcceptanceSpec.The operator can apply migrations Scenario: all migrations" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.PillarCommandSpec" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.ConsoleApp" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.ConsoleAppSpec" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.PillarCommandExecutorSpec" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.PillarExecutionSpec" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.PillarConfigurationSpec" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.PillarCommandLineAcceptanceSpec.The operator can apply migrations Scenario: all migrations" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.PillarCommandSpec" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.PillarCommandLineAcceptanceSpec.The operator can initialize a keyspace Scenario: initialize a non-existent keyspace" />
+        <item index="3" class="java.lang.String" itemvalue="Application.ConsoleApp" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.ConsoleAppSpec" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
@@ -874,8 +988,8 @@
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="0" width="2560" height="1440" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -888,8 +1002,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23314203" sideWeight="0.6710875" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32891247" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23309466" sideWeight="0.81520116" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1847988" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -959,66 +1073,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="19" selection-start="241" selection-end="241" vertical-scroll-proportion="0.24793388">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/CommandLineConfiguration.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="11" selection-start="1650" selection-end="1650" vertical-scroll-proportion="1.1220196">
-          <folding>
-            <element signature="e#31#67#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/MigratorAction.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="20" selection-start="52" selection-end="52" vertical-scroll-proportion="0.08264463">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="31" selection-start="760" selection-end="760" vertical-scroll-proportion="0.7741935">
-          <folding>
-            <element signature="e#31#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/CommandLineConfigurationSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="4" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.7293128">
-          <folding>
-            <element signature="e#31#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandExecutorSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="16" selection-start="714" selection-end="722" vertical-scroll-proportion="0.027548209">
-          <folding>
-            <element signature="e#31#77#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/ConfigurationException.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="6" selection-start="33" selection-end="33" vertical-scroll-proportion="0.056899004">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/DataStore.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="7" selection-start="69" selection-end="69" vertical-scroll-proportion="0.110192835">
           <folding />
         </state>
       </provider>
@@ -1037,29 +1094,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="55" selection-start="804" selection-end="804" vertical-scroll-proportion="0.24263674">
-          <folding>
-            <element signature="e#31#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="746" selection-end="746" vertical-scroll-proportion="0.028050492">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/MigratorFeatureSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="46" selection-start="6122" selection-end="6127" vertical-scroll-proportion="0.33238232">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommandExecutor.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="19" selection-start="170" selection-end="170" vertical-scroll-proportion="0.0">
@@ -1071,18 +1105,96 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/ConsoleAppSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="13" selection-start="1269" selection-end="1269" vertical-scroll-proportion="0.0">
+        <state line="11" column="6" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#31#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/Migrator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="245" selection-end="245" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/DataStore.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="0" selection-start="3391" selection-end="4438" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/MigrationRegistry.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="459" selection-end="459" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/CommandLineConfiguration.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="7" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#31#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/ConsoleApp.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="9" selection-start="580" selection-end="580" vertical-scroll-proportion="0.29288703">
+        <state line="31" column="6" selection-start="1003" selection-end="1003" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#31#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/cli/PillarCommandSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="4" selection-start="525" selection-end="525" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#31#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/streamsend/pillar/cli/PillarCommand.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#31#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="113" selection-start="2496" selection-end="2496" vertical-scroll-proportion="0.81238276">
+          <folding>
+            <element signature="e#27#91#0" expanded="true" />
           </folding>
         </state>
       </provider>

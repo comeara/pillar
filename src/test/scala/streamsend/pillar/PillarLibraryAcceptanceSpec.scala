@@ -7,7 +7,7 @@ import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.datastax.driver.core.exceptions.InvalidQueryException
 import java.util.Date
 
-class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers {
+class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers {
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
   val session = cluster.connect()
   val keyspaceName = "test_%d".format(System.currentTimeMillis())

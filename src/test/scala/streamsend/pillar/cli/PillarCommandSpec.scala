@@ -12,11 +12,10 @@ class PillarCommandSpec extends FunSpec with ShouldMatchers with MockitoSugar {
   describe(".buildFromConfiguration") {
     implicit val registryConstructor: ((File) => MigrationRegistry) = ((_) => MigrationRegistry(List.empty))
 
-    val migrationsDirectory = new File("src/test/resources/pillar/migrations")
     val commandLineConfiguration = new CommandLineConfiguration(Initialize,
       "faker",
       "test",
-      migrationsDirectory,
+      new File("src/test/resources/pillar/migrations"),
       None
     )
     val applicationConfiguration = ConfigFactory.load()
@@ -36,7 +35,7 @@ class PillarCommandSpec extends FunSpec with ShouldMatchers with MockitoSugar {
     it("sets the registry") {
       val registry = mock[MigrationRegistry]
       val constructor = mock[((File) => MigrationRegistry)]
-      stub(constructor.apply(migrationsDirectory)).toReturn(registry)
+      stub(constructor.apply(new File("src/test/resources/pillar/migrations/faker"))).toReturn(registry)
       PillarCommand.buildFromConfiguration(commandLineConfiguration, applicationConfiguration)(constructor).registry should equal(registry)
     }
   }

@@ -7,7 +7,7 @@ import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.querybuilder.QueryBuilder
 import streamsend.pillar.cli.ConsoleApp
 
-class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers {
+class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers with AcceptanceAssertions {
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
   val session = cluster.connect()
   val keyspaceName = "pillar_acceptance_test"
@@ -60,9 +60,5 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
       And("the applied_migrations table records the migrations")
       session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(3)
     }
-  }
-
-  private def assertEmptyAppliedMigrationsTable() {
-    session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(0)
   }
 }

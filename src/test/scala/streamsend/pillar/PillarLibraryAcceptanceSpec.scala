@@ -7,7 +7,7 @@ import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.datastax.driver.core.exceptions.InvalidQueryException
 import java.util.Date
 
-class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers {
+class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers with AcceptanceAssertions {
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
   val session = cluster.connect()
   val keyspaceName = "test_%d".format(System.currentTimeMillis())
@@ -94,8 +94,6 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
       Then("the migration completes successfully")
     }
   }
-
-  feature("The operator can generate an empty migration") {}
 
   feature("The operator can apply migrations") {
     info("As an application operator")
@@ -202,11 +200,5 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
       And("the migrator throws an IrreversibleMigrationException")
       thrown should not be (null)
     }
-  }
-
-  feature("The operator can list applied migrations") {}
-
-  private def assertEmptyAppliedMigrationsTable() {
-    session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(0)
   }
 }

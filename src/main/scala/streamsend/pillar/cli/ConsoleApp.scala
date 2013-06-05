@@ -1,7 +1,7 @@
 package streamsend.pillar.cli
 
 import com.typesafe.config.{Config, ConfigFactory}
-import streamsend.pillar.MigrationRegistry
+import streamsend.pillar.{PrintStreamReporter, MigrationRegistry}
 import java.io.File
 
 object ConsoleApp {
@@ -32,6 +32,7 @@ class ConsoleApp(implicit
   def run(arguments: Array[String]) {
     val commandLineConfiguration = CommandLineConfiguration.buildFromArguments(arguments)
     val command = commandConstructor(commandLineConfiguration, ConfigFactory.load())
-    executorConstructor().execute(command)
+    val reporter = new PrintStreamReporter(System.out)
+    executorConstructor().execute(command, reporter)
   }
 }

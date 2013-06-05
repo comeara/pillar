@@ -8,6 +8,7 @@ import org.clapper.argot.ArgotUsageException
 import org.mockito.Mockito._
 import org.mockito.Matchers._
 import com.typesafe.config.Config
+import streamsend.pillar.PrintStreamReporter
 
 class ConsoleAppSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
 
@@ -34,7 +35,7 @@ class ConsoleAppSpec extends FunSpec with BeforeAndAfter with ShouldMatchers wit
       new ConsoleApp()(commandConstructor, executorConstructor).run(Array("initialize", "faker"))
 
       it("executes the command") {
-        verify(executor).execute(command)
+        verify(executor).execute(org.mockito.Matchers.eq(command), any[PrintStreamReporter])
       }
     }
   }

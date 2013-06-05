@@ -6,19 +6,22 @@ import com.datastax.driver.core.exceptions.AlreadyExistsException
 
 object Migrator {
   def apply(dataStore: DataStore, registry: MigrationRegistry): Migrator = {
-    new CassandraMigrator(dataStore, registry)
+    new CassandraMigrator(registry)
+  }
+
+  def apply(dataStore: DataStore, registry: MigrationRegistry, reporter: Reporter): Migrator = {
+    new ReportingMigrator(reporter, new CassandraMigrator(registry))
   }
 }
 
 trait Migrator {
-  def migrate(dateRestriction: Option[Date] = None)
-  def initialize(replicationOptions: ReplicationOptions = ReplicationOptions.default)
+  def migrate(dataStore: DataStore, dateRestriction: Option[Date] = None)
+  def initialize(dataStore: DataStore, replicationOptions: ReplicationOptions = ReplicationOptions.default)
 }
 
-class CassandraMigrator(dataStore: DataStore, registry: MigrationRegistry) extends Migrator {
-  private val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
-
-  def migrate(dateRestriction: Option[Date] = None) {
+class CassandraMigrator(registry: MigrationRegistry) extends Migrator {
+  def migrate(dataStore: DataStore, dateRestriction: Option[Date] = None) {
+    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
     val session = cluster.connect(dataStore.keyspace)
     val appliedMigrations = AppliedMigrations(session, registry)
 
@@ -26,7 +29,8 @@ class CassandraMigrator(dataStore: DataStore, registry: MigrationRegistry) exten
     selectMigrationsToApply(dateRestriction, appliedMigrations).foreach(_.executeUpStatement(session))
   }
 
-  def initialize(replicationOptions: ReplicationOptions = ReplicationOptions.default) {
+  def initialize(dataStore: DataStore, replicationOptions: ReplicationOptions = ReplicationOptions.default) {
+    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
     val session = cluster.connect()
     executeIdempotentCommand(session, "CREATE KEYSPACE %s WITH replication = %s".format(dataStore.keyspace, replicationOptions.toString()))
     executeIdempotentCommand(session,

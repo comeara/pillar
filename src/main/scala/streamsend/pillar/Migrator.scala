@@ -6,11 +6,16 @@ import com.datastax.driver.core.exceptions.AlreadyExistsException
 
 object Migrator {
   def apply(dataStore: DataStore, registry: MigrationRegistry): Migrator = {
-    new Migrator(dataStore, registry)
+    new CassandraMigrator(dataStore, registry)
   }
 }
 
-class Migrator(dataStore: DataStore, registry: MigrationRegistry) {
+trait Migrator {
+  def migrate(dateRestriction: Option[Date] = None)
+  def initialize(replicationOptions: ReplicationOptions = ReplicationOptions.default)
+}
+
+class CassandraMigrator(dataStore: DataStore, registry: MigrationRegistry) extends Migrator {
   private val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
 
   def migrate(dateRestriction: Option[Date] = None) {

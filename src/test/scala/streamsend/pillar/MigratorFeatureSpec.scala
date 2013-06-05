@@ -31,9 +31,9 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
         |  viewed_at timestamp
         |)
       """.stripMargin,
-      Some("""
-        |DROP TABLE views
-      """.stripMargin)),
+      Some( """
+              |DROP TABLE views
+            """.stripMargin)),
     Migration("adds user_agent to views table", new Date(System.currentTimeMillis() - 1000),
       """
         |ALTER TABLE views
@@ -43,12 +43,12 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       """
         |CREATE INDEX views_user_agent ON views(user_agent)
       """.stripMargin,
-      Some("""
-        |DROP INDEX views_user_agent
-      """.stripMargin))
+      Some( """
+              |DROP INDEX views_user_agent
+            """.stripMargin))
   )
   val registry = MigrationRegistry(migrations)
-  val migrator = Migrator(keyspaceName, registry)
+  val migrator = Migrator(DataStore("faker", keyspaceName, "127.0.0.1"), registry)
 
   after {
     try {
@@ -67,7 +67,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       Given("a non-existent keyspace")
 
       When("the migrator initializes the keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Then("the keyspace contains a applied_migrations column family")
       assertEmptyAppliedMigrationsTable()
@@ -78,7 +78,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
       session.execute("CREATE KEYSPACE %s WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}".format(keyspaceName))
 
       When("the migrator initializes the keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Then("the keyspace contains a applied_migrations column family")
       assertEmptyAppliedMigrationsTable()
@@ -86,10 +86,10 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("initialize an existing keyspace with a applied_migrations column family") {
       Given("an existing keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       When("the migrator initializes the keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Then("the migration completes successfully")
     }
@@ -104,7 +104,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("all migrations") {
       Given("an initialized, empty, keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
@@ -124,7 +124,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("some migrations") {
       Given("an initialized, empty, keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
@@ -141,7 +141,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("skip previously applied migration") {
       Given("an initialized keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Given("a set of migrations applied in the past")
       migrator.migrate()
@@ -160,7 +160,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("reversible previously applied migration") {
       Given("an initialized keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Given("a set of migrations applied in the past")
       migrator.migrate()
@@ -186,7 +186,7 @@ class MigratorFeatureSpec extends FeatureSpec with GivenWhenThen with BeforeAndA
 
     scenario("irreversible previously applied migration") {
       Given("an initialized keyspace")
-      migrator.initialize(keyspaceName)
+      migrator.initialize()
 
       Given("a set of migrations applied in the past")
       migrator.migrate()

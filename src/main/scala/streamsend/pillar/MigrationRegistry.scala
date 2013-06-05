@@ -1,10 +1,27 @@
 package streamsend.pillar
 
 import java.util.Date
+import java.io.{FileInputStream, File}
 
 object MigrationRegistry {
   def apply(migrations: Seq[Migration]): MigrationRegistry = {
     new MigrationRegistry(migrations)
+  }
+
+  def fromDirectory(directory: File): MigrationRegistry = {
+    if(!directory.isDirectory) return new MigrationRegistry(List.empty)
+
+    val parser = MigrationParser()
+
+    new MigrationRegistry(directory.listFiles().map {
+      file =>
+        val stream = new FileInputStream(file)
+        try {
+          parser.parse(stream)
+        } finally {
+          stream.close()
+        }
+    }.toList)
   }
 }
 

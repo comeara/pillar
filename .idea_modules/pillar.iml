@@ -53,7 +53,6 @@
     <orderEntry type="library" name="SBT: org.mortbay.jetty:jetty:6.1.22" level="project" />
     <orderEntry type="library" name="SBT: org.mortbay.jetty:jetty-util:6.1.22" level="project" />
     <orderEntry type="library" name="SBT: org.mortbay.jetty:servlet-api:2.5-20081211" level="project" />
-    <orderEntry type="library" name="SBT: jline:jline:1.0" level="project" />
     <orderEntry type="library" name="SBT: com.googlecode.json-simple:json-simple:1.1" level="project" />
     <orderEntry type="library" name="SBT: com.github.stephenc.high-scale-lib:high-scale-lib:1.1.2" level="project" />
     <orderEntry type="library" name="SBT: org.yaml:snakeyaml:1.6" level="project" />
@@ -63,7 +62,14 @@
     <orderEntry type="library" name="SBT: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="library" name="SBT: com.github.stephenc:jamm:0.2.5" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-log4j12:1.7.2" level="project" />
+    <orderEntry type="library" name="SBT: com.typesafe:config:1.0.1" level="project" />
+    <orderEntry type="library" name="SBT: org.clapper:argot_2.10:1.0.1" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.10.1" level="project" />
+    <orderEntry type="library" name="SBT: org.clapper:grizzled-scala_2.10:1.1.2" level="project" />
+    <orderEntry type="library" name="SBT: jline:jline:2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.mockito:mockito-core:1.9.5:test" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.hamcrest:hamcrest-core:1.1:test" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.objenesis:objenesis:1.0:test" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scalatest:scalatest_2.10:1.9.1:test" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang:scala-actors:2.10.0:test" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang:scala-reflect:2.10.0:test" level="project" />

@@ -10,11 +10,11 @@ import org.mockito.Matchers._
 import com.typesafe.config.Config
 import streamsend.pillar.PrintStreamReporter
 
-class ConsoleAppSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
+class AppSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
 
   describe("#run") {
     describe("empty arguments") {
-      val app = ConsoleApp()
+      val app = App()
       val arguments = Array.empty[String]
 
       it("raises a usage exception") {
@@ -32,7 +32,7 @@ class ConsoleAppSpec extends FunSpec with BeforeAndAfter with ShouldMatchers wit
       val commandConstructor = mock[((CommandLineConfiguration, Config) => PillarCommand)]
       stub(commandConstructor.apply(any[CommandLineConfiguration], any[Config])).toReturn(command)
 
-      new ConsoleApp()(commandConstructor, executorConstructor).run(Array("initialize", "faker"))
+      new App()(commandConstructor, executorConstructor).run(Array("initialize", "faker"))
 
       it("executes the command") {
         verify(executor).execute(org.mockito.Matchers.eq(command), any[PrintStreamReporter])

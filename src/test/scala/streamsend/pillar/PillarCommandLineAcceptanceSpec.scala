@@ -5,7 +5,7 @@ import org.scalatest.{BeforeAndAfter, GivenWhenThen, FeatureSpec}
 import org.scalatest.matchers.ShouldMatchers
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.querybuilder.QueryBuilder
-import streamsend.pillar.cli.ConsoleApp
+import streamsend.pillar.cli.App
 
 class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers with AcceptanceAssertions {
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
@@ -29,7 +29,7 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
       Given("a non-existent keyspace")
 
       When("the migrator initializes the keyspace")
-      ConsoleApp().run(Array("-e", "acceptance_test", "initialize", "faker"))
+      App().run(Array("-e", "acceptance_test", "initialize", "faker"))
 
       Then("the keyspace contains a applied_migrations column family")
       assertEmptyAppliedMigrationsTable()
@@ -43,13 +43,13 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
 
     scenario("all migrations") {
       Given("an initialized, empty, keyspace")
-      ConsoleApp().run(Array("-e", "acceptance_test", "initialize", "faker"))
+      App().run(Array("-e", "acceptance_test", "initialize", "faker"))
 
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
 
       When("the migrator migrates the schema")
-      ConsoleApp().run(Array("-e", "acceptance_test", "-d", "src/test/resources/pillar/migrations", "migrate", "faker"))
+      App().run(Array("-e", "acceptance_test", "-d", "src/test/resources/pillar/migrations", "migrate", "faker"))
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)

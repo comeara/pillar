@@ -5,29 +5,29 @@ import org.scalatest.matchers.ShouldMatchers
 import java.io.{ByteArrayInputStream, FileInputStream}
 import java.util.Date
 
-class MigrationParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
+class ParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
   describe("#parse") {
     describe("1370028262_creates_events_table.cql") {
       val migrationPath = "src/test/resources/pillar/migrations/faker/1370028262_creates_events_table.cql"
 
       it("returns a migration object") {
         val resource = new FileInputStream(migrationPath)
-        MigrationParser().parse(resource).getClass should be(classOf[IrreversibleMigration])
+        Parser().parse(resource).getClass should be(classOf[IrreversibleMigration])
       }
 
       it("assigns authoredAt") {
         val resource = new FileInputStream(migrationPath)
-        MigrationParser().parse(resource).authoredAt should equal(new Date(1370023262))
+        Parser().parse(resource).authoredAt should equal(new Date(1370023262))
       }
 
       it("assigns description") {
         val resource = new FileInputStream(migrationPath)
-        MigrationParser().parse(resource).description should equal("creates events table")
+        Parser().parse(resource).description should equal("creates events table")
       }
 
       it("assigns up") {
         val resource = new FileInputStream(migrationPath)
-        MigrationParser().parse(resource).up should equal( """CREATE TABLE events (
+        Parser().parse(resource).up should equal( """CREATE TABLE events (
                                                              |  batch_id text,
                                                              |  occurred_at uuid,
                                                              |  event_type text,
@@ -42,12 +42,12 @@ class MigrationParserSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
 
       it("returns a migration object") {
         val resource = new FileInputStream(migrationPath)
-        MigrationParser().parse(resource).getClass should be(classOf[ReversibleMigration])
+        Parser().parse(resource).getClass should be(classOf[ReversibleMigration])
       }
 
       it("assigns down") {
         val resource = new FileInputStream(migrationPath)
-        MigrationParser().parse(resource).asInstanceOf[ReversibleMigration].down should equal("DROP TABLE views")
+        Parser().parse(resource).asInstanceOf[ReversibleMigration].down should equal("DROP TABLE views")
       }
     }
 
@@ -56,7 +56,7 @@ class MigrationParserSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
 
       it("returns a migration object") {
         val resource = new FileInputStream(migrationPath)
-        MigrationParser().parse(resource).getClass should be(classOf[ReversibleMigrationWithNoOpDown])
+        Parser().parse(resource).getClass should be(classOf[ReversibleMigrationWithNoOpDown])
       }
     }
 
@@ -66,7 +66,7 @@ class MigrationParserSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
 
       it("raises an InvalidMigrationException") {
         val resource = new ByteArrayInputStream(migrationContent.getBytes)
-        val thrown = intercept[InvalidMigrationException] { MigrationParser().parse(resource) }
+        val thrown = intercept[InvalidMigrationException] { Parser().parse(resource) }
         thrown.errors("up") should equal("must be present")
       }
     }
@@ -76,7 +76,7 @@ class MigrationParserSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
 
       it("raises an InvalidMigrationException") {
         val resource = new ByteArrayInputStream(migrationContent.getBytes)
-        val thrown = intercept[InvalidMigrationException] { MigrationParser().parse(resource) }
+        val thrown = intercept[InvalidMigrationException] { Parser().parse(resource) }
         thrown.errors("description") should equal("must be present")
       }
     }
@@ -86,7 +86,7 @@ class MigrationParserSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
 
       it("raises an InvalidMigrationException") {
         val resource = new ByteArrayInputStream(migrationContent.getBytes)
-        val thrown = intercept[InvalidMigrationException] { MigrationParser().parse(resource) }
+        val thrown = intercept[InvalidMigrationException] { Parser().parse(resource) }
         thrown.errors("authoredAt") should equal("must be present")
       }
     }
@@ -96,7 +96,7 @@ class MigrationParserSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
 
       it("raises an InvalidMigrationException") {
         val resource = new ByteArrayInputStream(migrationContent.getBytes)
-        val thrown = intercept[InvalidMigrationException] { MigrationParser().parse(resource) }
+        val thrown = intercept[InvalidMigrationException] { Parser().parse(resource) }
         thrown.errors("authoredAt") should equal("must be a number greater than zero")
       }
     }

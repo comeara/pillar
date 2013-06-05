@@ -4,8 +4,8 @@ import java.util.Date
 import java.io.InputStream
 import scala.collection.mutable
 
-object MigrationParser {
-  def apply(): MigrationParser = new MigrationParser
+object Parser {
+  def apply(): Parser = new Parser
 
   private val MatchAttribute = """^-- (authoredAt|description|up|down):(.*)$""".r
 }
@@ -37,9 +37,9 @@ class PartialMigration {
 
 }
 
-class MigrationParser {
+class Parser {
 
-  import MigrationParser.MatchAttribute
+  import Parser.MatchAttribute
 
   trait ParserState
 

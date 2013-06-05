@@ -47,7 +47,7 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
               |DROP INDEX views_user_agent
             """.stripMargin))
   )
-  val registry = MigrationRegistry(migrations)
+  val registry = Registry(migrations)
   val dataStore = DataStore("faker", keyspaceName, "127.0.0.1")
   val migrator = Migrator(dataStore, registry)
 

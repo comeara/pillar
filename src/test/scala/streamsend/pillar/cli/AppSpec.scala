@@ -25,11 +25,11 @@ class AppSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with Mocki
     }
 
     describe("initialize faker") {
-      val executor = mock[PillarCommandExecutor]
-      val executorConstructor = mock[(() => PillarCommandExecutor)]
+      val executor = mock[CommandExecutor]
+      val executorConstructor = mock[(() => CommandExecutor)]
       stub(executorConstructor.apply()).toReturn(executor)
-      val command  = mock[PillarCommand]
-      val commandConstructor = mock[((CommandLineConfiguration, Config) => PillarCommand)]
+      val command  = mock[Command]
+      val commandConstructor = mock[((CommandLineConfiguration, Config) => Command)]
       stub(commandConstructor.apply(any[CommandLineConfiguration], any[Config])).toReturn(command)
 
       new App()(commandConstructor, executorConstructor).run(Array("initialize", "faker"))

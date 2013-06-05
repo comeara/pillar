@@ -4,21 +4,21 @@ import org.scalatest.{BeforeAndAfter, FunSpec}
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
-import streamsend.pillar.{Reporter, DataStore, Migrator, MigrationRegistry}
+import streamsend.pillar.{Reporter, DataStore, Migrator, Registry}
 import java.util.Date
 
-class PillarCommandExecutorSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
+class CommandExecutorSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
   describe("#execute") {
     val dataStore = new DataStore("faker", "keyspace", "seedAddress")
-    val registry = mock[MigrationRegistry]
+    val registry = mock[Registry]
     val reporter = mock[Reporter]
     val migrator = mock[Migrator]
-    val migratorConstructor = mock[((DataStore, MigrationRegistry, Reporter) => Migrator)]
+    val migratorConstructor = mock[((DataStore, Registry, Reporter) => Migrator)]
     stub(migratorConstructor.apply(dataStore, registry, reporter)).toReturn(migrator)
-    val executor = new PillarCommandExecutor()(migratorConstructor)
+    val executor = new CommandExecutor()(migratorConstructor)
 
     describe("an initialize action") {
-      val command = PillarCommand(Initialize, dataStore, None, registry)
+      val command = Command(Initialize, dataStore, None, registry)
 
       executor.execute(command, reporter)
 
@@ -28,7 +28,7 @@ class PillarCommandExecutorSpec extends FunSpec with BeforeAndAfter with ShouldM
     }
 
     describe("a migrate action without date restriction") {
-      val command = PillarCommand(Migrate, dataStore, None, registry)
+      val command = Command(Migrate, dataStore, None, registry)
 
       executor.execute(command, reporter)
 
@@ -39,7 +39,7 @@ class PillarCommandExecutorSpec extends FunSpec with BeforeAndAfter with ShouldM
 
     describe("a migrate action with date restriction") {
       val date = new Date()
-      val command = PillarCommand(Migrate, dataStore, Some(date.getTime), registry)
+      val command = Command(Migrate, dataStore, Some(date.getTime), registry)
 
       executor.execute(command, reporter)
 

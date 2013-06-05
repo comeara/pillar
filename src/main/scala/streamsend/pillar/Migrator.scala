@@ -5,11 +5,11 @@ import java.util.Date
 import com.datastax.driver.core.exceptions.AlreadyExistsException
 
 object Migrator {
-  def apply(dataStore: DataStore, registry: MigrationRegistry): Migrator = {
+  def apply(dataStore: DataStore, registry: Registry): Migrator = {
     new CassandraMigrator(registry)
   }
 
-  def apply(dataStore: DataStore, registry: MigrationRegistry, reporter: Reporter): Migrator = {
+  def apply(dataStore: DataStore, registry: Registry, reporter: Reporter): Migrator = {
     new ReportingMigrator(reporter, new CassandraMigrator(registry))
   }
 }
@@ -19,7 +19,7 @@ trait Migrator {
   def initialize(dataStore: DataStore, replicationOptions: ReplicationOptions = ReplicationOptions.default)
 }
 
-class CassandraMigrator(registry: MigrationRegistry) extends Migrator {
+class CassandraMigrator(registry: Registry) extends Migrator {
   def migrate(dataStore: DataStore, dateRestriction: Option[Date] = None) {
     val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
     val session = cluster.connect(dataStore.keyspace)

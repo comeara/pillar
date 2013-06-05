@@ -1,13 +1,13 @@
 package streamsend.pillar.cli
 
 import com.typesafe.config.{Config, ConfigFactory}
-import streamsend.pillar.{PrintStreamReporter, MigrationRegistry}
+import streamsend.pillar.{PrintStreamReporter, Registry}
 import java.io.File
 
 object App {
-  implicit private val commandConstructor: ((CommandLineConfiguration, Config) => PillarCommand) = PillarCommand.buildFromConfiguration
-  implicit private val executorConstructor: (() => PillarCommandExecutor) = PillarCommandExecutor.apply
-  implicit private val registryConstructor: ((File) => MigrationRegistry) = MigrationRegistry.fromDirectory
+  implicit private val commandConstructor: ((CommandLineConfiguration, Config) => Command) = Command.buildFromConfiguration
+  implicit private val executorConstructor: (() => CommandExecutor) = CommandExecutor.apply
+  implicit private val registryConstructor: ((File) => Registry) = Registry.fromDirectory
 
   def apply(): App = {
     new App()
@@ -26,7 +26,7 @@ object App {
   }
 }
 
-class App(implicit commandConstructor: ((CommandLineConfiguration, Config) => PillarCommand), executorConstructor: (() => PillarCommandExecutor)) {
+class App(implicit commandConstructor: ((CommandLineConfiguration, Config) => Command), executorConstructor: (() => CommandExecutor)) {
   def run(arguments: Array[String]) {
     val commandLineConfiguration = CommandLineConfiguration.buildFromArguments(arguments)
     val command = commandConstructor(commandLineConfiguration, ConfigFactory.load())

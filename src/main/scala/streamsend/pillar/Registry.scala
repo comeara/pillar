@@ -3,17 +3,17 @@ package streamsend.pillar
 import java.util.Date
 import java.io.{FileInputStream, File}
 
-object MigrationRegistry {
-  def apply(migrations: Seq[Migration]): MigrationRegistry = {
-    new MigrationRegistry(migrations)
+object Registry {
+  def apply(migrations: Seq[Migration]): Registry = {
+    new Registry(migrations)
   }
 
-  def fromDirectory(directory: File): MigrationRegistry = {
-    if(!directory.isDirectory) return new MigrationRegistry(List.empty)
+  def fromDirectory(directory: File): Registry = {
+    if(!directory.isDirectory) return new Registry(List.empty)
 
-    val parser = MigrationParser()
+    val parser = Parser()
 
-    new MigrationRegistry(directory.listFiles().map {
+    new Registry(directory.listFiles().map {
       file =>
         val stream = new FileInputStream(file)
         try {
@@ -25,7 +25,7 @@ object MigrationRegistry {
   }
 }
 
-class MigrationRegistry(migrations: Seq[Migration]) {
+class Registry(migrations: Seq[Migration]) {
   private val migrationsByKey = migrations.foldLeft(Map.empty[MigrationKey, Migration]) {
     (memo, migration) => memo + (migration.key -> migration)
   }

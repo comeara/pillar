@@ -4,14 +4,14 @@ import java.util.Date
 import streamsend.pillar.{Reporter, DataStore, Registry, Migrator}
 
 object CommandExecutor {
-  implicit private val migratorConstructor: ((DataStore, Registry, Reporter) => Migrator) = Migrator.apply
+  implicit private val migratorConstructor: ((Registry, Reporter) => Migrator) = Migrator.apply
 
   def apply(): CommandExecutor = new CommandExecutor()
 }
 
-class CommandExecutor(implicit val migratorConstructor: ((DataStore, Registry, Reporter) => Migrator)) {
+class CommandExecutor(implicit val migratorConstructor: ((Registry, Reporter) => Migrator)) {
   def execute(command: Command, reporter: Reporter) {
-    val migrator = migratorConstructor(command.dataStore, command.registry, reporter)
+    val migrator = migratorConstructor(command.registry, reporter)
 
     command.action match {
       case Initialize => migrator.initialize(command.dataStore)

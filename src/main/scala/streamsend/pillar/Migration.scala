@@ -4,7 +4,6 @@ import java.util.Date
 import com.datastax.driver.core.Session
 import com.datastax.driver.core.querybuilder.QueryBuilder
 
-
 object Migration {
   def apply(description: String, authoredAt: Date, up: String): Migration = {
     new IrreversibleMigration(description, authoredAt, up)
@@ -20,7 +19,11 @@ object Migration {
   }
 }
 
-abstract class Migration(val description: String, val authoredAt: Date, val up: String) {
+trait Migration {
+  val description: String
+  val authoredAt: Date
+  val up: String
+
   def key: MigrationKey = MigrationKey(authoredAt, description)
 
   def authoredAfter(date: Date): Boolean = {
@@ -57,19 +60,19 @@ abstract class Migration(val description: String, val authoredAt: Date, val up: 
   }
 }
 
-class IrreversibleMigration(description: String, authoredAt: Date, up: String) extends Migration(description, authoredAt, up) {
+class IrreversibleMigration(val description: String, val authoredAt: Date, val up: String) extends Migration {
   def executeDownStatement(session: Session) {
     throw new IrreversibleMigrationException(this)
   }
 }
 
-class ReversibleMigrationWithNoOpDown(description: String, authoredAt: Date, up: String) extends Migration(description, authoredAt, up) {
+class ReversibleMigrationWithNoOpDown(val description: String, val authoredAt: Date, val up: String) extends Migration {
   def executeDownStatement(session: Session) {
     deleteFromAppliedMigrations(session)
   }
 }
 
-class ReversibleMigration(description: String, authoredAt: Date, up: String, val down: String) extends Migration(description, authoredAt, up) {
+class ReversibleMigration(val description: String, val authoredAt: Date, val up: String, val down: String) extends Migration {
   def executeDownStatement(session: Session) {
     session.execute(down)
     deleteFromAppliedMigrations(session)

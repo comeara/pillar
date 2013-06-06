@@ -49,7 +49,7 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
   )
   val registry = Registry(migrations)
   val dataStore = DataStore("faker", keyspaceName, "127.0.0.1")
-  val migrator = Migrator(dataStore, registry)
+  val migrator = Migrator(registry)
 
   after {
     try {

@@ -8,12 +8,20 @@ object Registry {
     new Registry(migrations)
   }
 
+  def fromDirectory(directory: File, reporter: Reporter): Registry = {
+    new Registry(parseMigrationsInDirectory(directory).map(new ReportingMigration(reporter, _)))
+  }
+
   def fromDirectory(directory: File): Registry = {
-    if(!directory.isDirectory) return new Registry(List.empty)
+    new Registry(parseMigrationsInDirectory(directory))
+  }
+
+  private def parseMigrationsInDirectory(directory: File): Seq[Migration] = {
+    if(!directory.isDirectory) return List.empty
 
     val parser = Parser()
 
-    new Registry(directory.listFiles().map {
+    directory.listFiles().map {
       file =>
         val stream = new FileInputStream(file)
         try {
@@ -21,7 +29,7 @@ object Registry {
         } finally {
           stream.close()
         }
-    }.toList)
+    }.toList
   }
 }
 

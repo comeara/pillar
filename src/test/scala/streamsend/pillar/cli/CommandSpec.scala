@@ -4,13 +4,14 @@ import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
 import java.io.File
 import com.typesafe.config.ConfigFactory
-import streamsend.pillar.{DataStore, Registry}
+import streamsend.pillar.{Reporter, DataStore, Registry}
 import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
 
 class CommandSpec extends FunSpec with ShouldMatchers with MockitoSugar {
   describe(".buildFromConfiguration") {
-    implicit val registryConstructor: ((File) => Registry) = ((_) => Registry(List.empty))
+    implicit val registryConstructor: ((File, Reporter) => Registry) = ((_, _) => Registry(List.empty))
+    implicit val reporter = mock[Reporter]
 
     val commandLineConfiguration = new CommandLineConfiguration(Initialize,
       "faker",
@@ -34,9 +35,9 @@ class CommandSpec extends FunSpec with ShouldMatchers with MockitoSugar {
 
     it("sets the registry") {
       val registry = mock[Registry]
-      val constructor = mock[((File) => Registry)]
-      stub(constructor.apply(new File("src/test/resources/pillar/migrations/faker"))).toReturn(registry)
-      Command.buildFromConfiguration(commandLineConfiguration, applicationConfiguration)(constructor).registry should equal(registry)
+      val constructor = mock[((File, Reporter) => Registry)]
+      stub(constructor.apply(new File("src/test/resources/pillar/migrations/faker"), reporter)).toReturn(registry)
+      Command.buildFromConfiguration(commandLineConfiguration, applicationConfiguration)(constructor, reporter).registry should equal(registry)
     }
   }
 }

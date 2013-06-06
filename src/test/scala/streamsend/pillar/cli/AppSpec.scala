@@ -11,7 +11,6 @@ import com.typesafe.config.Config
 import streamsend.pillar.PrintStreamReporter
 
 class AppSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
-
   describe("#run") {
     describe("empty arguments") {
       val app = App()

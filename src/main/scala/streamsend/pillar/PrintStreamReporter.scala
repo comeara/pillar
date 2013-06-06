@@ -12,7 +12,11 @@ class PrintStreamReporter(stream: PrintStream) extends streamsend.pillar.Reporte
     stream.println(s"Migrating ${dataStore.name} data store")
   }
 
-  def applying(migration: Migration) {}
+  def applying(migration: Migration) {
+    stream.println(s"Applying ${migration.authoredAt.getTime}: ${migration.description}")
+  }
 
-  def reversing(migration: Migration) {}
+  def reversing(migration: Migration) {
+    stream.println(s"Reversing ${migration.authoredAt.getTime}: ${migration.description}")
+  }
 }

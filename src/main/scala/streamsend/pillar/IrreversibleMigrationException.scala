@@ -1,4 +1,4 @@
 package streamsend.pillar
 
 class IrreversibleMigrationException(migration: IrreversibleMigration)
-  extends RuntimeException("Migration %d (%s) is not reversible".format(migration.authoredAt.getTime, migration.description))
+  extends RuntimeException(s"Migration ${migration.authoredAt.getTime}: ${migration.description} is not reversible")

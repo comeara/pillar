@@ -13,8 +13,8 @@ class CommandExecutorSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
     val registry = mock[Registry]
     val reporter = mock[Reporter]
     val migrator = mock[Migrator]
-    val migratorConstructor = mock[((DataStore, Registry, Reporter) => Migrator)]
-    stub(migratorConstructor.apply(dataStore, registry, reporter)).toReturn(migrator)
+    val migratorConstructor = mock[((Registry, Reporter) => Migrator)]
+    stub(migratorConstructor.apply(registry, reporter)).toReturn(migrator)
     val executor = new CommandExecutor()(migratorConstructor)
 
     describe("an initialize action") {

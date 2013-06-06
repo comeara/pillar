@@ -1,0 +1,13 @@
+#!/bin/bash
+
+: ${JAVA_HOME:="/usr/java/default"}
+: ${APP_ROOT:="."}
+: ${PILLAR_ROOT:="/opt/pillar"}
+
+export JAVA_HOME APP_ROOT PILLAR_ROOT
+
+CLASS=streamsend.pillar.cli.App
+CLASS_PATH=${APP_ROOT}/conf:${APP_ROOT}/src/main/resources:${PILLAR_ROOT}/lib/pillar.jar:${PILLAR_ROOT}/conf
+JAVA_OPTIONS="-Dlog4j.configuration=pillar-log4j.properties"
+
+$JAVA_HOME/bin/java -cp $CLASS_PATH $JAVA_OPTIONS $CLASS $*

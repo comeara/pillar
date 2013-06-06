@@ -20,7 +20,7 @@ class CommandLineConfigurationSpec extends FunSpec with ShouldMatchers {
         }
 
         it("sets the migrations directory") {
-          CommandLineConfiguration.buildFromArguments(Array("initialize", "faker")).migrationsDirectory.getPath should equal("config/pillar/migrations")
+          CommandLineConfiguration.buildFromArguments(Array("initialize", "faker")).migrationsDirectory.getPath should equal("conf/pillar/migrations")
         }
 
         it("sets the time stamp") {

@@ -32,7 +32,7 @@ object CommandLineConfiguration {
       commandParameter.value.get,
       dataStoreConfigurationOption.value.get,
       environmentOption.value.getOrElse("development"),
-      migrationsDirectoryOption.value.getOrElse(new File("config/pillar/migrations")),
+      migrationsDirectoryOption.value.getOrElse(new File("conf/pillar/migrations")),
       timeStampOption.value
     )
   }

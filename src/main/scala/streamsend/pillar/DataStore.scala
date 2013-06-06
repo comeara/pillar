@@ -13,7 +13,7 @@ object DataStore {
 
   private def getFromConfiguration(configuration: Config, name: String, environment: String, key: String): String = {
     val path = s"pillar.$name.$environment.$key"
-    if (!configuration.hasPath(path)) throw new ConfigurationException(s"$path not found in application command")
+    if (!configuration.hasPath(path)) throw new ConfigurationException(s"$path not found in application configuration")
     configuration.getString(path)
   }
 }

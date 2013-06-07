@@ -29,6 +29,7 @@ Building an RPM also requires [Effing Package Management (fpm)][fpm].
     % sbt assembly   # builds just the jar file in the target/ directory
 
     % sbt rh-package # builds the jar and the RPM in the target/ directory
+    % sudo rpm -i target/pillar-1.0.0-DEV.noarch.rpm
 
 The RPM installs Pillar to /opt/pillar.
 
@@ -41,16 +42,7 @@ Coming soon.
 
 ## Usage
 
-### Command Line
-
-Here's the short version:
-
-  1. Write migrations, place them in conf/pillar/myapp/migrations.
-  1. Add pillar settings to conf/application.conf.
-  1. % pillar initialize myapp
-  1. % pillar migrate myapp
-
-#### Terminology
+### Terminology
 
 Data Store
 : A logical grouping of environments. You will likely have one data store per application.
@@ -61,13 +53,23 @@ environments for each data store.
 
 Migration
 : A single change to a data store. Migrations have a description and a time stamp indicating the time at which it was
-authored. Migrations are applied
-in ascending order and reversed in descending order.
+authored. Migrations are applied in ascending order and reversed in descending order.
+
+### Command Line
+
+Here's the short version:
+
+  1. Write migrations, place them in conf/pillar/myapp/migrations.
+  1. Add pillar settings to conf/application.conf.
+  1. % pillar initialize myapp
+  1. % pillar migrate myapp
 
 #### Migration Files
 
 Migration files contain metadata about the migration, a [CQL][cql] statement used to apply the migration and,
-optionally, a [CQL][cql] statement used to reverse the migration.
+optionally, a [CQL][cql] statement used to reverse the migration. Each file describes one migration. You probably
+want to name your files according to time stamp and description, 1370028263_creates_views_table.cql, for example.
+Pillar reads and parses all files in the migrations directory, regardless of file name.
 
 [cql]:http://cassandra.apache.org/doc/cql3/CQL.html
 
@@ -168,6 +170,16 @@ The package installs to /opt/pillar by default. The /opt/pillar/bin/pillar execu
     command     migrate or initialize
 
     data-store  The target data store, as defined in application.conf
+
+#### Examples
+
+Initialize the faker datastore development environment
+
+    % pillar -e development initialize faker
+
+Apply all migrations to the faker datastore development environment
+
+    % pillar -e development migrate faker
 
 ### Library
 

@@ -14,9 +14,9 @@ I'm still working on a binary distribution.
 
 This method requires [Simple Build Tool (sbt)][sbt]. Building an RPM also requires [Effing Package Management (fpm)][fpm].
 
-    % sbt assembly # builds just the jar file to the target/ directory
+    % sbt assembly # builds just the jar file in the target/ directory
 
-    % sbt rh-package # builds an RPM to the target/ directory
+    % sbt rh-package # builds the jar and an RPM in the target/ directory
 
 The RPM installs Pillar to /opt/pillar
 
@@ -27,19 +27,28 @@ The RPM installs Pillar to /opt/pillar
 
 ### Command Line
 
+Here's the short version:
+
+  1. Write migrations, place them in conf/pillar/myapp/migrations.
+  1. Add pillar settings to conf/application.conf.
+  1. % pillar initialize myapp
+  1. % pillar migrate myapp
+
 #### Terminology
 
 Data Store
 : A logical grouping of environments. You will likely have one data store per application.
+
 Environment
 : A context or grouping of settings for a single data store. You will likely have at least development and production environments for each data store.
+
 Migration
 : A single change to a data store. Migrations have a description and a time stamp indicating the time at which it was authored. Migrations are applied
 in ascending order and reversed in descending order.
 
 #### Migration Files
 
-Migration files contain metadata about the migration, a [CQL][cql] statement used to apply the migration and, optionally, a CQL[cql] statement used to reverse the migration.
+Migration files contain metadata about the migration, a [CQL][cql] statement used to apply the migration and, optionally, a [CQL][cql] statement used to reverse the migration.
 
 [cql]:http://cassandra.apache.org/doc/cql3/CQL.html
 

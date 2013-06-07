@@ -8,7 +8,7 @@ Pillar grew from a desire to automatically manage Cassandra schema as code. Mana
 build and deployment, a foundational practice for an organization striving to achieve [Continuous Delivery][cd].
 
 Pillar is to Cassandra what [Rails ActiveRecord][ar] migrations or [Play Evolutions][evolutions] are to relational
-databases.
+databases with one key difference: Pillar is completely independent from any application development framework.
 
 [cd]:http://en.wikipedia.org/wiki/Continuous_delivery
 [ar]:https://github.com/rails/rails/tree/master/activerecord

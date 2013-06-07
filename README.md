@@ -4,24 +4,40 @@ Pillar manages migrations for your [Cassandra][cassandra] data stores.
 
 [cassandra]:http://cassandra.apache.org
 
+Pillar grew from a desire to automatically manage Cassandra schema as code. Managing schema as code enables automated
+build and deployment, a foundational practice for an organization striving to achieve [Continuous Delivery][cd].
+
+Pillar is to Cassandra what [Rails ActiveRecord][ar] migrations or [Play Evolutions][evolutions] are to relational
+databases.
+
+[cd]:http://en.wikipedia.org/wiki/Continuous_delivery
+[ar]:https://github.com/rails/rails/tree/master/activerecord
+[evolutions]:http://www.playframework.com/documentation/2.0/Evolutions
+
 ## Installation
 
-### From A Distribution
+### Prerequisites
 
-I'm still working on a binary distribution.
+1. Java SE 6 runtime environment
+1. Cassandra 1.2 with the native CQL protocol enabled
 
 ### From Source
 
-This method requires [Simple Build Tool (sbt)][sbt]. Building an RPM also requires [Effing Package Management (fpm)][fpm].
+This method requires [Simple Build Tool (sbt)][sbt].
+Building an RPM also requires [Effing Package Management (fpm)][fpm].
 
-    % sbt assembly # builds just the jar file in the target/ directory
+    % sbt assembly   # builds just the jar file in the target/ directory
 
-    % sbt rh-package # builds the jar and an RPM in the target/ directory
+    % sbt rh-package # builds the jar and the RPM in the target/ directory
 
-The RPM installs Pillar to /opt/pillar
+The RPM installs Pillar to /opt/pillar.
 
 [sbt]:http://www.scala-sbt.org
 [fpm]:https://github.com/jordansissel/fpm
+
+### Packages
+
+Coming soon.
 
 ## Usage
 
@@ -40,19 +56,23 @@ Data Store
 : A logical grouping of environments. You will likely have one data store per application.
 
 Environment
-: A context or grouping of settings for a single data store. You will likely have at least development and production environments for each data store.
+: A context or grouping of settings for a single data store. You will likely have at least development and production
+environments for each data store.
 
 Migration
-: A single change to a data store. Migrations have a description and a time stamp indicating the time at which it was authored. Migrations are applied
+: A single change to a data store. Migrations have a description and a time stamp indicating the time at which it was
+authored. Migrations are applied
 in ascending order and reversed in descending order.
 
 #### Migration Files
 
-Migration files contain metadata about the migration, a [CQL][cql] statement used to apply the migration and, optionally, a [CQL][cql] statement used to reverse the migration.
+Migration files contain metadata about the migration, a [CQL][cql] statement used to apply the migration and,
+optionally, a [CQL][cql] statement used to reverse the migration.
 
 [cql]:http://cassandra.apache.org/doc/cql3/CQL.html
 
-Pillar supports reversible, irreversible and reversible with a no-op down statement migrations. Here are examples of each:
+Pillar supports reversible, irreversible and reversible with a no-op down statement migrations. Here are examples of
+each:
 
 Reversible migrations have up and down properties.
 
@@ -96,12 +116,14 @@ Reversible migrations with no-op down statements have an up property and an empt
 
     -- down:
 
-The Pillar command line interface expects to find migrations in conf/pillar/migrations unless overriden by the -d command-line option.
+The Pillar command line interface expects to find migrations in conf/pillar/migrations unless overriden by the
+-d command-line option.
 
 #### Configuration
 
-Pillar uses the [Typesafe Config][typesafeconfig] library for configuration. The Pillar command-line interface expects to find an application.conf file in
-./conf or ./src/main/resources. Given an data store called faker, the application.conf might look like the following:
+Pillar uses the [Typesafe Config][typesafeconfig] library for configuration. The Pillar command-line interface expects
+to find an application.conf file in ./conf or ./src/main/resources. Given a data store called faker, the
+application.conf might look like the following:
 
     pillar.faker {
         development {
@@ -123,6 +145,10 @@ Pillar uses the [Typesafe Config][typesafeconfig] library for configuration. The
 Reference the [acceptance spec suite][cliacceptance] for details.
 
 [cliacceptance]:https://github.com/comeara/pillar/blob/master/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala
+
+#### The pillar Executable
+
+The package installs to /opt/pillar by default. The /opt/pillar/bin/pillar executable usage looks like this:
 
     Usage: pillar [OPTIONS] command data-store
 

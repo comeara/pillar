@@ -9,8 +9,6 @@ object PillarBuild extends Build {
   val assemblyMergeStrategySetting = mergeStrategy in assembly <<= (mergeStrategy in assembly) {
     (old) => {
       case PathList("javax", "servlet", xs@_*) => MergeStrategy.first
-//      case PathList("org", "jboss", "netty", xs@_*) => MergeStrategy.first
-//      case PathList("META-INF", "jboss-beans.xml", xs@_*) => MergeStrategy.first
       case x => old(x)
     }
   }

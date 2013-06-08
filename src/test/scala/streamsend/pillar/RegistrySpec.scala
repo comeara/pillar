@@ -4,7 +4,7 @@ import org.scalatest.{FunSpec, BeforeAndAfter}
 import org.scalatest.matchers.ShouldMatchers
 import java.io.File
 import org.scalatest.mock.MockitoSugar
-import org.mockito.Mockito._
+import java.util.Date
 
 class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
   describe(".fromDirectory") {
@@ -30,6 +30,20 @@ class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with 
         val registry = Registry.fromDirectory(new File("src/test/resources/pillar/migrations/faker/"), reporter)
         registry.all(0).getClass should be(classOf[ReportingMigration])
       }
+    }
+  }
+
+  describe("#all") {
+    val now = new Date()
+    val oneSecondAgo = new Date(now.getTime - 1000)
+    val migrations = List(
+      Migration("test now", now, "up"),
+      Migration("test just before", oneSecondAgo, "up")
+    )
+    val registry = new Registry(migrations)
+
+    it("sorts migrations by their authoredAt property ascending") {
+      registry.all.map(_.authoredAt) should equal(List(oneSecondAgo, now))
     }
   }
 }

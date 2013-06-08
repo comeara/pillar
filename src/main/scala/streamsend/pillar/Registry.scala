@@ -33,7 +33,9 @@ object Registry {
   }
 }
 
-class Registry(migrations: Seq[Migration]) {
+class Registry(private var migrations: Seq[Migration]) {
+  migrations = migrations.sortBy(_.authoredAt)
+
   private val migrationsByKey = migrations.foldLeft(Map.empty[MigrationKey, Migration]) {
     (memo, migration) => memo + (migration.key -> migration)
   }

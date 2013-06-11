@@ -6,7 +6,7 @@
 
 export JAVA_HOME APP_ROOT PILLAR_ROOT
 
-CLASS=streamsend.pillar.cli.App
+CLASS=com.streamsend.pillar.cli.App
 CLASS_PATH=${APP_ROOT}/conf:${APP_ROOT}/src/main/resources:${PILLAR_ROOT}/lib/pillar.jar:${PILLAR_ROOT}/conf
 JAVA_OPTIONS="-Dlog4j.configuration=pillar-log4j.properties"
 

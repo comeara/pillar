@@ -146,7 +146,7 @@ application.conf might look like the following:
 
 Reference the [acceptance spec suite][cliacceptance] for details.
 
-[cliacceptance]:https://github.com/comeara/pillar/blob/master/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala
+[cliacceptance]:https://github.com/streamsend/pillar/blob/master/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala
 
 #### The pillar Executable
 
@@ -186,5 +186,5 @@ Apply all migrations to the faker datastore development environment
 You can also integrate Pillar directly into your application as a library.
 Reference the [acceptance spec suite][libacceptance] for details.
 
-[libacceptance]:https://github.com/comeara/pillar/blob/master/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala
+[libacceptance]:https://github.com/streamsend/pillar/blob/master/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala
 

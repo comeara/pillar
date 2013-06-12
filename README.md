@@ -38,7 +38,9 @@ The RPM installs Pillar to /opt/pillar.
 
 ### Packages
 
-Coming soon.
+Download the latest RPM [here][latestrpm]
+
+[latestrpm]:https://s3-us-west-1.amazonaws.com/pillar/LATEST
 
 ## Usage
 

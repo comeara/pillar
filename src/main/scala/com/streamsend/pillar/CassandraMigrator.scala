@@ -38,6 +38,12 @@ class CassandraMigrator(registry: Registry) extends Migrator {
     }
   }
 
+  def destroy(dataStore: DataStore) {
+    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
+    val session = cluster.connect()
+    session.execute("DROP KEYSPACE %s".format(dataStore.keyspace))
+  }
+
   private def selectMigrationsToApply(dateRestriction: Option[Date], appliedMigrations: AppliedMigrations): Seq[Migration] = {
     (dateRestriction match {
       case None => registry.all

@@ -41,4 +41,11 @@ class PrintStreamReporterSpec extends FunSpec with ShouldMatchers with OneInstan
       output.toString should equal("Reversing 1370489972546: creates things table\n")
     }
   }
+
+  describe("#destroying") {
+    it("should print to the stream") {
+      reporter.destroying(dataStore)
+      output.toString should equal("Destroying faker data store\n")
+    }
+  }
 }

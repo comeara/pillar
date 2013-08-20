@@ -49,6 +49,7 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
   )
   val registry = Registry(migrations)
   val dataStore = DataStore("faker", keyspaceName, "127.0.0.1")
+  lazy val stubDataStore = DataStore("faker", "fakeKeyspaceName", "127.0.0.1")
   val migrator = Migrator(registry)
 
   after {
@@ -93,6 +94,32 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
       migrator.initialize(dataStore)
 
       Then("the migration completes successfully")
+    }
+  }
+
+  feature("The operator can destroy a keyspace") {
+    info("As an application operator")
+    info("I want to destroy a Cassandra keyspace")
+    info("So that I can clean up automated tasks")
+
+    scenario("destroy a keyspace") {
+      Given("an existing keyspace")
+      migrator.initialize(dataStore)
+
+      When("the migrator destroys the keyspace")
+      migrator.destroy(dataStore)
+
+      Then("the keyspace no longer exists")
+      assertKeyspaceDoesNotExist()
+    }
+
+    scenario("destroy a bad keyspace") {
+      Given("a datastore with a non-existing keyspace")
+
+      When("the migrator destroys the keyspace")
+
+      Then("the migrator throws an exception")
+      evaluating { migrator.destroy(stubDataStore) } should produce [Throwable]
     }
   }
 

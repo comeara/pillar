@@ -35,4 +35,16 @@ class ReportingMigratorSpec extends FunSpec with ShouldMatchers with MockitoSuga
       verify(wrapped).migrate(dataStore, None)
     }
   }
+
+  describe("#destroy") {
+    migrator.destroy(dataStore)
+
+    it("reports the destroy action") {
+      verify(reporter).destroying(dataStore)
+    }
+
+    it("delegates to the wrapped migrator") {
+      verify(wrapped).destroy(dataStore)
+    }
+  }
 }

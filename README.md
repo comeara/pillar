@@ -188,5 +188,10 @@ Apply all migrations to the faker datastore development environment
 You can also integrate Pillar directly into your application as a library.
 Reference the [acceptance spec suite][libacceptance] for details.
 
+In addition, version 1.0.1 of Pillar implements a "destroy" method to drop a keyspace.
+
 [libacceptance]:https://github.com/streamsend/pillar/blob/master/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala
 
+### Release Notes
+
+- 1.0.1 Implements a "destroy" method to drop a keyspace

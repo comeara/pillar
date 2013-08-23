@@ -16,4 +16,6 @@ trait Migrator {
   def migrate(dataStore: DataStore, dateRestriction: Option[Date] = None)
 
   def initialize(dataStore: DataStore, replicationOptions: ReplicationOptions = ReplicationOptions.default)
+
+  def destroy(dataStore: DataStore)
 }

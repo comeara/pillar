@@ -12,4 +12,9 @@ class ReportingMigrator(reporter: Reporter, wrapped: Migrator) extends Migrator 
     reporter.migrating(dataStore, dateRestriction)
     wrapped.migrate(dataStore, dateRestriction)
   }
+
+  def destroy(dataStore: DataStore) {
+    reporter.destroying(dataStore)
+    wrapped.destroy(dataStore)
+  }
 }

@@ -19,4 +19,8 @@ class PrintStreamReporter(stream: PrintStream) extends com.streamsend.pillar.Rep
   def reversing(migration: Migration) {
     stream.println(s"Reversing ${migration.authoredAt.getTime}: ${migration.description}")
   }
+
+  def destroying(dataStore: DataStore) {
+    stream.println(s"Destroying ${dataStore.name} data store")
+  }
 }

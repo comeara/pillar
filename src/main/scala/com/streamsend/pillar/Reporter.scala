@@ -7,4 +7,5 @@ trait Reporter {
   def migrating(dataStore: DataStore, dateRestriction: Option[Date])
   def applying(migration: Migration)
   def reversing(migration: Migration)
+  def destroying(dataStore: DataStore)
 }

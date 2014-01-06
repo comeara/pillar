@@ -61,7 +61,7 @@ authored. Migrations are applied in ascending order and reversed in descending o
 
 Here's the short version:
 
-  1. Write migrations, place them in conf/pillar/myapp/migrations.
+  1. Write migrations, place them in conf/pillar/migrations/myapp.
   1. Add pillar settings to conf/application.conf.
   1. % pillar initialize myapp
   1. % pillar migrate myapp

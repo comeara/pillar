@@ -14,7 +14,8 @@ object PillarBuild extends Build {
   }
 
   val dependencies = Seq(
-    "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.0-rc2",
+    "com.google.guava" % "guava" % "14.0.1",
+    "com.datastax.cassandra" % "cassandra-driver-core" % "1.0.5" exclude("com.google.guava", "guava"),
     "com.typesafe" % "config" % "1.0.1",
     "org.clapper" %% "argot" % "1.0.1",
     "org.mockito" % "mockito-core" % "1.9.5" % "test",
@@ -58,7 +59,7 @@ object PillarBuild extends Build {
   lazy val root = Project(
     id = "pillar",
     base = file("."),
-    settings = Project.defaultSettings ++ sbtassembly.Plugin.assemblySettings
+    settings = Project.defaultSettings ++ sbtassembly.Plugin.assemblySettings ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
   ).settings(
     assemblyMergeStrategySetting,
     assemblyTestSetting,

@@ -14,8 +14,7 @@ object PillarBuild extends Build {
   }
 
   val dependencies = Seq(
-    "com.google.guava" % "guava" % "14.0.1",
-    "com.datastax.cassandra" % "cassandra-driver-core" % "1.0.5" exclude("com.google.guava", "guava"),
+    "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.0",
     "com.typesafe" % "config" % "1.0.1",
     "org.clapper" %% "argot" % "1.0.1",
     "org.mockito" % "mockito-core" % "1.9.5" % "test",

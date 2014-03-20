@@ -18,8 +18,8 @@ object PillarBuild extends Build {
     "com.typesafe" % "config" % "1.0.1",
     "org.clapper" %% "argot" % "1.0.1",
     "org.mockito" % "mockito-core" % "1.9.5" % "test",
-    "org.scala-lang" % "scala-library" % "2.10.1",
-    "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test"
+    "org.scala-lang" % "scala-library" % "2.10.3",
+    "org.scalatest" %% "scalatest" % "1.9.1" % "test"
   )
 
   val rhPackage = TaskKey[File]("rh-package", "Packages the application for Red Hat Package Manager")
@@ -65,7 +65,7 @@ object PillarBuild extends Build {
     libraryDependencies := dependencies,
     name := "pillar",
     organization := "streamsend",
-    scalaVersion := "2.10.1",
+    scalaVersion := "2.10.3",
     version := "1.0.0",
     rhPackageTask
   )

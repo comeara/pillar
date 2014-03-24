@@ -13,7 +13,7 @@ class CassandraMigrator(registry: Registry) extends Migrator {
     selectMigrationsToReverse(dateRestriction, appliedMigrations).foreach(_.executeDownStatement(session))
     selectMigrationsToApply(dateRestriction, appliedMigrations).foreach(_.executeUpStatement(session))
 
-    cluster.shutdown
+    cluster.close
   }
 
   def initialize(dataStore: DataStore, replicationOptions: ReplicationOptions = ReplicationOptions.default) {
@@ -30,7 +30,7 @@ class CassandraMigrator(registry: Registry) extends Migrator {
         |  )
       """.stripMargin.format(dataStore.keyspace)
     )
-    cluster.shutdown
+    cluster.close
   }
 
   private def executeIdempotentCommand(session: Session, statement: String) {

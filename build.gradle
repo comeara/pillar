@@ -20,7 +20,7 @@ dependencies {
     compile "com.datastax.cassandra:cassandra-driver-core:1.0.0",
             "com.typesafe:config:1.0.1",
             "org.clapper:argot_2.10:1.0.1",
-            "org.scala-lang:scala-library:2.10.1"
+            "org.scala-lang:scala-library:2.10.3"
     testCompile "org.scalatest:scalatest_2.10:1.9.1",
             "junit:junit:4.11",
             "org.mockito:mockito-core:1.9.5"

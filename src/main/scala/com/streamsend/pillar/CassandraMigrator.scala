@@ -6,7 +6,7 @@ import com.datastax.driver.core.exceptions.AlreadyExistsException
 
 class CassandraMigrator(registry: Registry) extends Migrator {
   def migrate(dataStore: DataStore, dateRestriction: Option[Date] = None) {
-    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
+    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).withPort(dataStore.port).build()
     val session = cluster.connect(dataStore.keyspace)
     val appliedMigrations = AppliedMigrations(session, registry)
 
@@ -17,7 +17,7 @@ class CassandraMigrator(registry: Registry) extends Migrator {
   }
 
   def initialize(dataStore: DataStore, replicationOptions: ReplicationOptions = ReplicationOptions.default) {
-    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
+    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).withPort(dataStore.port).build()
     val session = cluster.connect()
     executeIdempotentCommand(session, "CREATE KEYSPACE %s WITH replication = %s".format(dataStore.keyspace, replicationOptions.toString()))
     executeIdempotentCommand(session,
@@ -42,7 +42,7 @@ class CassandraMigrator(registry: Registry) extends Migrator {
   }
 
   def destroy(dataStore: DataStore) {
-    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).build()
+    val cluster = Cluster.builder().addContactPoint(dataStore.seedAddress).withPort(dataStore.port).build()
     val session = cluster.connect()
     session.execute("DROP KEYSPACE %s".format(dataStore.keyspace))
   }

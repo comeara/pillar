@@ -23,6 +23,7 @@ overlays
 *.iws
 *.ipr
 .idea/
+.idea_modules/
 
 # Gradle
 build/

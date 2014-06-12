@@ -1,6 +1,5 @@
-# Java specific
-*.class
-target
+# sbt
+target/
 
 # OS / App generated files
 .DS_Store*
@@ -8,7 +7,6 @@ ehthumbs.db
 Icon?
 Thumbs.db
 *.swp
-*.sass-cache
 *~
 
 # Eclipse
@@ -23,12 +21,7 @@ overlays
 *.iws
 *.ipr
 .idea/
-
-# Gradle
-build/
-out/
-src/gen
-.gradle/
+.idea_modules/
 
 # git-commit-story gem
 .git-commit-story.yml

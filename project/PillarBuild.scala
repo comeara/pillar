@@ -64,9 +64,9 @@ object PillarBuild extends Build {
     assemblyTestSetting,
     libraryDependencies := dependencies,
     name := "pillar",
-    organization := "streamsend",
+    organization := "chrisomeara",
     scalaVersion := "2.10.3",
-    version := "1.0.0",
+    version := "1.0.3",
     rhPackageTask
   )
 }

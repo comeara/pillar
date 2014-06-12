@@ -148,7 +148,7 @@ application.conf might look like the following:
 
 Reference the [acceptance spec suite][cliacceptance] for details.
 
-[cliacceptance]:https://github.com/streamsend/pillar/blob/master/src/test/scala/streamsend/pillar/PillarCommandLineAcceptanceSpec.scala
+[cliacceptance]:https://github.com/comeara/pillar/blob/master/src/test/scala/comeara/pillar/PillarCommandLineAcceptanceSpec.scala
 
 #### The pillar Executable
 
@@ -190,8 +190,18 @@ Reference the [acceptance spec suite][libacceptance] for details.
 
 In addition, version 1.0.1 of Pillar implements a "destroy" method to drop a keyspace.
 
-[libacceptance]:https://github.com/streamsend/pillar/blob/master/src/test/scala/streamsend/pillar/PillarLibraryAcceptanceSpec.scala
+[libacceptance]:https://github.com/comeara/pillar/blob/master/src/test/scala/comeara/pillar/PillarLibraryAcceptanceSpec.scala
 
 ### Release Notes
 
-- 1.0.1 Implements a "destroy" method to drop a keyspace
+#### 1.0.1
+ 
+* Add a "destroy" method to drop a keyspace (iamsteveholmes)
+
+#### 1.0.3
+
+* Clarify documentation (pvenable)
+* Update Datastax Cassandra driver to version 2.0.1 (magro)
+* Update Scala to version 2.10.3 (magro)
+* Shutdown cluster in migrate & initialize (magro)
+* Transition support from StreamSend to Chris O'Meara (comeara)

@@ -65,8 +65,34 @@ object PillarBuild extends Build {
     libraryDependencies := dependencies,
     name := "pillar",
     organization := "chrisomeara",
-    scalaVersion := "2.10.3",
     version := "1.0.3",
+    homepage := Some(url("https://github.com/comeara/pillar")),
+    licenses := Seq("MIT license" -> url("http://www.opensource.org/licenses/mit-license.php")),
+    scalaVersion := "2.10.3",
     rhPackageTask
+  ).settings(
+    publishTo := {
+      val nexus = "https://oss.sonatype.org/"
+      if (isSnapshot.value)
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      else
+        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    },
+    publishMavenStyle := true,
+    publishArtifact in Test := false,
+    pomIncludeRepository := { _ => false },
+    pomExtra := (
+      <scm>
+        <url>git@github.com:comeara/pillar.git</url>
+        <connection>scm:git:git@github.com:comeara/pillar.git</connection>
+      </scm>
+      <developers>
+        <developer>
+          <id>comeara</id>
+          <name>Chris O'Meara</name>
+          <url>https://github.com/comeara</url>
+        </developer>
+      </developers>
+    )
   )
 }

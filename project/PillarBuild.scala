@@ -64,7 +64,7 @@ object PillarBuild extends Build {
     assemblyTestSetting,
     libraryDependencies := dependencies,
     name := "pillar",
-    organization := "chrisomeara",
+    organization := "com.chrisomeara",
     version := "1.0.3",
     homepage := Some(url("https://github.com/comeara/pillar")),
     licenses := Seq("MIT license" -> url("http://www.opensource.org/licenses/mit-license.php")),

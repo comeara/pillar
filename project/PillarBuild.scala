@@ -16,10 +16,9 @@ object PillarBuild extends Build {
   val dependencies = Seq(
     "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.2",
     "com.typesafe" % "config" % "1.0.1",
-    "org.clapper" %% "argot" % "1.0.1",
+    "org.clapper" %% "argot" % "1.0.2-RC1",
     "org.mockito" % "mockito-core" % "1.9.5" % "test",
-    "org.scala-lang" % "scala-library" % "2.10.4",
-    "org.scalatest" %% "scalatest" % "1.9.1" % "test"
+    "org.scalatest" %% "scalatest" % "2.2.0" % "test"
   )
 
   val rhPackage = TaskKey[File]("rh-package", "Packages the application for Red Hat Package Manager")
@@ -62,6 +61,9 @@ object PillarBuild extends Build {
   ).settings(
     assemblyMergeStrategySetting,
     assemblyTestSetting,
+    // magro bintray repo for argot dependency, see also
+    // https://github.com/bmc/argot/pull/11
+    resolvers += "magro bintray repo" at "http://dl.bintray.com/magro/maven",
     libraryDependencies := dependencies,
     name := "pillar",
     organization := "com.chrisomeara",
@@ -69,6 +71,7 @@ object PillarBuild extends Build {
     homepage := Some(url("https://github.com/comeara/pillar")),
     licenses := Seq("MIT license" -> url("http://www.opensource.org/licenses/mit-license.php")),
     scalaVersion := "2.10.4",
+    crossScalaVersions := Seq("2.10.4", "2.11.1"),
     rhPackageTask
   ).settings(
     publishTo := {

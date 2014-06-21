@@ -14,12 +14,11 @@ object PillarBuild extends Build {
   }
 
   val dependencies = Seq(
-    "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.1",
+    "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.2",
     "com.typesafe" % "config" % "1.0.1",
-    "org.clapper" %% "argot" % "1.0.1",
+    "org.clapper" %% "argot" % "1.0.2-RC1",
     "org.mockito" % "mockito-core" % "1.9.5" % "test",
-    "org.scala-lang" % "scala-library" % "2.10.3",
-    "org.scalatest" %% "scalatest" % "1.9.1" % "test"
+    "org.scalatest" %% "scalatest" % "2.2.0" % "test"
   )
 
   val rhPackage = TaskKey[File]("rh-package", "Packages the application for Red Hat Package Manager")
@@ -62,11 +61,41 @@ object PillarBuild extends Build {
   ).settings(
     assemblyMergeStrategySetting,
     assemblyTestSetting,
+    // magro bintray repo for argot dependency, see also
+    // https://github.com/bmc/argot/pull/11
+    resolvers += "magro bintray repo" at "http://dl.bintray.com/magro/maven",
     libraryDependencies := dependencies,
     name := "pillar",
-    organization := "chrisomeara",
-    scalaVersion := "2.10.3",
+    organization := "com.chrisomeara",
     version := "1.0.3",
+    homepage := Some(url("https://github.com/comeara/pillar")),
+    licenses := Seq("MIT license" -> url("http://www.opensource.org/licenses/mit-license.php")),
+    scalaVersion := "2.10.4",
+    crossScalaVersions := Seq("2.10.4", "2.11.1"),
     rhPackageTask
+  ).settings(
+    publishTo := {
+      val nexus = "https://oss.sonatype.org/"
+      if (isSnapshot.value)
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      else
+        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    },
+    publishMavenStyle := true,
+    publishArtifact in Test := false,
+    pomIncludeRepository := { _ => false },
+    pomExtra := (
+      <scm>
+        <url>git@github.com:comeara/pillar.git</url>
+        <connection>scm:git:git@github.com:comeara/pillar.git</connection>
+      </scm>
+      <developers>
+        <developer>
+          <id>comeara</id>
+          <name>Chris O'Meara</name>
+          <url>https://github.com/comeara</url>
+        </developer>
+      </developers>
+    )
   )
 }

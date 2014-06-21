@@ -18,4 +18,4 @@ object DataStore {
   }
 }
 
-case class DataStore(name: String, keyspace: String, seedAddress: String)
+case class DataStore(name: String, keyspace: String, seedAddress: String, port: Int = 9042)

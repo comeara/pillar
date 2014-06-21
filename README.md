@@ -19,7 +19,7 @@ databases with one key difference: Pillar is completely independent from any app
 ### Prerequisites
 
 1. Java SE 6 runtime environment
-1. Cassandra 1.2 with the native CQL protocol enabled
+1. Cassandra 2.0 with the native CQL protocol enabled
 
 ### From Source
 
@@ -38,9 +38,15 @@ The RPM installs Pillar to /opt/pillar.
 
 ### Packages
 
-Download the latest RPM [here][latestrpm]
+Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar. The current version is 1.0.3.
 
-[latestrpm]:https://s3-us-west-1.amazonaws.com/pillar/LATEST
+#### SBT
+
+  libraryDependencies += "com.chrisomeara" % "pillar" % "1.0.3"
+
+#### Gradle
+
+  compile 'com.chrisomeara:pillar:1.0.3'
 
 ## Usage
 
@@ -146,9 +152,7 @@ application.conf might look like the following:
 
 [typesafeconfig]:https://github.com/typesafehub/config
 
-Reference the [acceptance spec suite][cliacceptance] for details.
-
-[cliacceptance]:https://github.com/comeara/pillar/blob/master/src/test/scala/comeara/pillar/PillarCommandLineAcceptanceSpec.scala
+Reference the acceptance spec suite for details.
 
 #### The pillar Executable
 
@@ -186,22 +190,19 @@ Apply all migrations to the faker datastore development environment
 ### Library
 
 You can also integrate Pillar directly into your application as a library.
-Reference the [acceptance spec suite][libacceptance] for details.
-
-In addition, version 1.0.1 of Pillar implements a "destroy" method to drop a keyspace.
-
-[libacceptance]:https://github.com/comeara/pillar/blob/master/src/test/scala/comeara/pillar/PillarLibraryAcceptanceSpec.scala
+Reference the acceptance spec suite for details.
 
 ### Release Notes
 
 #### 1.0.1
- 
+
 * Add a "destroy" method to drop a keyspace (iamsteveholmes)
 
 #### 1.0.3
 
 * Clarify documentation (pvenable)
-* Update Datastax Cassandra driver to version 2.0.1 (magro)
-* Update Scala to version 2.10.3 (magro)
+* Update Datastax Cassandra driver to version 2.0.2 (magro)
+* Update Scala to version 2.10.4 (magro)
+* Add cross-compilation to Scala version 2.11.1 (magro)
 * Shutdown cluster in migrate & initialize (magro)
 * Transition support from StreamSend to Chris O'Meara (comeara)

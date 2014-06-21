@@ -3,6 +3,7 @@ import java.util.NoSuchElementException
 import sbt._
 import Keys._
 import sbtassembly.Plugin.{MergeStrategy, PathList}
+import xerial.sbt.Sonatype
 
 object PillarBuild extends Build {
   val assemblyTestSetting = test in assembly := {}
@@ -57,7 +58,7 @@ object PillarBuild extends Build {
   lazy val root = Project(
     id = "pillar",
     base = file("."),
-    settings = Project.defaultSettings ++ sbtassembly.Plugin.assemblySettings ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
+    settings = Project.defaultSettings ++ sbtassembly.Plugin.assemblySettings ++ net.virtualvoid.sbt.graph.Plugin.graphSettings ++ Sonatype.sonatypeSettings
   ).settings(
     assemblyMergeStrategySetting,
     assemblyTestSetting,

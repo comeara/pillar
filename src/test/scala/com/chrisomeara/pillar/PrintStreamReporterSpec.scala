@@ -1,29 +1,33 @@
 package com.chrisomeara.pillar
 
+import com.datastax.driver.core.Session
 import org.scalatest._
 import org.scalatest.matchers.ShouldMatchers
 import java.io.{ByteArrayOutputStream, PrintStream}
 import java.util.Date
 
-class PrintStreamReporterSpec extends FunSpec with ShouldMatchers with OneInstancePerTest {
-  val dataStore = DataStore("faker", "pillar_test", "127.0.0.1")
+import org.scalatest.mock.MockitoSugar
+
+class PrintStreamReporterSpec extends FunSpec with MockitoSugar with Matchers with OneInstancePerTest {
+  val session = mock[Session]
   val migration = Migration("creates things table", new Date(1370489972546L), "up", Some("down"))
   val output = new ByteArrayOutputStream()
   val stream = new PrintStream(output)
   val reporter = new PrintStreamReporter(stream)
+  val keyspace = "myks"
 
   describe("#initializing") {
     it("should print to the stream") {
-      reporter.initializing(dataStore, ReplicationOptions.default)
-      output.toString should equal("Initializing faker data store\n")
+      reporter.initializing(session, keyspace, ReplicationOptions.default)
+      output.toString should equal("Initializing myks\n")
     }
   }
 
   describe("#migrating") {
     describe("without date restriction") {
       it("should print to the stream") {
-        reporter.migrating(dataStore, None)
-        output.toString should equal("Migrating faker data store\n")
+        reporter.migrating(session, None)
+        output.toString should equal("Migrating with date restriction None\n")
       }
     }
   }
@@ -44,8 +48,8 @@ class PrintStreamReporterSpec extends FunSpec with ShouldMatchers with OneInstan
 
   describe("#destroying") {
     it("should print to the stream") {
-      reporter.destroying(dataStore)
-      output.toString should equal("Destroying faker data store\n")
+      reporter.destroying(session, keyspace)
+      output.toString should equal("Destroying myks\n")
     }
   }
 }

@@ -2,6 +2,8 @@ package com.chrisomeara.pillar
 
 import java.util.Date
 
+import com.datastax.driver.core.Session
+
 object Migrator {
   def apply(registry: Registry): Migrator = {
     new CassandraMigrator(registry)
@@ -13,9 +15,9 @@ object Migrator {
 }
 
 trait Migrator {
-  def migrate(dataStore: DataStore, dateRestriction: Option[Date] = None)
+  def migrate(session: Session, dateRestriction: Option[Date] = None)
 
-  def initialize(dataStore: DataStore, replicationOptions: ReplicationOptions = ReplicationOptions.default)
+  def initialize(session: Session, keyspace: String, replicationOptions: ReplicationOptions = ReplicationOptions.default)
 
-  def destroy(dataStore: DataStore)
+  def destroy(session: Session, keyspace: String)
 }

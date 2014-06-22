@@ -1,19 +1,6 @@
 package com.chrisomeara.pillar.cli
 
-import com.typesafe.config.Config
-import java.io.File
-import com.chrisomeara.pillar.{Reporter, DataStore, Registry}
+import com.chrisomeara.pillar.Registry
+import com.datastax.driver.core.Session
 
-object Command {
-  def buildFromConfiguration(commandLineConfiguration: CommandLineConfiguration, applicationConfiguration: Config)(implicit registryConstructor: ((File, Reporter) => Registry), reporter: Reporter): Command = {
-    val dataStore = DataStore.fromConfiguration(commandLineConfiguration.dataStore, commandLineConfiguration.environment, applicationConfiguration)
-    val registry = registryConstructor(new File(commandLineConfiguration.migrationsDirectory, dataStore.name), reporter)
-    new Command(commandLineConfiguration.command,
-      dataStore,
-      commandLineConfiguration.timeStampOption,
-      registry
-    )
-  }
-}
-
-case class Command(action: MigratorAction, dataStore: DataStore, timeStampOption: Option[Long], registry: Registry)
+case class Command(action: MigratorAction, session: Session, keyspace: String, timeStampOption: Option[Long], registry: Registry)

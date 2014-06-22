@@ -1,15 +1,17 @@
 package com.chrisomeara.pillar.cli
 
-import org.scalatest.{BeforeAndAfter, FunSpec}
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
-import org.mockito.Mockito._
-import com.chrisomeara.pillar.{Reporter, DataStore, Migrator, Registry}
 import java.util.Date
 
-class CommandExecutorSpec extends FunSpec with BeforeAndAfter with ShouldMatchers with MockitoSugar {
+import com.chrisomeara.pillar.{Migrator, Registry, Reporter}
+import com.datastax.driver.core.Session
+import org.mockito.Mockito._
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.{BeforeAndAfter, FunSpec}
+
+class CommandExecutorSpec extends FunSpec with BeforeAndAfter with MockitoSugar {
   describe("#execute") {
-    val dataStore = new DataStore("faker", "keyspace", "seedAddress")
+    val session = mock[Session]
+    val keyspace = "myks"
     val registry = mock[Registry]
     val reporter = mock[Reporter]
     val migrator = mock[Migrator]
@@ -18,33 +20,33 @@ class CommandExecutorSpec extends FunSpec with BeforeAndAfter with ShouldMatcher
     val executor = new CommandExecutor()(migratorConstructor)
 
     describe("an initialize action") {
-      val command = Command(Initialize, dataStore, None, registry)
+      val command = Command(Initialize, session, keyspace, None, registry)
 
       executor.execute(command, reporter)
 
       it("initializes") {
-        verify(migrator).initialize(dataStore)
+        verify(migrator).initialize(session, keyspace)
       }
     }
 
     describe("a migrate action without date restriction") {
-      val command = Command(Migrate, dataStore, None, registry)
+      val command = Command(Migrate, session, keyspace, None, registry)
 
       executor.execute(command, reporter)
 
       it("migrates") {
-        verify(migrator).migrate(dataStore, None)
+        verify(migrator).migrate(session, None)
       }
     }
 
     describe("a migrate action with date restriction") {
       val date = new Date()
-      val command = Command(Migrate, dataStore, Some(date.getTime), registry)
+      val command = Command(Migrate, session, keyspace, Some(date.getTime), registry)
 
       executor.execute(command, reporter)
 
       it("migrates") {
-        verify(migrator).migrate(dataStore, Some(date))
+        verify(migrator).migrate(session, Some(date))
       }
     }
   }

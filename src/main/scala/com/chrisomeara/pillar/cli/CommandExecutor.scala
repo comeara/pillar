@@ -1,7 +1,8 @@
 package com.chrisomeara.pillar.cli
 
 import java.util.Date
-import com.chrisomeara.pillar.{Reporter, DataStore, Registry, Migrator}
+
+import com.chrisomeara.pillar.{Migrator, Registry, Reporter}
 
 object CommandExecutor {
   implicit private val migratorConstructor: ((Registry, Reporter) => Migrator) = Migrator.apply
@@ -14,8 +15,8 @@ class CommandExecutor(implicit val migratorConstructor: ((Registry, Reporter) =>
     val migrator = migratorConstructor(command.registry, reporter)
 
     command.action match {
-      case Initialize => migrator.initialize(command.dataStore)
-      case Migrate    => migrator.migrate(command.dataStore, command.timeStampOption.map(new Date(_)))
+      case Initialize => migrator.initialize(command.session, command.keyspace)
+      case Migrate => migrator.migrate(command.session, command.timeStampOption.map(new Date(_)))
     }
   }
 }

@@ -1,16 +1,16 @@
 package com.chrisomeara.pillar
 
-import org.scalatest.{BeforeAndAfter, GivenWhenThen, FeatureSpec}
-import org.scalatest.matchers.ShouldMatchers
-import com.datastax.driver.core.Cluster
-import com.datastax.driver.core.querybuilder.QueryBuilder
-import com.datastax.driver.core.exceptions.InvalidQueryException
 import java.util.Date
 
-class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers with AcceptanceAssertions {
+import com.datastax.driver.core.Cluster
+import com.datastax.driver.core.exceptions.InvalidQueryException
+import com.datastax.driver.core.querybuilder.QueryBuilder
+import org.scalatest.{BeforeAndAfter, FeatureSpec, GivenWhenThen, Matchers}
+
+class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with Matchers with AcceptanceAssertions {
   val cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
-  val session = cluster.connect()
   val keyspaceName = "test_%d".format(System.currentTimeMillis())
+  val session = cluster.connect()
   val migrations = Seq(
     Migration("creates events table", new Date(System.currentTimeMillis() - 5000),
       """
@@ -48,8 +48,6 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
             """.stripMargin))
   )
   val registry = Registry(migrations)
-  val dataStore = DataStore("faker", keyspaceName, "127.0.0.1")
-  lazy val stubDataStore = DataStore("faker", "fakeKeyspaceName", "127.0.0.1")
   val migrator = Migrator(registry)
 
   after {
@@ -69,7 +67,7 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
       Given("a non-existent keyspace")
 
       When("the migrator initializes the keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Then("the keyspace contains a applied_migrations column family")
       assertEmptyAppliedMigrationsTable()
@@ -80,7 +78,7 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
       session.execute("CREATE KEYSPACE %s WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}".format(keyspaceName))
 
       When("the migrator initializes the keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Then("the keyspace contains a applied_migrations column family")
       assertEmptyAppliedMigrationsTable()
@@ -88,10 +86,10 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
 
     scenario("initialize an existing keyspace with a applied_migrations column family") {
       Given("an existing keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       When("the migrator initializes the keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Then("the migration completes successfully")
     }
@@ -104,10 +102,10 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
 
     scenario("destroy a keyspace") {
       Given("an existing keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       When("the migrator destroys the keyspace")
-      migrator.destroy(dataStore)
+      migrator.destroy(session, keyspaceName)
 
       Then("the keyspace no longer exists")
       assertKeyspaceDoesNotExist()
@@ -119,7 +117,9 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
       When("the migrator destroys the keyspace")
 
       Then("the migrator throws an exception")
-      evaluating { migrator.destroy(stubDataStore) } should produce [Throwable]
+      evaluating {
+        migrator.destroy(session, keyspaceName)
+      } should produce[Throwable]
     }
   }
 
@@ -130,13 +130,13 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
 
     scenario("all migrations") {
       Given("an initialized, empty, keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
 
       When("the migrator migrates the schema")
-      migrator.migrate(dataStore)
+      migrator.migrate(cluster.connect(keyspaceName))
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
@@ -150,13 +150,13 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
 
     scenario("some migrations") {
       Given("an initialized, empty, keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
 
       When("the migrator migrates with a cut off date")
-      migrator.migrate(dataStore, Some(migrations(0).authoredAt))
+      migrator.migrate(cluster.connect(keyspaceName), Some(migrations(0).authoredAt))
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)
@@ -167,13 +167,13 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
 
     scenario("skip previously applied migration") {
       Given("an initialized keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Given("a set of migrations applied in the past")
-      migrator.migrate(dataStore)
+      migrator.migrate(cluster.connect(keyspaceName))
 
       When("the migrator applies migrations")
-      migrator.migrate(dataStore)
+      migrator.migrate(cluster.connect(keyspaceName))
 
       Then("the migration completes successfully")
     }
@@ -186,13 +186,13 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
 
     scenario("reversible previously applied migration") {
       Given("an initialized keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Given("a set of migrations applied in the past")
-      migrator.migrate(dataStore)
+      migrator.migrate(cluster.connect(keyspaceName))
 
       When("the migrator migrates with a cut off date")
-      migrator.migrate(dataStore, Some(migrations(0).authoredAt))
+      migrator.migrate(cluster.connect(keyspaceName), Some(migrations(0).authoredAt))
 
       Then("the migrator reverses the reversible migration")
       val thrown = intercept[InvalidQueryException] {
@@ -212,21 +212,21 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
 
     scenario("irreversible previously applied migration") {
       Given("an initialized keyspace")
-      migrator.initialize(dataStore)
+      migrator.initialize(session, keyspaceName)
 
       Given("a set of migrations applied in the past")
-      migrator.migrate(dataStore)
+      migrator.migrate(cluster.connect(keyspaceName))
 
       When("the migrator migrates with a cut off date")
       val thrown = intercept[IrreversibleMigrationException] {
-        migrator.migrate(dataStore, Some(new Date(0)))
+        migrator.migrate(cluster.connect(keyspaceName), Some(new Date(0)))
       }
 
       Then("the migrator reverses the reversible migrations")
       session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(1)
 
       And("the migrator throws an IrreversibleMigrationException")
-      thrown should not be (null)
+      thrown should not be null
     }
   }
 }

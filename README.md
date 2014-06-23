@@ -206,3 +206,8 @@ Reference the acceptance spec suite for details.
 * Add cross-compilation to Scala version 2.11.1 (magro)
 * Shutdown cluster in migrate & initialize (magro)
 * Transition support from StreamSend to Chris O'Meara (comeara)
+
+#### 2.0.0
+
+* Allow configuration of Cassandra port (fkoehler)
+* Rework Migrator interface to allow passing a Session object when integrating Pillar as a library (magro, comeara)

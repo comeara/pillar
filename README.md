@@ -38,15 +38,15 @@ The RPM installs Pillar to /opt/pillar.
 
 ### Packages
 
-Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10. The current version is 2.0.0.
+Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.0.1.
 
 #### sbt
 
-  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.0.0"
+  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.0.1"
 
 #### Gradle
 
-  compile 'com.chrisomeara:pillar_2.10:2.0.0'
+  compile 'com.chrisomeara:pillar_2.10:2.0.1'
 
 ## Usage
 
@@ -211,3 +211,7 @@ Reference the acceptance spec suite for details.
 
 * Allow configuration of Cassandra port (fkoehler)
 * Rework Migrator interface to allow passing a Session object when integrating Pillar as a library (magro, comeara)
+
+#### 2.0.1
+
+* Update a argot dependency to version 1.0.3 (magro)

@@ -27,13 +27,61 @@ class ParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
 
       it("assigns up") {
         val resource = new FileInputStream(migrationPath)
-        Parser().parse(resource).up should equal( """CREATE TABLE events (
+        Parser().parse(resource).up should contain( """CREATE TABLE events (
                                                              |  batch_id text,
                                                              |  occurred_at uuid,
                                                              |  event_type text,
                                                              |  payload blob,
                                                              |  PRIMARY KEY (batch_id, occurred_at, event_type)
                                                              |)""".stripMargin)
+      }
+    }
+
+    describe("1370028265_creates_events_table_with_stages.cql") {
+      val migrationPath = "src/test/resources/pillar/migrations/faker/1370028265_creates_events_table_with_stages.cql"
+
+      it("returns a migration object") {
+        val resource = new FileInputStream(migrationPath)
+        Parser().parse(resource).getClass should be(classOf[ReversibleMigration])
+      }
+
+      it("assigns authoredAt") {
+        val resource = new FileInputStream(migrationPath)
+        Parser().parse(resource).authoredAt should equal(new Date(1370023265))
+      }
+
+      it("assigns description") {
+        val resource = new FileInputStream(migrationPath)
+        Parser().parse(resource).description should equal("creates events table with stages")
+      }
+
+      it("assigns two up stages") {
+        val resource = new FileInputStream(migrationPath)
+        val migration = Parser().parse(resource)
+
+        migration.up should contain( """CREATE TABLE events (
+                                        |  batch_id text,
+                                        |  occurred_at uuid,
+                                        |  event_type text,
+                                        |  payload blob,
+                                        |  PRIMARY KEY (batch_id, occurred_at, event_type)
+                                        |)""".stripMargin)
+
+        migration.up should contain( """CREATE TABLE events (
+                                        |  batch_id text,
+                                        |  occurred_at uuid,
+                                        |  event_type text,
+                                        |  payload blob,
+                                        |  PRIMARY KEY (batch_id, occurred_at, event_type)
+                                        |)""".stripMargin)
+      }
+
+      it("assigns two down stages") {
+        val resource = new FileInputStream(migrationPath)
+        val migration = Parser().parse(resource).asInstanceOf[ReversibleMigration]
+
+        migration.down should contain( """DROP TABLE events""".stripMargin)
+        migration.down should contain( """DROP TABLE events2""".stripMargin)
       }
     }
 
@@ -47,7 +95,7 @@ class ParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
 
       it("assigns down") {
         val resource = new FileInputStream(migrationPath)
-        Parser().parse(resource).asInstanceOf[ReversibleMigration].down should equal("DROP TABLE views")
+        Parser().parse(resource).asInstanceOf[ReversibleMigration].down should contain("DROP TABLE views")
       }
     }
 

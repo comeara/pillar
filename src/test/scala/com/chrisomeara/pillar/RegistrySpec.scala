@@ -12,7 +12,7 @@ class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with 
       describe("with a directory that exists and has migration files") {
         it("returns a registry with migrations") {
           val registry = Registry.fromDirectory(new File("src/test/resources/pillar/migrations/faker/"))
-          registry.all.size should equal(3)
+          registry.all.size should equal(4)
         }
       }
 
@@ -37,8 +37,8 @@ class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with 
     val now = new Date()
     val oneSecondAgo = new Date(now.getTime - 1000)
     val migrations = List(
-      Migration("test now", now, "up"),
-      Migration("test just before", oneSecondAgo, "up")
+      Migration("test now", now, Seq("up")),
+      Migration("test just before", oneSecondAgo, Seq("up"))
     )
     val registry = new Registry(migrations)
 

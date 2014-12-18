@@ -33,6 +33,48 @@ class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with 
     }
   }
 
+  describe("fromFiles") {
+    describe("without a reporter parameter") {
+      describe("with migration files provided") {
+        it("returns a registry with migrations") {
+          val registry = Registry.fromFiles(Seq(
+            new File("src/test/resources/pillar/migrations/faker/1370028262_creates_events_table.cql"),
+            new File("src/test/resources/pillar/migrations/faker/1370028263_creates_views_table.cql")
+          ))
+
+          registry.all.size should equal(2)
+        }
+      }
+
+      describe("with directories and files provided") {
+        it("returns a registry with migrations only from files") {
+
+          val registry = Registry.fromFiles(Seq(
+            new File("src/test/resources/pillar/migrations/faker"),
+            new File("src/test/resources/pillar/migrations/faker/1370028263_creates_views_table.cql")
+          ))
+
+          registry.all.size should equal(1)
+        }
+      }
+
+      describe("with a file that does not exist"){
+        it("returns an empty registry") {
+          val registry = Registry.fromFiles(Seq(new File("non existing file")))
+          registry.all.size should equal(0)
+        }
+      }
+    }
+
+    describe("with a reporter parameter") {
+      val reporter = mock[Reporter]
+      it("returns a registry populated with reporting migrations") {
+        val registry = Registry.fromFiles(Seq(new File("src/test/resources/pillar/migrations/faker/1370028263_creates_views_table.cql")), reporter);
+        registry.all(0).getClass should be(classOf[ReportingMigration])
+      }
+    }
+  }
+
   describe("#all") {
     val now = new Date()
     val oneSecondAgo = new Date(now.getTime - 1000)

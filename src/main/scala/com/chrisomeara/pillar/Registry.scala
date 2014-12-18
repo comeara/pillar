@@ -4,6 +4,7 @@ import java.util.Date
 import java.io.{FileInputStream, File}
 
 object Registry {
+
   def apply(migrations: Seq[Migration]): Registry = {
     new Registry(migrations)
   }
@@ -16,12 +17,27 @@ object Registry {
     new Registry(parseMigrationsInDirectory(directory))
   }
 
-  private def parseMigrationsInDirectory(directory: File): Seq[Migration] = {
-    if(!directory.isDirectory) return List.empty
+  def fromFiles(files: Seq[File]): Registry = {
+    new Registry(parseMigrationsInFiles(filterExisting(files)))
+  }
 
+  def fromFiles(files: Seq[File], reporter: Reporter): Registry = {
+    new Registry(
+      parseMigrationsInFiles(filterExisting(files))
+        .map(new ReportingMigration(reporter, _))
+    )
+  }
+
+  private def filterExisting(files : Seq[File]) : Seq[File] = {
+    files
+      .filterNot(file => file.isDirectory)
+      .filter(file => file.exists())
+  }
+
+  private def parseMigrationsInFiles(files: Seq[File]): Seq[Migration] = {
     val parser = Parser()
 
-    directory.listFiles().map {
+    files.map {
       file =>
         val stream = new FileInputStream(file)
         try {
@@ -30,6 +46,13 @@ object Registry {
           stream.close()
         }
     }.toList
+  }
+
+  private def parseMigrationsInDirectory(directory: File): Seq[Migration] = {
+    if (!directory.isDirectory)
+      return List.empty
+
+    parseMigrationsInFiles(directory.listFiles())
   }
 }
 

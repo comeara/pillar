@@ -3,6 +3,7 @@ package com.chrisomeara.pillar
 import java.util.Date
 import java.io.InputStream
 import scala.collection.mutable
+import scala.io.Source
 
 object Parser {
   def apply(): Parser = new Parser
@@ -52,7 +53,7 @@ class Parser {
   def parse(resource: InputStream): Migration = {
     val inProgress = new PartialMigration
     var state: ParserState = ParsingAttributes
-    io.Source.fromInputStream(resource).getLines().foreach {
+    Source.fromInputStream(resource).getLines().foreach {
       line =>
         line match {
           case MatchAttribute("authoredAt", authoredAt) =>

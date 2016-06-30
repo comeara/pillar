@@ -152,6 +152,9 @@ application.conf might look like the following:
 
 [typesafeconfig]:https://github.com/typesafehub/config
 
+Alternatively, Pillar accepts the Cassandra seed address from the CASSANDRA_SEED_ADDRESS environment variable. If set,
+the CASSANDRA_SEED_ADDRESS environment variable takes precedence over application.conf.
+
 Reference the acceptance spec suite for details.
 
 #### The pillar Executable

@@ -32,7 +32,10 @@ class App(reporter: Reporter) {
     val dataStoreName = commandLineConfiguration.dataStore
     val environment = commandLineConfiguration.environment
     val keyspace = getFromConfiguration(configuration, dataStoreName, environment, "cassandra-keyspace-name")
-    val seedAddress = getFromConfiguration(configuration, dataStoreName, environment, "cassandra-seed-address")
+    val seedAddress = sys.env.get("PILLAR_SEED_ADDRESS") match {
+      case Some(s) => s
+      case _ => getFromConfiguration(configuration, dataStoreName, environment, "cassandra-seed-address")
+    }
     val port = Integer.valueOf(getFromConfiguration(configuration, dataStoreName, environment, "cassandra-port", Some(9042.toString)))
     val builder = Cluster.builder().addContactPoint(seedAddress).withPort(port).build()
     val session = commandLineConfiguration.command match {

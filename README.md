@@ -76,7 +76,7 @@ Here's the short version:
 
 Migration files contain metadata about the migration, a [CQL][cql] statement used to apply the migration and,
 optionally, a [CQL][cql] statement used to reverse the migration. Each file describes one migration. You probably
-want to name your files according to time stamp and description, 1370028263_creates_views_table.cql, for example.
+want to name your files according to time stamp and description, 1370028263000_creates_views_table.cql, for example.
 Pillar reads and parses all files in the migrations directory, regardless of file name.
 
 [cql]:http://cassandra.apache.org/doc/cql3/CQL.html
@@ -87,7 +87,7 @@ each:
 Reversible migrations have up and down properties.
 
     -- description: creates views table
-    -- authoredAt: 1370028263
+    -- authoredAt: 1370028263000
     -- up:
 
     CREATE TABLE views (
@@ -104,7 +104,7 @@ Reversible migrations have up and down properties.
 Irreversible migrations have an up property but no down property.
 
     -- description: creates events table
-    -- authoredAt: 1370023262
+    -- authoredAt: 1370023262000
     -- up:
 
     CREATE TABLE events (
@@ -118,7 +118,7 @@ Irreversible migrations have an up property but no down property.
 Reversible migrations with no-op down statements have an up property and an empty down property.
 
     -- description: adds user_agent to views table
-    -- authoredAt: 1370028264
+    -- authoredAt: 1370028264000
     -- up:
 
     ALTER TABLE views

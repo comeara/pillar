@@ -1,5 +1,5 @@
 -- description: creates views table
--- authoredAt: 1370028263
+-- authoredAt: 1370028263000
 -- up:
 
 CREATE TABLE views (

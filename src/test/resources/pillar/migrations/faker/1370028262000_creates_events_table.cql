@@ -1,5 +1,5 @@
 -- description: creates events table
--- authoredAt: 1370023262
+-- authoredAt: 1370023262000
 -- up:
 
 CREATE TABLE events (

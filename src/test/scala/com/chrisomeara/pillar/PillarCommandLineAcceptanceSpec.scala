@@ -1,7 +1,7 @@
 package com.chrisomeara.pillar
 
 import com.datastax.driver.core.exceptions.InvalidQueryException
-import org.scalatest.{BeforeAndAfter, GivenWhenThen, FeatureSpec}
+import org.scalatest.{BeforeAndAfter, FeatureSpec, GivenWhenThen}
 import org.scalatest.matchers.ShouldMatchers
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.querybuilder.QueryBuilder
@@ -60,6 +60,9 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
 
       And("the applied_migrations table records the migrations")
       session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(3)
+
+      And("the first migration was authored at Fri May 31 18:01:02 2013")
+      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations").where(QueryBuilder.eq("authored_at", 1370023262000L))).all().size() should equal(1)
     }
   }
 }

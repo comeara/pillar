@@ -7,8 +7,8 @@ import java.util.Date
 
 class ParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
   describe("#parse") {
-    describe("1370028262_creates_events_table.cql") {
-      val migrationPath = "src/test/resources/pillar/migrations/faker/1370028262_creates_events_table.cql"
+    describe("1370028262000_creates_events_table.cql") {
+      val migrationPath = "src/test/resources/pillar/migrations/faker/1370028262000_creates_events_table.cql"
 
       it("returns a migration object") {
         val resource = new FileInputStream(migrationPath)
@@ -17,7 +17,7 @@ class ParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
 
       it("assigns authoredAt") {
         val resource = new FileInputStream(migrationPath)
-        Parser().parse(resource).authoredAt should equal(new Date(1370023262))
+        Parser().parse(resource).authoredAt should equal(new Date(1370023262000L))
       }
 
       it("assigns description") {
@@ -37,8 +37,8 @@ class ParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
       }
     }
 
-    describe("1370028263_creates_views_table.cql") {
-      val migrationPath = "src/test/resources/pillar/migrations/faker/1370028263_creates_views_table.cql"
+    describe("1370028263000_creates_views_table.cql") {
+      val migrationPath = "src/test/resources/pillar/migrations/faker/1370028263000_creates_views_table.cql"
 
       it("returns a migration object") {
         val resource = new FileInputStream(migrationPath)
@@ -51,8 +51,8 @@ class ParserSpec extends FunSpec with BeforeAndAfter with ShouldMatchers {
       }
     }
 
-    describe("1370028264_adds_user_agent_to_views_table.cql") {
-      val migrationPath = "src/test/resources/pillar/migrations/faker/1370028264_adds_user_agent_to_views_table.cql"
+    describe("1370028264000_adds_user_agent_to_views_table.cql") {
+      val migrationPath = "src/test/resources/pillar/migrations/faker/1370028264000_adds_user_agent_to_views_table.cql"
 
       it("returns a migration object") {
         val resource = new FileInputStream(migrationPath)

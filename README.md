@@ -19,7 +19,7 @@ databases with one key difference: Pillar is completely independent from any app
 ### Prerequisites
 
 1. Java SE 6 runtime environment
-1. Cassandra 2.0 with the native CQL protocol enabled
+1. Cassandra 2.0 or 2.1 with the native CQL protocol enabled
 
 ### From Source
 

@@ -195,6 +195,13 @@ Apply all migrations to the faker datastore development environment
 You can also integrate Pillar directly into your application as a library.
 Reference the acceptance spec suite for details.
 
+### Forks
+
+Several organizations and people have forked the Pillar code base. The most actively maintained alternative is
+the [Galeria-Kaufhof fork][gkf].
+
+[gkf]:https://github.com/Galeria-Kaufhof/galeria-kaufhof.github.io
+
 ### Release Notes
 
 #### 1.0.1

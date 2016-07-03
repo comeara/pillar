@@ -200,7 +200,7 @@ Reference the acceptance spec suite for details.
 Several organizations and people have forked the Pillar code base. The most actively maintained alternative is
 the [Galeria-Kaufhof fork][gkf].
 
-[gkf]:https://github.com/Galeria-Kaufhof/galeria-kaufhof.github.io
+[gkf]:https://github.com/Galeria-Kaufhof/pillar
 
 ### Release Notes
 

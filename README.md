@@ -231,3 +231,7 @@ the [Galeria-Kaufhof fork][gkf].
 * Update Datastax Cassandra driver to version 3.0.0 (MarcoPriebe)
 * Fix documentation issue where authored_at represented as seconds rather than milliseconds (jhungerford)
 * Introduce PILLAR_SEED_ADDRESS environment variable (comeara)
+
+#### 2.2.0
+
+* Add feature to read registry from files (sadowskik)

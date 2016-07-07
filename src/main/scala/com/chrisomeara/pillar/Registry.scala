@@ -4,7 +4,6 @@ import java.util.Date
 import java.io.{FileInputStream, File}
 
 object Registry {
-
   def apply(migrations: Seq[Migration]): Registry = {
     new Registry(migrations)
   }

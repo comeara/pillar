@@ -28,18 +28,18 @@ class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with 
       val reporter = mock[Reporter]
       it("returns a registry populated with reporting migrations") {
         val registry = Registry.fromDirectory(new File("src/test/resources/pillar/migrations/faker/"), reporter)
-        registry.all(0).getClass should be(classOf[ReportingMigration])
+        registry.all.head.getClass should be(classOf[ReportingMigration])
       }
     }
   }
 
-  describe("fromFiles") {
+  describe(".fromFiles") {
     describe("without a reporter parameter") {
       describe("with migration files provided") {
         it("returns a registry with migrations") {
           val registry = Registry.fromFiles(Seq(
-            new File("src/test/resources/pillar/migrations/faker/1370028262_creates_events_table.cql"),
-            new File("src/test/resources/pillar/migrations/faker/1370028263_creates_views_table.cql")
+            new File("src/test/resources/pillar/migrations/faker/1370028262000_creates_events_table.cql"),
+            new File("src/test/resources/pillar/migrations/faker/1370028263000_creates_views_table.cql")
           ))
 
           registry.all.size should equal(2)
@@ -51,7 +51,7 @@ class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with 
 
           val registry = Registry.fromFiles(Seq(
             new File("src/test/resources/pillar/migrations/faker"),
-            new File("src/test/resources/pillar/migrations/faker/1370028263_creates_views_table.cql")
+            new File("src/test/resources/pillar/migrations/faker/1370028263000_creates_views_table.cql")
           ))
 
           registry.all.size should equal(1)
@@ -69,8 +69,8 @@ class RegistrySpec extends FunSpec with BeforeAndAfter with ShouldMatchers with 
     describe("with a reporter parameter") {
       val reporter = mock[Reporter]
       it("returns a registry populated with reporting migrations") {
-        val registry = Registry.fromFiles(Seq(new File("src/test/resources/pillar/migrations/faker/1370028263_creates_views_table.cql")), reporter);
-        registry.all(0).getClass should be(classOf[ReportingMigration])
+        val registry = Registry.fromFiles(Seq(new File("src/test/resources/pillar/migrations/faker/1370028263000_creates_views_table.cql")), reporter)
+        registry.all.head.getClass should be(classOf[ReportingMigration])
       }
     }
   }

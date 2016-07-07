@@ -38,15 +38,15 @@ The RPM installs Pillar to /opt/pillar.
 
 ### Packages
 
-Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.0.1.
+Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.1.0.
 
 #### sbt
 
-  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.0.1"
+  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.1.0"
 
 #### Gradle
 
-  compile 'com.chrisomeara:pillar_2.10:2.0.1'
+  compile 'com.chrisomeara:pillar_2.10:2.1.0'
 
 ## Usage
 
@@ -225,3 +225,9 @@ the [Galeria-Kaufhof fork][gkf].
 #### 2.0.1
 
 * Update a argot dependency to version 1.0.3 (magro)
+
+#### 2.1.0
+
+* Update Datastax Cassandra driver to version 3.0.0 (MarcoPriebe)
+* Fix documentation issue where authored_at represented as seconds rather than milliseconds (jhungerford)
+* Introduce PILLAR_SEED_ADDRESS environment variable (comeara)

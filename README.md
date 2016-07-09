@@ -147,13 +147,21 @@ application.conf might look like the following:
         acceptance_test {
             cassandra-seed-address: "127.0.0.1"
             cassandra-keyspace-name: "pillar_acceptance_test"
+            cassandra-port: "9042"
+            cassandra-ssl: "true"
         }
     }
 
 [typesafeconfig]:https://github.com/typesafehub/config
 
-Alternatively, Pillar accepts the Cassandra seed address from the CASSANDRA_SEED_ADDRESS environment variable. If set,
-the CASSANDRA_SEED_ADDRESS environment variable takes precedence over application.conf.
+Alternatively, Pillar accepts environment variable overrides according to the following table.
+
+| Key                                            | Environment Variable | Default |
+|------------------------------------------------|----------------------|---------|
+| pillar.\<store>.\<env>.cassandra-seed-address  | PILLAR_SEED_ADDRESS  |         |
+| pillar.\<store>.\<env>.cassandra-keyspace-name |                      |         |
+| pillar.\<store>.\<env>.cassandra-port          | PILLAR_PORT          | 9042    |
+| pillar.\<store>.\<env>.cassandra-ssl           | PILLAR_SSL           | false   |
 
 Reference the acceptance spec suite for details.
 

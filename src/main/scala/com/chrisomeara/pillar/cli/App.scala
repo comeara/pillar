@@ -36,11 +36,21 @@ class App(reporter: Reporter) {
       case Some(s) => s
       case _ => getFromConfiguration(configuration, dataStoreName, environment, "cassandra-seed-address")
     }
-    val port = Integer.valueOf(getFromConfiguration(configuration, dataStoreName, environment, "cassandra-port", Some(9042.toString)))
-    val builder = Cluster.builder().addContactPoint(seedAddress).withPort(port).build()
+    val port = Integer.valueOf(sys.env.get("PILLAR_PORT") match {
+      case Some(s) => s
+      case _ => getFromConfiguration(configuration, dataStoreName, environment, "cassandra-port", Some(9042.toString))
+    })
+    val builder = Cluster.builder().addContactPoint(seedAddress).withPort(port)
+    if(sys.env.get("PILLAR_SSL") match {
+      case Some(s) => s.toBoolean
+      case None => getFromConfiguration(configuration, dataStoreName, environment, "cassandra-ssl", Some("false")).toBoolean
+    }) {
+      builder.withSSL()
+    }
+    val cluster = builder.build()
     val session = commandLineConfiguration.command match {
-      case Initialize => builder.connect()
-      case _ => builder.connect(keyspace)
+      case Initialize => cluster.connect()
+      case _ => cluster.connect(keyspace)
     }
     val command = Command(commandLineConfiguration.command, session, keyspace, commandLineConfiguration.timeStampOption, registry)
 

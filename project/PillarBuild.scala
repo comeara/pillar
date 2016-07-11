@@ -66,7 +66,7 @@ object PillarBuild extends Build {
     libraryDependencies := dependencies,
     name := "pillar",
     organization := "com.chrisomeara",
-    version := "2.1.0",
+    version := "2.1.1",
     homepage := Some(url("https://github.com/comeara/pillar")),
     licenses := Seq("MIT license" -> url("http://www.opensource.org/licenses/mit-license.php")),
     scalaVersion := "2.10.6",

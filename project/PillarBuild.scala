@@ -10,6 +10,7 @@ object PillarBuild extends Build {
   val assemblyMergeStrategySetting = mergeStrategy in assembly <<= (mergeStrategy in assembly) {
     (old) => {
       case PathList("javax", "servlet", xs@_*) => MergeStrategy.first
+      case "META-INF/io.netty.versions.properties" => MergeStrategy.last
       case x => old(x)
     }
   }

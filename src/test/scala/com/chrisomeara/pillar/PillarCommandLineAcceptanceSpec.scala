@@ -9,7 +9,9 @@ import com.chrisomeara.pillar.cli.App
 
 class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers with AcceptanceAssertions {
   val seedAddress = sys.env.getOrElse("PILLAR_SEED_ADDRESS", "127.0.0.1")
-  val cluster = Cluster.builder().addContactPoint(seedAddress).build()
+  val username = sys.env.getOrElse("PILLAR_USERNAME", "cassandra")
+  val password = sys.env.getOrElse("PILLAR_PASSWORD", "cassandra")
+  val cluster = Cluster.builder().addContactPoint(seedAddress).withCredentials(username, password).build()
   val session = cluster.connect()
   val keyspaceName = "pillar_acceptance_test"
 

@@ -147,8 +147,9 @@ application.conf might look like the following:
         acceptance_test {
             cassandra-seed-address: "127.0.0.1"
             cassandra-keyspace-name: "pillar_acceptance_test"
-            cassandra-port: "9042"
             cassandra-ssl: "true"
+            cassandra-username: "faker"
+            cassandra-password: "soopersecret"
         }
     }
 
@@ -156,12 +157,14 @@ application.conf might look like the following:
 
 Alternatively, Pillar accepts environment variable overrides according to the following table.
 
-| Key                                            | Environment Variable | Default |
-|------------------------------------------------|----------------------|---------|
-| pillar.\<store>.\<env>.cassandra-seed-address  | PILLAR_SEED_ADDRESS  |         |
-| pillar.\<store>.\<env>.cassandra-keyspace-name |                      |         |
-| pillar.\<store>.\<env>.cassandra-port          | PILLAR_PORT          | 9042    |
-| pillar.\<store>.\<env>.cassandra-ssl           | PILLAR_SSL           | false   |
+| Key                                            | Environment Variable | Default   |
+|------------------------------------------------|----------------------|-----------|
+| pillar.\<store>.\<env>.cassandra-seed-address  | PILLAR_SEED_ADDRESS  |           |
+| pillar.\<store>.\<env>.cassandra-keyspace-name |                      |           |
+| pillar.\<store>.\<env>.cassandra-port          | PILLAR_PORT          | 9042      |
+| pillar.\<store>.\<env>.cassandra-ssl           | PILLAR_SSL           | false     |
+| pillar.\<store>.\<env>.cassandra-username      | PILLAR_USERNAME      | cassandra |
+| pillar.\<store>.\<env>.cassandra-password      | PILLAR_PASSWORD      | cassandra |
 
 Reference the acceptance spec suite for details.
 

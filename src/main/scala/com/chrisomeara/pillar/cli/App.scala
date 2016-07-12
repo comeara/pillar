@@ -40,7 +40,9 @@ class App(reporter: Reporter) {
       case Some(s) => s
       case _ => getFromConfiguration(configuration, dataStoreName, environment, "cassandra-port", Some(9042.toString))
     })
-    val builder = Cluster.builder().addContactPoint(seedAddress).withPort(port)
+    val username = sys.env.getOrElse("PILLAR_USERNAME", getFromConfiguration(configuration, dataStoreName, environment, "cassandra-username", Some("cassandra")))
+    val password = sys.env.getOrElse("PILLAR_PASSWORD", getFromConfiguration(configuration, dataStoreName, environment, "cassandra-password", Some("cassandra")))
+    val builder = Cluster.builder().addContactPoint(seedAddress).withPort(port).withCredentials(username, password)
     if(sys.env.get("PILLAR_SSL") match {
       case Some(s) => s.toBoolean
       case None => getFromConfiguration(configuration, dataStoreName, environment, "cassandra-ssl", Some("false")).toBoolean

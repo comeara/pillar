@@ -11,7 +11,8 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
   val seedAddress = sys.env.getOrElse("PILLAR_SEED_ADDRESS", "127.0.0.1")
   val username = sys.env.getOrElse("PILLAR_USERNAME", "cassandra")
   val password = sys.env.getOrElse("PILLAR_PASSWORD", "cassandra")
-  val cluster = Cluster.builder().addContactPoint(seedAddress).withCredentials(username, password).build()
+  val port = sys.env.getOrElse("PILLAR_PORT", "9042").toInt
+  val cluster = Cluster.builder().addContactPoint(seedAddress).withPort(port).withCredentials(username, password).build()
   val keyspaceName = "test_%d".format(System.currentTimeMillis())
   val session = cluster.connect()
   val migrations = Seq(
@@ -201,7 +202,7 @@ class PillarLibraryAcceptanceSpec extends FeatureSpec with GivenWhenThen with Be
       val thrown = intercept[InvalidQueryException] {
         session.execute(QueryBuilder.select().from(keyspaceName, "views")).all()
       }
-      thrown.getMessage should equal("unconfigured columnfamily views")
+      thrown.getMessage should include("views")
 
       And("the migrator removes the reversed migration from the applied migrations table")
       val reversedMigration = migrations(1)

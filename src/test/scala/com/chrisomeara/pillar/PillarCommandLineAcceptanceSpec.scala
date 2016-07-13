@@ -11,7 +11,8 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
   val seedAddress = sys.env.getOrElse("PILLAR_SEED_ADDRESS", "127.0.0.1")
   val username = sys.env.getOrElse("PILLAR_USERNAME", "cassandra")
   val password = sys.env.getOrElse("PILLAR_PASSWORD", "cassandra")
-  val cluster = Cluster.builder().addContactPoint(seedAddress).withCredentials(username, password).build()
+  val port = sys.env.getOrElse("PILLAR_PORT", "9042").toInt
+  val cluster = Cluster.builder().addContactPoint(seedAddress).withPort(port).withCredentials(username, password).build()
   val session = cluster.connect()
   val keyspaceName = "pillar_acceptance_test"
 

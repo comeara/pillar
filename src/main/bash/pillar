@@ -1,13 +1,12 @@
 #!/bin/bash
 
-: ${JAVA_HOME:="/usr/java/default"}
-: ${APP_ROOT:="."}
-: ${PILLAR_ROOT:="/opt/pillar"}
+: ${JAVA:=/usr/bin/java}
+: ${PILLAR_ROOT:=/opt/pillar}
 
-export JAVA_HOME APP_ROOT PILLAR_ROOT
+export PILLAR_ROOT
 
 CLASS=com.chrisomeara.pillar.cli.App
-CLASS_PATH=${APP_ROOT}/conf:${APP_ROOT}/src/main/resources:${PILLAR_ROOT}/lib/pillar.jar:${PILLAR_ROOT}/conf
-JAVA_OPTIONS="-Dlog4j.configuration=pillar-log4j.properties"
+CLASS_PATH=${PILLAR_ROOT}/lib/pillar.jar:${PILLAR_ROOT}/conf
+JAVA_OPTS="${JAVA_OPTS} -Dlog4j.configuration=pillar-log4j.properties"
 
-$JAVA_HOME/bin/java -cp $CLASS_PATH $JAVA_OPTIONS $CLASS $*
+$JAVA -cp $CLASS_PATH $JAVA_OPTS $CLASS $*

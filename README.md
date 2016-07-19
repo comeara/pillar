@@ -69,8 +69,8 @@ Here's the short version:
 
   1. Write migrations, place them in conf/pillar/migrations/myapp.
   1. Add pillar settings to conf/application.conf.
-  1. % pillar initialize myapp
-  1. % pillar migrate myapp
+  1. % pillar -e development initialize myapp
+  1. % pillar -e development migrate myapp
 
 #### Migration Files
 
@@ -145,28 +145,20 @@ application.conf might look like the following:
             cassandra-keyspace-name: "pillar_test"
         }
         acceptance_test {
-            cassandra-seed-address: "127.0.0.1"
+            cassandra-seed-address: ${?PILLAR_SEED_ADDRESS}
+            cassandra-port: ${?PILLAR_PORT}
             cassandra-keyspace-name: "pillar_acceptance_test"
-            cassandra-ssl: "true"
-            cassandra-username: "faker"
-            cassandra-password: "soopersecret"
+            cassandra-keyspace-name: ${?PILLAR_KEYSPACE_NAME}
+            cassandra-ssl: ${?PILLAR_SSL}
+            cassandra-username: ${?PILLAR_USERNAME}
+            cassandra-password: ${?PILLAR_PASSWORD}
         }
     }
 
 [typesafeconfig]:https://github.com/typesafehub/config
 
-Alternatively, Pillar accepts environment variable overrides according to the following table.
-
-| Key                                            | Environment Variable | Default   |
-|------------------------------------------------|----------------------|-----------|
-| pillar.\<store>.\<env>.cassandra-seed-address  | PILLAR_SEED_ADDRESS  |           |
-| pillar.\<store>.\<env>.cassandra-keyspace-name |                      |           |
-| pillar.\<store>.\<env>.cassandra-port          | PILLAR_PORT          | 9042      |
-| pillar.\<store>.\<env>.cassandra-ssl           | PILLAR_SSL           | false     |
-| pillar.\<store>.\<env>.cassandra-username      | PILLAR_USERNAME      | cassandra |
-| pillar.\<store>.\<env>.cassandra-password      | PILLAR_PASSWORD      | cassandra |
-
-Reference the acceptance spec suite for details.
+Notice the use of environment varaibles in the acceptance_test environment example. This is a feature of Typesafe Config
+that can greatly increase the security and portability of your Pillar configuration.
 
 #### Transport Layer Security (TLS/SSL)
 
@@ -267,3 +259,5 @@ the [Galeria-Kaufhof fork][gkf].
 #### 2.2.0
 
 * Add feature to read registry from files (sadowskik)
+* Add TLS/SSL support(bradhandy, comeara)
+* Add authentication support (bradhandy, comeara)

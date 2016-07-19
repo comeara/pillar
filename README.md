@@ -168,6 +168,23 @@ Alternatively, Pillar accepts environment variable overrides according to the fo
 
 Reference the acceptance spec suite for details.
 
+#### Transport Layer Security (TLS/SSL)
+
+Pillar will optionally enable TLS/SSL for client-to-node communications. As Pillar runs on the Java virtual machine,
+normal JVM TLS/SSL configuration options apply. If the JVM executing Pillar does not already trust the certificate
+presented by the Cassandra cluster, you may need to configure the trust store as documented by [Oracle][jsseref]
+and [DataStax][dsssl].
+
+Pillar does not install a custom trust manager but rather relies on the default trust manager implementation.
+Configuring the default trust store requires setting two system properties, like this:
+
+    JAVA_OPTS='-Djavax.net.ssl.trustStore=/opt/pillar/conf/truststore -Djavax.net.ssl.trustStorePassword=cassandra'
+
+$JAVA_OPTS are passed through to the JVM when using the pillar executable.
+
+[jsseref]:https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html
+[dsssl]:https://datastax.github.io/java-driver/2.0.12/features/ssl/
+
 #### The pillar Executable
 
 The package installs to /opt/pillar by default. The /opt/pillar/bin/pillar executable usage looks like this:
@@ -222,7 +239,7 @@ the [Galeria-Kaufhof fork][gkf].
 #### 1.0.3
 
 * Clarify documentation (pvenable)
-* Update Datastax Cassandra driver to version 2.0.2 (magro)
+* Update DataStax Cassandra driver to version 2.0.2 (magro)
 * Update Scala to version 2.10.4 (magro)
 * Add cross-compilation to Scala version 2.11.1 (magro)
 * Shutdown cluster in migrate & initialize (magro)
@@ -239,7 +256,7 @@ the [Galeria-Kaufhof fork][gkf].
 
 #### 2.1.0
 
-* Update Datastax Cassandra driver to version 3.0.0 (MarcoPriebe)
+* Update DataStax Cassandra driver to version 3.0.0 (MarcoPriebe)
 * Fix documentation issue where authored_at represented as seconds rather than milliseconds (jhungerford)
 * Introduce PILLAR_SEED_ADDRESS environment variable (comeara)
 

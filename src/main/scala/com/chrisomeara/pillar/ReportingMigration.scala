@@ -6,7 +6,7 @@ import com.datastax.driver.core.Session
 class ReportingMigration(reporter: Reporter, wrapped: Migration) extends Migration {
   val description: String = wrapped.description
   val authoredAt: Date = wrapped.authoredAt
-  val up: String = wrapped.up
+  val up: Seq[String] = wrapped.up
 
   override def executeUpStatement(session: Session) {
     reporter.applying(wrapped)

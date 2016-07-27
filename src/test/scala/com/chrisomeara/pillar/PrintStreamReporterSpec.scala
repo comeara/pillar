@@ -10,7 +10,7 @@ import org.scalatest.mock.MockitoSugar
 
 class PrintStreamReporterSpec extends FunSpec with MockitoSugar with Matchers with OneInstancePerTest {
   val session = mock[Session]
-  val migration = Migration("creates things table", new Date(1370489972546L), "up", Some("down"))
+  val migration = Migration("creates things table", new Date(1370489972546L), Seq("up"), Some(Seq("down")))
   val output = new ByteArrayOutputStream()
   val stream = new PrintStream(output)
   val reporter = new PrintStreamReporter(stream)

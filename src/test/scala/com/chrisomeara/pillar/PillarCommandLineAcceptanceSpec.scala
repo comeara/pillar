@@ -62,7 +62,7 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
       session.execute(QueryBuilder.select().from(keyspaceName, "views")).all().size() should equal(0)
 
       And("the applied_migrations table records the migrations")
-      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(3)
+      session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations")).all().size() should equal(4)
 
       And("the first migration was authored at Fri May 31 18:01:02 2013")
       session.execute(QueryBuilder.select().from(keyspaceName, "applied_migrations").where(QueryBuilder.eq("authored_at", 1370023262000L))).all().size() should equal(1)

@@ -35,7 +35,6 @@ trait Migration {
   }
 
   def executeUpStatement(session: Session) {
-
     up.foreach(session.execute)
     insertIntoAppliedMigrations(session)
   }

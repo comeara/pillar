@@ -18,8 +18,8 @@ databases with one key difference: Pillar is completely independent from any app
 
 ### Prerequisites
 
-1. Java SE 6 runtime environment
-1. Cassandra 2.0 or 2.1 with the native CQL protocol enabled
+1. Java SE 6 or more recent runtime environment
+1. Cassandra 2.x or 3.x
 
 ### From Source
 
@@ -38,15 +38,15 @@ The RPM installs Pillar to /opt/pillar.
 
 ### Packages
 
-Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.1.1.
+Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.2.0.
 
 #### sbt
 
-  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.1.1"
+  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.2.0"
 
 #### Gradle
 
-  compile 'com.chrisomeara:pillar_2.10:2.1.1'
+  compile 'com.chrisomeara:pillar_2.10:2.2.0'
 
 ## Usage
 

@@ -38,15 +38,15 @@ The RPM installs Pillar to /opt/pillar.
 
 ### Packages
 
-Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.2.0.
+Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.3.0.
 
 #### sbt
 
-  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.2.0"
+  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.3.0"
 
 #### Gradle
 
-  compile 'com.chrisomeara:pillar_2.10:2.2.0'
+  compile 'com.chrisomeara:pillar_2.10:2.3.0'
 
 ## Usage
 

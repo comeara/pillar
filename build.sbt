@@ -4,10 +4,11 @@ organization := "com.chrisomeara"
 name := "pillar"
 version := pillarVersion
 scalaVersion := "2.11.8"
+crossScalaVersions := Seq("2.10.6", "2.11.8")
 homepage := Some(url("https://github.com/comeara/pillar"))
 licenses := Seq("MIT license" -> url("http://www.opensource.org/licenses/mit-license.php"))
 libraryDependencies ++= Seq(
-  "com.chrisomeara" %% "pillar-lib" % pillarVersion,
+  "com.chrisomeara" %% "pillar-core" % pillarVersion,
   "org.clapper" %% "argot" % "1.0.3",
   "com.typesafe" % "config" % "1.0.1",
   "org.mockito" % "mockito-core" % "1.9.5" % "test",

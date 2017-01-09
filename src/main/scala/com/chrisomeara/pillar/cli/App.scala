@@ -2,7 +2,7 @@ package com.chrisomeara.pillar.cli
 
 import java.io.File
 
-import com.chrisomeara.pillar.{ConfigurationException, PrintStreamReporter, Registry, Reporter}
+import com.chrisomeara.pillar.core.{ConfigurationException, PrintStreamReporter, Registry, Reporter}
 import com.datastax.driver.core.Cluster
 import com.typesafe.config.{Config, ConfigFactory}
 

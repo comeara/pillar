@@ -2,7 +2,7 @@ package com.chrisomeara.pillar.cli
 
 import java.util.Date
 
-import com.chrisomeara.pillar.{Migrator, Registry, Reporter}
+import com.chrisomeara.pillar.core.{Migrator, Registry, Reporter}
 
 object CommandExecutor {
   implicit private val migratorConstructor: ((Registry, Reporter) => Migrator) = Migrator.apply

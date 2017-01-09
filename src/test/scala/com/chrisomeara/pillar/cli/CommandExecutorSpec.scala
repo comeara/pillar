@@ -2,7 +2,7 @@ package com.chrisomeara.pillar.cli
 
 import java.util.Date
 
-import com.chrisomeara.pillar.{Migrator, Registry, Reporter}
+import com.chrisomeara.pillar.core.{Migrator, Registry, Reporter}
 import com.datastax.driver.core.Session
 import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar

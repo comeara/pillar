@@ -2,9 +2,9 @@ package com.chrisomeara.pillar
 
 import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.datastax.driver.core.{Metadata, Session}
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
-trait AcceptanceAssertions extends ShouldMatchers {
+trait AcceptanceAssertions extends Matchers {
   val session: Session
   val keyspaceName: String
 

@@ -12,7 +12,7 @@ libraryDependencies ++= Seq(
   "org.clapper" %% "argot" % "1.0.3",
   "com.typesafe" % "config" % "1.0.1",
   "org.mockito" % "mockito-core" % "1.9.5" % "test",
-  "org.scalatest" %% "scalatest" % "2.2.0" % "test",
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
   "org.slf4j" % "slf4j-simple" % "1.7.22" % "test"
 )
 publishMavenStyle := true

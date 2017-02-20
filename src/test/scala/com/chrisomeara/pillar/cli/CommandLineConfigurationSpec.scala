@@ -1,9 +1,8 @@
 package com.chrisomeara.pillar.cli
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
 
-class CommandLineConfigurationSpec extends FunSpec with ShouldMatchers {
+class CommandLineConfigurationSpec extends FunSpec with Matchers {
   describe(".buildFromArguments") {
     describe("command initialize") {
       describe("data-store faker") {

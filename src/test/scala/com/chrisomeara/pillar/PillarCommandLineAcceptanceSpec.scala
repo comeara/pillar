@@ -1,13 +1,12 @@
 package com.chrisomeara.pillar
 
 import com.datastax.driver.core.exceptions.InvalidQueryException
-import org.scalatest.{BeforeAndAfter, FeatureSpec, GivenWhenThen}
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{BeforeAndAfter, FeatureSpec, GivenWhenThen, Matchers}
 import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.chrisomeara.pillar.cli.App
 
-class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with ShouldMatchers with AcceptanceAssertions {
+class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen with BeforeAndAfter with Matchers with AcceptanceAssertions {
   val seedAddress = sys.env.getOrElse("PILLAR_SEED_ADDRESS", "127.0.0.1")
   val username = sys.env.getOrElse("PILLAR_USERNAME", "cassandra")
   val password = sys.env.getOrElse("PILLAR_PASSWORD", "cassandra")

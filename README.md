@@ -25,12 +25,9 @@ databases with one key difference: Pillar is completely independent from any app
 
 This method requires [Simple Build Tool (sbt)][sbt].
 
-    % sbt assembly   # builds just the jar file in the target/ directory
-
-The RPM installs Pillar to /opt/pillar.
+    % sbt assembly   # builds a fat jar file in the target/ directory
 
 [sbt]:http://www.scala-sbt.org
-[fpm]:https://github.com/jordansissel/fpm
 
 ### Packages
 
@@ -176,7 +173,6 @@ application.conf might look like the following:
         acceptance_test {
             cassandra-seed-address: ${?PILLAR_SEED_ADDRESS}
             cassandra-port: ${?PILLAR_PORT}
-            cassandra-keyspace-name: "pillar_acceptance_test"
             cassandra-keyspace-name: ${?PILLAR_KEYSPACE_NAME}
             cassandra-ssl: ${?PILLAR_SSL}
             cassandra-username: ${?PILLAR_USERNAME}

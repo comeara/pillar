@@ -1,6 +1,6 @@
 # Pillar
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.chrisomeara/pillar_2.11.svg)][pillar_2.11]
+[![Maven Central](https://img.shields.io/maven-central/v/com.chrisomeara/pillar_2.12.svg)][pillar_2.12]
 
 Pillar manages migrations for your [Cassandra][cassandra] data stores.
 
@@ -41,7 +41,7 @@ Pillar is available at Maven Central under the GroupId com.chrisomeara and Artif
 #### sbt
 
 ```
-libraryDependencies += "com.chrisomeara" % "pillar_2.12" % "3.0.0"
+libraryDependencies += "com.chrisomeara" %% "pillar" % "3.0.0"
 ```
 
 #### Gradle

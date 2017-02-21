@@ -32,7 +32,7 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
       Given("a non-existent keyspace")
 
       When("the migrator initializes the keyspace")
-      App().run(Array("-e", "acceptance_test", "initialize", "faker"))
+      App().run(Array("initialize", "-e", "acceptance_test", "faker"))
 
       Then("the keyspace contains a applied_migrations column family")
       assertEmptyAppliedMigrationsTable()
@@ -46,13 +46,13 @@ class PillarCommandLineAcceptanceSpec extends FeatureSpec with GivenWhenThen wit
 
     scenario("all migrations") {
       Given("an initialized, empty, keyspace")
-      App().run(Array("-e", "acceptance_test", "initialize", "faker"))
+      App().run(Array("initialize", "-e", "acceptance_test", "faker"))
 
       Given("a migration that creates an events table")
       Given("a migration that creates a views table")
 
       When("the migrator migrates the schema")
-      App().run(Array("-e", "acceptance_test", "-d", "src/test/resources/pillar/migrations", "migrate", "faker"))
+      App().run(Array("migrate", "-e", "acceptance_test", "-d", "src/test/resources/pillar/migrations", "faker"))
 
       Then("the keyspace contains the events table")
       session.execute(QueryBuilder.select().from(keyspaceName, "events")).all().size() should equal(0)

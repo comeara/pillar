@@ -7,6 +7,5 @@ export PILLAR_ROOT
 
 CLASS=com.chrisomeara.pillar.cli.App
 CLASS_PATH=${PILLAR_ROOT}/lib/pillar.jar:${PILLAR_ROOT}/conf
-JAVA_OPTS="${JAVA_OPTS} -Dlog4j.configuration=pillar-log4j.properties"
 
 $JAVA -cp $CLASS_PATH $JAVA_OPTS $CLASS $*

@@ -24,12 +24,8 @@ databases with one key difference: Pillar is completely independent from any app
 ### From Source
 
 This method requires [Simple Build Tool (sbt)][sbt].
-Building an RPM also requires [Effing Package Management (fpm)][fpm].
 
     % sbt assembly   # builds just the jar file in the target/ directory
-
-    % sbt rh-package # builds the jar and the RPM in the target/ directory
-    % sudo rpm -i target/pillar-1.0.0-DEV.noarch.rpm
 
 The RPM installs Pillar to /opt/pillar.
 
@@ -38,15 +34,16 @@ The RPM installs Pillar to /opt/pillar.
 
 ### Packages
 
-Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10 or pillar_2.11. The current version is 2.3.0.
+Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10, pillar_2.11 or
+pillar_2.12. The current version is 2.3.0.
 
 #### sbt
 
-  libraryDependencies += "com.chrisomeara" % "pillar_2.10" % "2.3.0"
+  libraryDependencies += "com.chrisomeara" % "pillar_2.12" % "3.0.0"
 
 #### Gradle
 
-  compile 'com.chrisomeara:pillar_2.10:2.3.0'
+  compile 'com.chrisomeara:pillar_2.12:3.0.0'
 
 ## Usage
 
@@ -69,8 +66,8 @@ Here's the short version:
 
   1. Write migrations, place them in conf/pillar/migrations/myapp.
   1. Add pillar settings to conf/application.conf.
-  1. % pillar -e development initialize myapp
-  1. % pillar -e development migrate myapp
+  1. % pillar initialize -e development myapp
+  1. % pillar migrate -e development myapp
 
 #### Migration Files
 
@@ -211,36 +208,33 @@ $JAVA_OPTS are passed through to the JVM when using the pillar executable.
 
 #### The pillar Executable
 
-The package installs to /opt/pillar by default. The /opt/pillar/bin/pillar executable usage looks like this:
+The Pillar executable usage looks like this:
 
-    Usage: pillar [OPTIONS] command data-store
+    Usage: pillar [initialize|migrate] data-store
 
-    OPTIONS
+    Command: initialize [options]
 
-    -d directory
-    --migrations-directory directory  The directory containing migrations
+      -e, --environment <value>
 
-    -e env
-    --environment env                 environment
+    Command: migrate [options]
 
-    -t time
-    --time-stamp time                 The migration time stamp
+      -e, --environment <value>
 
-    PARAMETERS
+      -t, --time-stamp <value>
 
-    command     migrate or initialize
+      -d, --migrations-directory <value>
 
-    data-store  The target data store, as defined in application.conf
+      data-store
 
 #### Examples
 
 Initialize the faker datastore development environment
 
-    % pillar -e development initialize faker
+    % pillar initialize -e development faker
 
 Apply all migrations to the faker datastore development environment
 
-    % pillar -e development migrate faker
+    % pillar migrate -e development faker
 
 ### Library
 
@@ -297,3 +291,11 @@ the [Galeria-Kaufhof fork][gkf].
 #### 2.3.0
 
 * Add multiple stages per migration (sadowskik)
+
+#### 3.0.0
+
+* Support Scala 2.12 (comeara)
+* Split Pillar command line interface and core library into separate artifacts (comeara)
+* Add SLF4J binding for command line interface (comeara)
+* Update command-line interface to use command and sub-command structure (comeara)
+* Remove RPM build (comeara)

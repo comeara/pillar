@@ -1,42 +1,32 @@
 package com.chrisomeara.pillar.cli
 
-import org.clapper.argot.ArgotParser
-import org.clapper.argot.ArgotConverters._
+import scopt.OptionParser
 import java.io.File
 
 object CommandLineConfiguration {
   def buildFromArguments(arguments: Array[String]): CommandLineConfiguration = {
-    val parser = new ArgotParser("pillar")
+    val parser = new OptionParser[CommandLineConfiguration]("pillar") {
 
-    val commandParameter = parser.parameter[MigratorAction]("command", "migrate or initialize", optional = false) {
-      (commandString, _) =>
-        commandString match {
-          case "initialize" => Initialize
-          case "migrate" => Migrate
-          case _ => parser.usage(s"$commandString is not a command")
-        }
+      cmd("initialize").action((_, c) => c.copy(command = Initialize)).children(
+        opt[String]('e', "environment").optional().action((e, c) => c.copy(environment = e))
+      )
+
+      cmd("migrate").action((_, c) => c.copy(command = Migrate)).children(
+        opt[String]('e', "environment").optional().action((e, c) => c.copy(environment = e)),
+        opt[Long]('t', "time-stamp").optional().action((t, c) => c.copy(timeStampOption = Some(t))),
+        opt[File]('d', "migrations-directory").optional().action((d, c) => c.copy(migrationsDirectory = d))
+      )
+
+      arg[String]("data-store").action((ds, c) => c.copy(dataStore = ds))
     }
-    val dataStoreConfigurationOption = parser.parameter[String]("data-store", "The target data store, as defined in application.conf", optional = false)
-    val migrationsDirectoryOption = parser.option[File](List("d", "migrations-directory"), "directory", "The directory containing migrations") {
-      (path, _) =>
-        val directory = new File(path)
-        if (!directory.isDirectory) parser.usage(s"${directory.getAbsolutePath} is not a directory")
-        directory
+
+    parser.parse(arguments, CommandLineConfiguration()) match {
+      case Some(configuration) =>
+        configuration
+      case None =>
+        throw new IllegalArgumentException("Unable to construct configuration from command line arguments")
     }
-    val environmentOption = parser.option[String](List("e", "environment"), "env", "environment")
-    val timeStampOption = parser.option[Long](List("t", "time-stamp"), "time", "The migration time stamp")
-
-    parser.parse(arguments)
-
-    CommandLineConfiguration(
-      commandParameter.value.get,
-      dataStoreConfigurationOption.value.get,
-      environmentOption.value.getOrElse("development"),
-      migrationsDirectoryOption.value.getOrElse(new File("conf/pillar/migrations")),
-      timeStampOption.value
-    )
   }
 }
 
-case class CommandLineConfiguration(command: MigratorAction, dataStore: String, environment: String, migrationsDirectory: File, timeStampOption: Option[Long])
-
+case class CommandLineConfiguration(command: MigratorAction = Noop, dataStore: String = "", environment: String = "development", migrationsDirectory: File = new File("conf/pillar/migrations"), timeStampOption: Option[Long] = None)

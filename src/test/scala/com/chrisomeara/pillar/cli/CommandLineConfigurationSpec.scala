@@ -28,19 +28,19 @@ class CommandLineConfigurationSpec extends FunSpec with Matchers {
 
         describe("environment test") {
           it("sets the environment") {
-            CommandLineConfiguration.buildFromArguments(Array("-e", "test", "initialize", "faker")).environment should equal("test")
+            CommandLineConfiguration.buildFromArguments(Array("initialize", "-e", "test", "faker")).environment should equal("test")
           }
         }
 
         describe("migrations-directory baz") {
           it("sets the migrations directory") {
-            CommandLineConfiguration.buildFromArguments(Array("-d", "src/test/resources/pillar/migrations", "initialize", "faker")).migrationsDirectory.getPath should equal("src/test/resources/pillar/migrations")
+            CommandLineConfiguration.buildFromArguments(Array("migrate", "-d", "src/test/resources/pillar/migrations", "faker")).migrationsDirectory.getPath should equal("src/test/resources/pillar/migrations")
           }
         }
 
         describe("time-stamp 1370028262") {
           it("sets the time stamp option") {
-            CommandLineConfiguration.buildFromArguments(Array("-t", "1370028262", "initialize", "faker")).timeStampOption should equal(Some(1370028262))
+            CommandLineConfiguration.buildFromArguments(Array("migrate", "-t", "1370028262", "faker")).timeStampOption should equal(Some(1370028262))
           }
         }
       }

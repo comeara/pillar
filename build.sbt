@@ -1,4 +1,4 @@
-lazy val pillarVersion = "3.0.SNAPSHOT"
+lazy val pillarVersion = "3.0.0"
 
 organization := "com.chrisomeara"
 name := "pillar"

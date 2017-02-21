@@ -1,5 +1,7 @@
 # Pillar
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.chrisomeara/pillar_2.11.svg)](https://maven-badges.herokuapp.com/maven-central/com.chrisomeara/pillar_2.11)
+
 Pillar manages migrations for your [Cassandra][cassandra] data stores.
 
 [cassandra]:http://cassandra.apache.org
@@ -234,64 +236,26 @@ Apply all migrations to the faker datastore development environment
 
 ### Library
 
-You can also integrate Pillar directly into your application as a library.
-Reference the acceptance spec suite for details.
+You can also integrate Pillar directly into your application as a library. Reference the [pillar-core][core] repository for
+more information regarding Pillar library integration.
 
-### Forks
+[core]:https://github.com/comeara/pillar-core
+
+## Forks
 
 Several organizations and people have forked the Pillar code base. The most actively maintained alternative is
 the [Galeria-Kaufhof fork][gkf].
 
 [gkf]:https://github.com/Galeria-Kaufhof/pillar
 
-### Release Notes
+## Change Log
 
-#### 1.0.1
+Please reference the [Pillar Changes][changes] document.
 
-* Add a "destroy" method to drop a keyspace (iamsteveholmes)
+[changes]: CHANGES.md
 
-#### 1.0.3
+## Upgrade Instructions
 
-* Clarify documentation (pvenable)
-* Update DataStax Cassandra driver to version 2.0.2 (magro)
-* Update Scala to version 2.10.4 (magro)
-* Add cross-compilation to Scala version 2.11.1 (magro)
-* Shutdown cluster in migrate & initialize (magro)
-* Transition support from StreamSend to Chris O'Meara (comeara)
+Please reference the [Pillar Upgrades][upgrade] document.
 
-#### 2.0.0
-
-* Allow configuration of Cassandra port (fkoehler)
-* Rework Migrator interface to allow passing a Session object when integrating Pillar as a library (magro, comeara)
-
-#### 2.0.1
-
-* Update a argot dependency to version 1.0.3 (magro)
-
-#### 2.1.0
-
-* Update DataStax Cassandra driver to version 3.0.0 (MarcoPriebe)
-* Fix documentation issue where authored_at represented as seconds rather than milliseconds (jhungerford)
-* Introduce PILLAR_SEED_ADDRESS environment variable (comeara)
-
-#### 2.1.1
-
-* Fix deduplicate error during merge, ref. issue #32 (ilovezfs)
-
-#### 2.2.0
-
-* Add feature to read registry from files (sadowskik)
-* Add TLS/SSL support(bradhandy, comeara)
-* Add authentication support (bradhandy, comeara)
-
-#### 2.3.0
-
-* Add multiple stages per migration (sadowskik)
-
-#### 3.0.0
-
-* Support Scala 2.12 (comeara)
-* Split Pillar command line interface and core library into separate artifacts (comeara)
-* Add SLF4J binding for command line interface (comeara)
-* Update command-line interface to use command and sub-command structure (comeara)
-* Remove RPM build (comeara)
+[upgrade]: UPGRADE.md

@@ -1,6 +1,6 @@
 # Pillar
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.chrisomeara/pillar_2.11.svg)](https://maven-badges.herokuapp.com/maven-central/com.chrisomeara/pillar_2.11)
+[![Maven Central](https://img.shields.io/maven-central/v/com.chrisomeara/pillar_2.11.svg)][pillar_2.11]
 
 Pillar manages migrations for your [Cassandra][cassandra] data stores.
 
@@ -27,22 +27,28 @@ databases with one key difference: Pillar is completely independent from any app
 
 This method requires [Simple Build Tool (sbt)][sbt].
 
-    % sbt assembly   # builds a fat jar file in the target/ directory
+```
+% sbt assembly   # builds a fat jar file in the target/ directory
+```
 
 [sbt]:http://www.scala-sbt.org
 
 ### Packages
 
-Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId pillar_2.10, pillar_2.11 or
-pillar_2.12. The current version is 2.3.0.
+Pillar is available at Maven Central under the GroupId com.chrisomeara and ArtifactId [pillar_2.10][pillar_2.10],
+[pillar_2.11][pillar_2.11] or [pillar_2.12][pillar_2.12]. The current version is 3.0.0.
 
 #### sbt
 
-  libraryDependencies += "com.chrisomeara" % "pillar_2.12" % "3.0.0"
+```
+libraryDependencies += "com.chrisomeara" % "pillar_2.12" % "3.0.0"
+```
 
 #### Gradle
 
-  compile 'com.chrisomeara:pillar_2.12:3.0.0'
+```
+compile 'com.chrisomeara:pillar_2.12:3.0.0'
+```
 
 ## Usage
 
@@ -259,3 +265,9 @@ Please reference the [Pillar Changes][changes] document.
 Please reference the [Pillar Upgrades][upgrade] document.
 
 [upgrade]: UPGRADE.md
+
+
+
+[pillar_2.10]: https://maven-badges.herokuapp.com/maven-central/com.chrisomeara/pillar_2.10
+[pillar_2.11]: https://maven-badges.herokuapp.com/maven-central/com.chrisomeara/pillar_2.11
+[pillar_2.12]: https://maven-badges.herokuapp.com/maven-central/com.chrisomeara/pillar_2.12
